@@ -1,0 +1,39 @@
+# Archivo de arranque para producción
+
+version: "3"
+
+x-common-volumes: &common-volumes
+    volumes:
+        - static-volume:/home/website/statics
+        - media-volume:/home/website/media
+
+services:
+    db:
+        image: postgres:14.2-alpine
+        environment:
+            POSTGRES_HOST_AUTH_METHOD: trust
+        volumes:
+            - db-data:/var/lib/postgresql/data
+
+    web:
+        image: corp0/artemangaweb:latest
+        environment:
+            - DEBUG=0
+        env_file: ./.env
+        expose:
+            - 8000
+        command: gunicorn central-command.wsgi:application --bind 0.0.0.0:8000
+        <<: *common-volumes
+
+    nginx:
+        build: ./nginx
+        ports:
+            - "80:80"
+        depends_on:
+            - web
+        <<: *common-volumes
+
+volumes:
+    db-data:
+    static-volume:
+    media-volume:
