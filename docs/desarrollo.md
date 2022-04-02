@@ -15,7 +15,7 @@ se haya instalado con la versión 3.10.
 * Copia el archivo ``ejemplo.env`` y renombralo a ``.env``, llena los datos según corresponda (Lo único que deberías cambiar sería ``DB_HOST`` a ``localhost`` si estás corriendo el proyecto desde tu IDE).
 * Instalar Docker. En el caso de Windows y Mac puedes usar Docker Desktop, que tiene interfaz gráfica e incluye Docker Compose. 
 Linux tendrá que seguir las instrucciones de instalación de [aquí](https://docs.docker.com/engine/install/ubuntu/) y [aquí](https://docs.docker.com/compose/install/).
-* Correr el proyecto en modo desarrollo usando el comando ``docker-compose -f dev-compose.yml uo``. Instalará la base de datos y el entorno
+* Correr el proyecto en modo desarrollo usando el comando ``docker-compose -f dev-compose.yml up``. Instalará la base de datos y el entorno
 aislado de docker la primera vez, por lo que puede tomar un tiempo.
 * Si quieres correr el proyecto desde tu IDE para probar cambios o hacer debug, puedes comentar en ``dev-compose.yml`` la sección del servicio ``web``
 y sólo levantará la base de datos.
