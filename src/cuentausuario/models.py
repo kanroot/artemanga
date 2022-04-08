@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .tipo_enum.tipo_usuario import TIPO_CHOICES, Tipo
+from tipo_enum.tipo_usuario import TIPO_CHOICES, Tipo
 
 
 class Usuario(AbstractUser):

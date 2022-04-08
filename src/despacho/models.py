@@ -25,4 +25,9 @@ class Despacho(models.Model):
         return self.estado
 
     def direccion_completa(self):
-        return f"{self.calle} {self.numero} {self.departamento} {self.piso} {self.region} {self.cuidad} {self.codigo_postal}"
+        return f"{self.calle} " \
+               f"{self.numero}" \
+               f" {self.departamento} " \
+               f"{self.piso} {self.region}" \
+               f" {self.cuidad} " \
+               f"{self.codigo_postal}"

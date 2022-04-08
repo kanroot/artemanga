@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class EstadoDespacho(Enum):
     """
     Enum para el estado de una venta.
@@ -9,4 +10,6 @@ class EstadoDespacho(Enum):
     FINALIZADA = 3
     CANCELADA = 4
 
-ESTADO_DESPACHO_CHOICES = [[estadoDespacho.value, estadoDespacho.name.capitalize()] for estadoDespacho in EstadoDespacho]
+
+ESTADO_DESPACHO_CHOICES = [[estadoDespacho.value, estadoDespacho.name.capitalize()] for estadoDespacho in
+                           EstadoDespacho]
