@@ -26,6 +26,10 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
+#AUT
+
+AUTH_USER_MODEL = 'cuentausuario.Usuario'
+
 # Application definition
 
 INSTALLED_APPS = [
