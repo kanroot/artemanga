@@ -1,6 +1,6 @@
 from django.db import models
 from tipo_enum.estado_despacho import ESTADO_DESPACHO_CHOICES, estadoDespacho
-from cuentausuario.models import Usuario
+from ..cuentausuario.models import Usuario
 
 
 class Despacho(models.Model):
