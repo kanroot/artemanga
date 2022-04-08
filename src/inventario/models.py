@@ -1,5 +1,5 @@
 from django.db import models
-from ..catalogo.models import Oferta
+from catalogo.models import Oferta
 
 
 class Autor(models.Model):

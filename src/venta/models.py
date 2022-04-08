@@ -1,5 +1,5 @@
 from django.db import models
-from ..despacho.models import Despacho
+from despacho.models import Despacho
 from tipo_enum.estado_venta import ESTADO_VENTA_CHOICES, EstadoVenta
 
 
