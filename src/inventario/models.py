@@ -1,5 +1,7 @@
 from django.db import models
 
+from catalogo.models import Oferta
+
 
 class Autor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,14 +26,6 @@ class Editorial(models.Model):
     id = models.AutoField(primary_key=True)
     editorial = models.CharField(max_length=200, verbose_name="editorial", blank=False)
     pais = models.ForeignKey(Pais, on_delete=models.CASCADE, blank=False)
-
-
-class Oferta(models.Model):
-    id = models.AutoField(primary_key=True)
-    descuento = models.IntegerField(verbose_name="descuento", blank=False, default=10)
-    fecha_inicio = models.DateField(verbose_name="fecha inicio", blank=False, null=False)
-    fecha_fin = models.DateField(verbose_name="fecha fin", blank=False, null=False)
-    es_activa = models.BooleanField(default=True)
 
 
 class OtrosAutores(models.Model):
