@@ -1,5 +1,5 @@
 from django.db import models
-from tipo_enum.estado_despacho import ESTADO_DESPACHO_CHOICES, estadoDespacho
+from .tipo_enum.estado_despacho import ESTADO_DESPACHO_CHOICE, EstadoDes
 from cuentausuario.models import Usuario
 
 
@@ -13,7 +13,7 @@ class Despacho(models.Model):
     cuidad = models.CharField(max_length=200, verbose_name="cuidad", blank=False)
     codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal", blank=False)
     telefono = models.IntegerField(verbose_name="telefono", blank=False)
-    estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICES, default=estadoDespacho.PREPARANDO.value)
+    estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
     # conexiones
     # no t0d0 usuario debe teber un despacho
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
