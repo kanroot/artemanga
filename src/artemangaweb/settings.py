@@ -26,7 +26,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
-#AUT
+#AUTH
 
 AUTH_USER_MODEL = 'cuentausuario.Usuario'
 
