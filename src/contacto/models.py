@@ -1,5 +1,5 @@
 from django.db import models
-from cuentausuario.models import Usuario
+from cuenta_usuario.models import Usuario
 from .tipo_enum.estado_ticket import ESTADO_TICKET_CHOICES, EstadoTicket
 from .tipo_enum.tipo_ticket import TIPO_TICKET_CHOICES, TipoTicket
 
