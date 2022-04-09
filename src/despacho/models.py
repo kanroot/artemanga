@@ -5,14 +5,14 @@ from cuentausuario.models import Usuario
 
 class Despacho(models.Model):
     id = models.AutoField(primary_key=True)
-    calle = models.CharField(max_length=200, verbose_name="calle", blank=False)
-    numero = models.CharField(max_length=200, verbose_name="numero", blank=False)
+    calle = models.CharField(max_length=200, verbose_name="calle")
+    numero = models.CharField(max_length=200, verbose_name="numero")
     departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
-    region = models.CharField(max_length=200, verbose_name="region", blank=False)
-    cuidad = models.CharField(max_length=200, verbose_name="cuidad", blank=False)
-    codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal", blank=False)
-    telefono = models.IntegerField(verbose_name="telefono", blank=False)
+    region = models.CharField(max_length=200, verbose_name="region")
+    cuidad = models.CharField(max_length=200, verbose_name="cuidad")
+    codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal")
+    telefono = models.IntegerField(verbose_name="telefono")
     estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
     # conexiones
     # no t0d0 usuario debe teber un despacho
