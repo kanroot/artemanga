@@ -28,7 +28,7 @@ ALLOWED_HOSTS = ['*']
 
 #AUTH
 
-AUTH_USER_MODEL = 'cuentausuario.Usuario'
+AUTH_USER_MODEL = 'cuenta_usuario.Usuario'
 
 # Application definition
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'analitica',
     'catalogo',
     'contacto',
-    'cuentausuario',
+    'cuenta_usuario',
     'despacho',
     'inventario',
     'venta',

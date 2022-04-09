@@ -8,6 +8,6 @@ class Venta(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="total")
     fecha_venta = models.DateField(verbose_name="fecha venta")
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
-    # productos = models.ManyToManyField('Producto', through='VentaProducto')
+    productos = models.ManyToManyField('Producto', through='VentaProducto')
     # conexiones
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
