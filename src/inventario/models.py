@@ -33,6 +33,10 @@ class OtrosAutores(models.Model):
     cargo = models.CharField(max_length=200, verbose_name="cargo")
 
 
+class IVA(models.Model):
+    iva = models.IntegerField(verbose_name="iva")
+
+
 class Producto(models.Model):
     isbn = models.CharField(max_length=200, verbose_name="isbn", unique=True)
     titulo_es = models.CharField(max_length=200, verbose_name="titulo")
@@ -40,7 +44,6 @@ class Producto(models.Model):
     stock = models.IntegerField(verbose_name="stock", blank=False)
     portada = models.CharField(max_length=200, verbose_name="ruta de portada portada")
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="precio")
-    iva = models.IntegerField(verbose_name="iva", blank=False, default=19)
     descripcion = models.CharField(max_length=200, verbose_name="descripcion", blank=True)
     numero_paginas = models.IntegerField(verbose_name="numero de paginas")
     es_color = models.BooleanField(default=False)
@@ -53,3 +56,4 @@ class Producto(models.Model):
     genero = models.ManyToManyField(Genero, verbose_name="genero")
     otros_autores = models.ForeignKey(OtrosAutores, on_delete=models.CASCADE, blank=True, null=True)
     oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE, blank=True, null=True)
+    iva = models.ForeignKey(IVA, on_delete=models.CASCADE)
