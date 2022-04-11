@@ -1,11 +1,11 @@
-# Depdencias de desarrollo para la versión 0.1.0
+# Depdencias e instalación del entorno
 
 * [Python versión ^3.10](https://www.python.org/downloads/)
 * Poetry (ver instrucciones de instalación más abajo)
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [Docker Compose](https://docs.docker.com/compose/install/) (Incluído en Docker-Desktop)
 
-# Detalles de instalación de entorno de desarrollo
+## Detalles de instalación de entorno de desarrollo
 * Instalar Python 3.10, cualquier versión sobre 3.10 sirve. No debería dar mayores problemas independiente de tu sistema operativo.
 * Instalar poetry usando el comando ``pip install poetry``. Si tienes más de una versión de python instalada, asegúrate de que
 se haya instalado con la versión 3.10.
