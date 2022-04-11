@@ -67,7 +67,7 @@ class Command(BaseCommand):
 
     def generar_editorial(self):
         print('Generando editoriales...')
-        paises = ['Argentina', 'España', 'Chile']
+        paises = ['Argentina', 'España', 'Chile', 'Brasil', 'Uruguay', 'Paraguay', 'Perú', 'Venezuela', 'Colombia']
 
         for p in paises:
             pais = Pais.objects.create(pais=p)
