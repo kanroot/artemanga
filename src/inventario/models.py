@@ -1,5 +1,4 @@
 from django.db import models
-from catalogo.models import Oferta
 
 
 class Autor(models.Model):
@@ -9,16 +8,22 @@ class Autor(models.Model):
     es_activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.id}"
+        return f"{self.nombre} {self.apellido}"
 
 
 class Genero(models.Model):
     nombre = models.CharField(max_length=200, verbose_name="genero", unique=True)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Pais(models.Model):
     id = models.AutoField(primary_key=True)
     pais = models.CharField(max_length=200, verbose_name="pais")
+
+    def __str__(self):
+        return self.pais
 
 
 class Editorial(models.Model):
@@ -26,15 +31,24 @@ class Editorial(models.Model):
     editorial = models.CharField(max_length=200, verbose_name="editorial")
     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.editorial
+
 
 class OtrosAutores(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="nombre")
     cargo = models.CharField(max_length=200, verbose_name="cargo")
 
+    def __str__(self):
+        return f"{self.nombre}, {self.cargo}"
+
 
 class IVA(models.Model):
     iva = models.IntegerField(verbose_name="iva")
+
+    def __str__(self):
+        return f"{self.iva}%"
 
 
 class Producto(models.Model):
@@ -55,5 +69,7 @@ class Producto(models.Model):
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     genero = models.ManyToManyField(Genero, verbose_name="genero")
     otros_autores = models.ForeignKey(OtrosAutores, on_delete=models.CASCADE, blank=True, null=True)
-    oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE, blank=True, null=True)
     iva = models.ForeignKey(IVA, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titulo_es

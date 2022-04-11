@@ -9,10 +9,10 @@ class Usuario(AbstractUser):
     segundo_nombre = models.CharField(max_length=200, verbose_name="segundo nombre", blank=True)
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
     segundo_apellido = models.CharField(max_length=200, verbose_name="segundo apellido", blank=True)
-    fecha_registro = models.DateField()
     es_activo = models.BooleanField(default=True)
-    ultimo_ingreso = models.DateField()
     tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=Tipo.CLIENTE.value)
+
+    REQUIRED_FIELDS = ['primer_nombre', 'primer_apellido']
 
     def __str__(self):
         return f"{self.id}"
