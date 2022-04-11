@@ -15,18 +15,20 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&kto5$0ey$oky_7ap1$$!rrdv*g!^gxu94c283r6do3(gtn*5+'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+#AUTH
+
+AUTH_USER_MODEL = 'cuenta_usuario.Usuario'
 
 # Application definition
 
@@ -37,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'analitica',
+    'catalogo',
+    'contacto',
+    'cuenta_usuario',
+    'despacho',
+    'inventario',
+    'venta',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'artemangaweb.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -102,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -113,7 +120,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
