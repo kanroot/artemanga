@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Producto, Autor, Genero, Pais, Editorial, OtrosAutores, IVA
+
+
 # Register your models here.
 
 
@@ -25,12 +27,12 @@ class GeneroAdmin(admin.ModelAdmin):
 
 @admin.register(Pais)
 class PaisAdmin(admin.ModelAdmin):
-    list_display = ('pais',)
+    list_display = ('nombre',)
 
 
 @admin.register(Editorial)
 class EditorialAdmin(admin.ModelAdmin):
-    list_display = ('editorial', 'pais')
+    list_display = ('nombre', 'pais')
 
 
 @admin.register(OtrosAutores)

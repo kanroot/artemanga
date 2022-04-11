@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Autor(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="nombre")
@@ -19,19 +20,19 @@ class Genero(models.Model):
 
 class Pais(models.Model):
     id = models.AutoField(primary_key=True)
-    pais = models.CharField(max_length=200, verbose_name="pais")
+    nombre = models.CharField(max_length=200, verbose_name="pais")
 
     def __str__(self):
-        return self.pais
+        return self.nombre
 
 
 class Editorial(models.Model):
     id = models.AutoField(primary_key=True)
-    editorial = models.CharField(max_length=200, verbose_name="editorial")
+    nombre = models.CharField(max_length=200, verbose_name="editorial")
     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.editorial
+        return self.nombre
 
 
 class OtrosAutores(models.Model):
