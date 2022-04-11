@@ -70,7 +70,7 @@ class Command(BaseCommand):
         paises = ['Argentina', 'España', 'Chile', 'Brasil', 'Uruguay', 'Paraguay', 'Perú', 'Venezuela', 'Colombia']
 
         for p in paises:
-            pais = Pais.objects.create(pais=p)
+            pais = Pais.objects.create(nombre=p)
             pais.save()
 
         for i in range(100):
