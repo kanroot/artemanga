@@ -19,6 +19,5 @@ from inventario import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^$', views.index, name='index'),
     re_path(r'^inventario/', include('inventario.urls')),
 ]

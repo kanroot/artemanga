@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Autor(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="nombre")
@@ -68,7 +67,7 @@ class Producto(models.Model):
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     genero = models.ManyToManyField(Genero, verbose_name="genero")
-    otros_autores = models.ForeignKey(OtrosAutores, on_delete=models.CASCADE, blank=True, null=True)
+    otros_autores = models.ManyToManyField(OtrosAutores, verbose_name="otros autores", blank=True)
     iva = models.ForeignKey(IVA, on_delete=models.CASCADE)
 
     def __str__(self):
