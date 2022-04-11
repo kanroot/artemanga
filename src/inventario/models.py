@@ -20,19 +20,19 @@ class Genero(models.Model):
 
 class Pais(models.Model):
     id = models.AutoField(primary_key=True)
-    pais = models.CharField(max_length=200, verbose_name="pais")
+    nombre = models.CharField(max_length=200, verbose_name="pais")
 
     def __str__(self):
-        return self.pais
+        return self.nombre
 
 
 class Editorial(models.Model):
     id = models.AutoField(primary_key=True)
-    editorial = models.CharField(max_length=200, verbose_name="editorial")
+    nombre = models.CharField(max_length=200, verbose_name="editorial")
     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.editorial
+        return self.nombre
 
 
 class OtrosAutores(models.Model):
@@ -68,7 +68,7 @@ class Producto(models.Model):
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     genero = models.ManyToManyField(Genero, verbose_name="genero")
-    otros_autores = models.ForeignKey(OtrosAutores, on_delete=models.CASCADE, blank=True, null=True)
+    otros_autores = models.ManyToManyField(OtrosAutores, verbose_name="otros autores", blank=True)
     iva = models.ForeignKey(IVA, on_delete=models.CASCADE)
 
     def __str__(self):

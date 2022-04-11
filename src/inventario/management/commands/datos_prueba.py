@@ -2,6 +2,7 @@ import random
 from datetime import date
 
 from django.core.management.base import BaseCommand
+from cuenta_usuario.models import Usuario
 from inventario.models import Producto, Autor, Editorial, Genero, OtrosAutores, IVA, Pais
 from catalogo.models import Oferta
 from faker import Faker
@@ -21,7 +22,7 @@ class Command(BaseCommand):
         self.generar_IVA()
         self.generar_productos()
         self.generar_ofertas()
-
+        self.generar_admin()
 
     def generar_IVA(self):
         print('Generando IVA...')
@@ -34,6 +35,18 @@ class Command(BaseCommand):
         print('Inicializando datos en base de datos...')
         call_command('makemigrations', interactive=False)
         call_command('migrate', interactive=False)
+
+    def generar_admin(self):
+        print('Generando admin...')
+        admin = Usuario.objects.create_superuser(
+            username='admin',
+            email='admin@admin.com',
+            password='admin',
+            primer_nombre='admin',
+            primer_apellido='admin',
+        )
+
+        admin.save()
 
     def generar_generos(self):
         print('Generando géneros...')
@@ -54,16 +67,16 @@ class Command(BaseCommand):
 
     def generar_editorial(self):
         print('Generando editoriales...')
-        paises = ['Argentina', 'España', 'Chile']
+        paises = ['Argentina', 'España', 'Chile', 'Brasil', 'Uruguay', 'Paraguay', 'Perú', 'Venezuela', 'Colombia']
 
         for p in paises:
-            pais = Pais.objects.create(pais=p)
+            pais = Pais.objects.create(nombre=p)
             pais.save()
 
         for i in range(100):
             nombre = self.fake.company()
             pais = random.choice(Pais.objects.all())
-            e = Editorial.objects.create(editorial=nombre, pais=pais)
+            e = Editorial.objects.create(nombre=nombre, pais=pais)
             e.save()
 
     def generar_otros_autores(self):
@@ -79,7 +92,11 @@ class Command(BaseCommand):
 
         for i in range(100):
             cant_generos = random.randint(1, 3)
-            generos = [random.choice(Genero.objects.all()) for i in range(cant_generos)]
+            generos = [random.choice(Genero.objects.all()) for _ in range(cant_generos)]
+            otros_autores = [
+                random.choice(OtrosAutores.objects.all()) for _ in range(cant_generos) if
+                self.fake.boolean(chance_of_getting_true=25)
+            ]
             isbn = self.fake.isbn13()
             titulo_es = self.fake['es_ES'].sentence()
             titulo_jp = self.fake['ja_JP'].sentence()
@@ -106,9 +123,8 @@ class Command(BaseCommand):
 
             producto.save()
 
-            if self.fake.boolean(chance_of_getting_true=25):
-                otros_autores = random.choice(OtrosAutores.objects.all())
-                producto.otros_autores = otros_autores
+            for otro_autor in otros_autores:
+                producto.otros_autores.add(otro_autor)
                 producto.save()
 
             for genero in generos:
