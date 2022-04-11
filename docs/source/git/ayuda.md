@@ -8,6 +8,17 @@ Algunos comandos de utilidad para GIT:
 
 Da información sobre el estado de mi rama actual, como cambios sin confirmar, cambios sin subir, en qué rama estoy, etc.
 
+## Alguien hizo cambios en el repo principal, ¿Cómo actualizo mi trabajo?
+
+``git fetch upstream && git rebase upstream/devel``
+
+Va a buscar cambios en el repo principal y los va a aplicar en tu rama de trabajo. Los commits que has hecho desde que
+ocurrió la divergencia con devel quedarán encima de los cambios que traes desde el repo principal, como si recién hubieses
+empezado a trabajar.
+
+Es posible que encuentres conflictos en este paso, tendrás que resolverlos manualmente utilizando las herramientas de tu
+IDE.
+
 ## Volver en el tiempo
 
 Casi cualquier acción que hagas con git queda registrada y es posible usarla como referencia para volver en el tiempo. 
