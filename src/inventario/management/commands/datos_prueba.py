@@ -76,7 +76,7 @@ class Command(BaseCommand):
         for i in range(100):
             nombre = self.fake.company()
             pais = random.choice(Pais.objects.all())
-            e = Editorial.objects.create(editorial=nombre, pais=pais)
+            e = Editorial.objects.create(nombre=nombre, pais=pais)
             e.save()
 
     def generar_otros_autores(self):
