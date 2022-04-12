@@ -22,6 +22,11 @@ class AutorUpdateView(UpdateView):
     fields = ['nombre', 'apellido', 'es_activo']
 
 
+class AutorDeleteView(DeleteView):
+    model = Autor
+    success_url = '/inventario/autor/'
+
+
 class GeneroListView(ListView):
     model = Genero
     context_object_name = 'Generos'
@@ -37,6 +42,11 @@ class GeneroCreateView(CreateView):
 class GeneroUpdateView(UpdateView):
     model = Genero
     fields = ['nombre']
+
+
+class GeneroDeleteView(DeleteView):
+    model = Genero
+    success_url = '/inventario/genero/'
 
 
 class PaisListView(ListView):
@@ -56,6 +66,11 @@ class PaisUpdateView(UpdateView):
     fields = ['nombre']
 
 
+class PaisDeleteView(DeleteView):
+    model = Pais
+    success_url = '/inventario/pais/'
+
+
 class EditorialListView(ListView):
     model = Editorial
     context_object_name = 'Editoriales'
@@ -71,6 +86,11 @@ class EditorialCreateView(CreateView):
 class EditorialUpdateView(UpdateView):
     model = Editorial
     fields = ['nombre']
+
+
+class EditorialDeleteView(DeleteView):
+    model = Editorial
+    success_url = '/inventario/editorial/'
 
 
 class OtrosAutoresListView(ListView):
@@ -90,6 +110,11 @@ class OtrosAutoresUpdateView(UpdateView):
     fields = ['nombre', 'cargo']
 
 
+class OtrosAutoresDeleteView(DeleteView):
+    model = OtrosAutores
+    success_url = '/inventario/otro_autor/'
+
+
 class IVAListView(ListView):
     model = IVA
     context_object_name = 'IVA'
@@ -105,6 +130,11 @@ class IVACreateView(CreateView):
 class IVAUpdateView(UpdateView):
     model = IVA
     fields = ['iva']
+
+
+class IVADeleteView(DeleteView):
+    model = IVA
+    success_url = '/inventario/iva/'
 
 
 class ProductoListView(ListView):
@@ -144,3 +174,8 @@ class ProductoUpdateView(UpdateView):
               'fecha_publicacion',
               'esta_publicado',
               'es_destacado']
+
+
+class ProductoDeleteView(DeleteView):
+    model = Producto
+    success_url = '/inventario/producto/'
