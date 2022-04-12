@@ -12,11 +12,21 @@ class AutorListView(ListView):
     paginate_by = 10
 
 
+class AutorCreateView(CreateView):
+    model = Autor
+    fields = ['nombre', 'apellido', 'es_activo']
+
+
 class GeneroListView(ListView):
     model = Genero
     context_object_name = 'Generos'
     template_name = 'CRUD/listado_genero.html'
     paginate_by = 10
+
+
+class GeneroCreateView(CreateView):
+    model = Genero
+    fields = ['nombre']
 
 
 class PaisListView(ListView):
@@ -26,11 +36,21 @@ class PaisListView(ListView):
     paginate_by = 10
 
 
+class PaisCreateView(CreateView):
+    model = Pais
+    fields = ['nombre']
+
+
 class EditorialListView(ListView):
     model = Editorial
     context_object_name = 'Editoriales'
     template_name = 'CRUD/listado_editorial.html'
     paginate_by = 10
+
+
+class EditorialCreateView(CreateView):
+    model = Editorial
+    fields = ['nombre']
 
 
 class OtrosAutoresListView(ListView):
@@ -40,6 +60,11 @@ class OtrosAutoresListView(ListView):
     paginate_by = 10
 
 
+class OtrosAutoresCreateView(CreateView):
+    model = OtrosAutores
+    fields = ['nombre', 'cargo']
+
+
 class IVAListView(ListView):
     model = IVA
     context_object_name = 'IVA'
@@ -47,8 +72,29 @@ class IVAListView(ListView):
     paginate_by = 10
 
 
+class IVACreateView(CreateView):
+    model = IVA
+    fields = ['iva']
+
+
 class ProductoListView(ListView):
     model = Producto
     context_object_name = 'Productos'
     template_name = 'CRUD/listado_producto.html'
     paginate_by = 10
+
+
+class ProductoCreateView(CreateView):
+    model = Producto
+    fields = ['isbn',
+              'titulo_es',
+              'titulo_jp',
+              'stock',
+              'portada',
+              'precio',
+              'descripcion',
+              'numero_paginas',
+              'es_color',
+              'fecha_publicacion',
+              'esta_publicado',
+              'es_destacado']
