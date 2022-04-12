@@ -73,3 +73,7 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.titulo_es
+
+    @property
+    def precio_con_iva(self):
+        return self.precio + (self.precio * self.iva.iva / 100)

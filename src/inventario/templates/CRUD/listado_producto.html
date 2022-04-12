@@ -1,0 +1,30 @@
+{% extends "CRUD/listado_base.html" %}
+
+{% block titulo %}Listado Productos{% endblock %}
+
+{% block cabeceras %}
+    <th>ISBN</th>
+    <th>Título Esp</th>
+    <th>Título Jap</th>
+    <th>Autor</th>
+    <th>Stock</th>
+    <th>Precio</th>
+    <th>Precio con IVA</th>
+    <th>Acciones</th>
+{% endblock %}
+
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.isbn }}</td>
+            <td>{{ item.titulo_es }}</td>
+            <td>{{ item.titulo_jp }}</td>
+            <td>{{ item.autor }}</td>
+            <td>{{ item.stock }}</td>
+            <td>{{ item.precio }}</td>
+            <td>{{ item.precio_con_iva }}</td>
+            {% include 'CRUD/accion_botones.html' %}
+        </tr>
+    {% endfor %}
+
+{% endblock %}

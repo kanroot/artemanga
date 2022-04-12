@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from inventario.models import Autor, Genero, Pais, Editorial, OtrosAutores, IVA, Producto
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -109,3 +110,10 @@ def crud_producto(request):
         'titulo': 'Productos'
     }
     return render(request, 'listado.html', contexto)
+
+
+class ProductoList(ListView):
+    model = Producto
+    template_name = 'CRUD/listado_producto.html'
+    paginate_by = 10
+    # context_object_name = 'productos'

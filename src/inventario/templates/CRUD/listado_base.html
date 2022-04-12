@@ -1,0 +1,35 @@
+{% extends 'administracion/base.html' %}
+
+{% block body %}
+    <button type="button" class="btn btn-success btn-lg btn-block">Crear {{ titulo }}</button>
+    <table class="table table-dark">
+        <tr>
+            {% block cabeceras %} {% endblock %}
+        </tr>
+        {% block filas %} {% endblock %}
+    </table>
+
+    {% block paginacion %}
+        <nav aria-label="Paginación">
+            {% if is_paginated %}
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                    {% endif %}
+
+                    {% for i in paginator.page_range %}
+                        <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                            <a class="page-link" href="#">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
+    {% endblock %}
+
+{% endblock %}
+
