@@ -17,6 +17,11 @@ class AutorCreateView(CreateView):
     fields = ['nombre', 'apellido', 'es_activo']
 
 
+class AutorUpdateView(UpdateView):
+    model = Autor
+    fields = ['nombre', 'apellido', 'es_activo']
+
+
 class GeneroListView(ListView):
     model = Genero
     context_object_name = 'Generos'
@@ -25,6 +30,11 @@ class GeneroListView(ListView):
 
 
 class GeneroCreateView(CreateView):
+    model = Genero
+    fields = ['nombre']
+
+
+class GeneroUpdateView(UpdateView):
     model = Genero
     fields = ['nombre']
 
@@ -41,6 +51,11 @@ class PaisCreateView(CreateView):
     fields = ['nombre']
 
 
+class PaisUpdateView(UpdateView):
+    model = Pais
+    fields = ['nombre']
+
+
 class EditorialListView(ListView):
     model = Editorial
     context_object_name = 'Editoriales'
@@ -49,6 +64,11 @@ class EditorialListView(ListView):
 
 
 class EditorialCreateView(CreateView):
+    model = Editorial
+    fields = ['nombre']
+
+
+class EditorialUpdateView(UpdateView):
     model = Editorial
     fields = ['nombre']
 
@@ -65,6 +85,11 @@ class OtrosAutoresCreateView(CreateView):
     fields = ['nombre', 'cargo']
 
 
+class OtrosAutoresUpdateView(UpdateView):
+    model = OtrosAutores
+    fields = ['nombre', 'cargo']
+
+
 class IVAListView(ListView):
     model = IVA
     context_object_name = 'IVA'
@@ -77,6 +102,11 @@ class IVACreateView(CreateView):
     fields = ['iva']
 
 
+class IVAUpdateView(UpdateView):
+    model = IVA
+    fields = ['iva']
+
+
 class ProductoListView(ListView):
     model = Producto
     context_object_name = 'Productos'
@@ -85,6 +115,22 @@ class ProductoListView(ListView):
 
 
 class ProductoCreateView(CreateView):
+    model = Producto
+    fields = ['isbn',
+              'titulo_es',
+              'titulo_jp',
+              'stock',
+              'portada',
+              'precio',
+              'descripcion',
+              'numero_paginas',
+              'es_color',
+              'fecha_publicacion',
+              'esta_publicado',
+              'es_destacado']
+
+
+class ProductoUpdateView(UpdateView):
     model = Producto
     fields = ['isbn',
               'titulo_es',
