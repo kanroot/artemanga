@@ -1,0 +1,23 @@
+{% extends "CRUD/listado_base.html" %}
+
+{% block titulo %}Listado Autores{% endblock %}
+
+{% block cabeceras %}
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Apellido Jap</th>
+    <th>Activo</th>
+{% endblock %}
+
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.es_activo }}</td>
+            {% include 'CRUD/accion_botones.html' %}
+        </tr>
+    {% endfor %}
+
+{% endblock %}

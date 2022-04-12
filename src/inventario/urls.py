@@ -1,14 +1,13 @@
 from django.urls import re_path
-from inventario import views
-from .views import ProductoList
+from inventario.views import AutorListView, GeneroListView, PaisListView, EditorialListView, OtrosAutoresListView, \
+    IVAListView, ProductoListView
 
 urlpatterns = [
-    re_path('crud-autor', views.crud_autor, name='listado.html'),
-    re_path('crud-genero', views.crud_genero, name='listado.html'),
-    re_path('crud-pais', views.crud_pais, name='listado.html'),
-    re_path('crud-editorial', views.crud_editorial, name='listado.html'),
-    re_path('crud-otros-autores', views.crud_otros_autores, name='listado.html'),
-    re_path('crud-iva', views.crud_iva, name='listado.html'),
-    re_path('crud-producto', views.crud_producto, name='listado.html'),
-    re_path('listado-productos', ProductoList.as_view(), name='listado'),
+    re_path('listado-producto', ProductoListView.as_view()),
+    re_path('listado-autor', AutorListView.as_view()),
+    re_path('listado-genero', GeneroListView.as_view()),
+    re_path('listado-pais', PaisListView.as_view()),
+    re_path('listado-editorial', EditorialListView.as_view()),
+    re_path('listado-otro-autor', OtrosAutoresListView.as_view()),
+    re_path('listado-iva', IVAListView.as_view()),
 ]
