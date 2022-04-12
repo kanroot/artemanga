@@ -5,61 +5,166 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 # Create your views here.
 
-def crud_autor(request):
-    contexto = {
-        'cabeceras':
-            [
-                'Nombre',
-                'Apellido',
-                'Es_activo',
-                'Modificar',
-                'Eliminar'
-            ],
-        'filas': [[a.nombre, a.apellido, a.es_activo] for a in Autor.objects.all()],
-        'titulo': 'Autores'
+class AutorListView(ListView):
+    model = Autor
+    context_object_name = 'Autores'
+    template_name = 'listado_base.html'
+
+
+
+def crud_crear_autor(request):
+    data = {
+        'form': AutorForm()
+    }
+
+    if request.method == 'POST':
+        formulario = AutorForm(request.POST)
+
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': 'Usuario escrito satisfactoriamente'
+        }
+    return render(request, 'inventario/crear_generico.html', data)
+
+
+def crud_modificar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    data = {
+        'form': AutorForm(instance=autor)
+    }
+
+    if request.method == 'POST':
+        formulario = AutorChangeForm(data=request.POST, instance=autor)
+
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': f'Usuario {autor.nombre} fue modificado con éxito'
+        }
+    # modificar
+    return render(request, 'inventario/listado_base.html', data)
+
+
+def crud_eliminar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    autor.delete()
+    return redirect(AutorListView)
+
+
+class GeneroListView(ListView):
+    model = Genero
+    context_object_name = 'Generos'
+    template_name = 'listado_base.html'
+
+
+def crud_crear_genero(request, nombre):
+    genero = Genero.objects.get(nombre=nombre)
+    data = {
+        'form': GeneroForm(instance=genero)
+    }
+
+    if request.method == 'POST':
+        formulario = GeneroForm(data=request.POST, instance=genero)
+
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': f'Genero {genero.nombre} fue modificado con éxito'
+        }
+    # modificar
+    return render(request, 'inventario/crear_generico.html', data)
+
+
+def crud_modificar_genero(request, nombre):
+    genero = Genero.objects.get(nombre=nombre)
+    data = {
+        'form': GeneroChangeForm(instance=genero)
     }
     return render(request, 'listado.html', contexto)
 
+    if request.method == 'POST':
+        formulario = GeneroChangeForm(data=request.POST, instance=genero)
 
-def crud_genero(request):
-    contexto = {
-        'cabeceras':
-            [
-                'Nombre',
-                'Modificar',
-                'Eliminar'
-            ],
-        'filas': [[a.nombre] for a in Genero.objects.all()],
-        'titulo': 'Generos'
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': f'Genero {genero.nombre} fue modificado con éxito'
+        }
+    # modificar
+    return render(request, 'inventario/listado_base.html', data)
+
+
+def crud_eliminar_genero(request, nombre):
+    genero = Genero.objects.get(nombre=nombre)
+    genero.delete()
+    return redirect(GeneroListView)
+
+
+class PaisListView(ListView):
+    model = Pais
+    context_object_name = 'Paises'
+    template_name = 'listado_base.html'
+
+
+def crud_crear_pais(request, nombre):
+    pais = Pais.objects.get(nombre=nombre)
+    data = {
+        'form': PaisForm(instance=pais)
     }
-    return render(request, 'listado.html', contexto)
+
+    if request.method == 'POST':
+        formulario = PaisForm(data=request.POST, instance=pais)
+
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': f'Pais {pais.nombre} fue modificado con éxito'
+        }
+    # modificar
+    return render(request, 'inventario/crear_generico.html', data)
 
 
-def crud_pais(request):
-    contexto = {
-        'cabeceras':
-            [
-                'ID',
-                'Nombre'
-            ],
-        'filas': [[a.id, a.nombre] for a in Pais.objects.all()],
-        'titulo': 'Paises'
+def crud_modificar_pais(request, nombre):
+    pais = Pais.objects.get(nombre=nombre)
+    data = {
+        'form': PaisChangeForm(instance=pais)
     }
-    return render(request, 'listado.html', contexto)
+
+    if request.method == 'POST':
+        formulario = PaisChangeForm(data=request.POST, instance=pais)
+
+        if formulario.is_valid:
+            formulario.save()
+
+        data = {
+            'mensaje': f'Pais {pais.nombre} fue modificado con éxito'
+        }
+    # modificar
+    return render(request, 'inventario/listado_base.html', data)
 
 
-def crud_editorial(request):
-    contexto = {
-        'cabeceras':
-            [
-                'ID',
-                'Nombre',
-                'Pais'
-            ],
-        'filas': [[a.id, a.nombre, a.pais] for a in Editorial.objects.all()],
-        'titulo': 'Editoriales'
-    }
-    return render(request, 'listado.html', contexto)
+def crud_eliminar_pais(request, nombre):
+    pais = Pais.objects.get(nombre=nombre)
+    pais.delete()
+    return redirect(PaisListView)
+
+
+class EditorialListView(ListView):
+    model = Editorial
+    context_object_name = 'Editoriales'
+    template_name = 'listado_base.html'
+
+
+class OtrosAutoresListView(ListView):
+    model = OtrosAutores
+    context_object_name = 'Otros Autores'
+    template_name = 'listado_base.html'
 
 
 def crud_otros_autores(request):
@@ -73,54 +178,19 @@ def crud_otros_autores(request):
         'filas': [[a.id, a.nombre, a.cargo] for a in OtrosAutores.objects.all()],
         'titulo': 'Otros autores'
     }
-    return render(request, 'listado.html', contexto)
+    return render(request, 'listado_base.html', contexto)
 
 
-def crud_iva(request):
-    contexto = {
-        'cabeceras':
-            [
-                'IVA'
-            ],
-        'filas': [[a.iva] for a in IVA.objects.all()],
-        'titulo': 'IVA'
-    }
-    return render(request, 'listado.html', contexto)
+class IVAListView(ListView):
+    model = IVA
+    context_object_name = 'IVA'
+    template_name = 'listado_base.html'
 
 
-def crud_producto(request):
-    contexto = {
-        'cabeceras':
-            [
-                'ISBN',
-                'Titulo español',
-                'Titulo japones',
-                'Stock',
-                'Portada',
-                'Precio',
-                'Descripcion',
-                'Numero de paginas',
-                'Es color',
-                'Fecha de publicacion',
-                'Esta publicado',
-                'Es destacado'
-
-            ],
-        'filas': [[a.isbn,
-                   a.titulo_es,
-                   a.titulo_jp,
-                   a.stock,
-                   a.portada,
-                   a.precio,
-                   a.descripcion,
-                   a.numero_paginas,
-                   a.es_color,
-                   a.fecha_publicacion,
-                   a.esta_publicado,
-                   a.es_destacado] for a in Producto.objects.all()],
-        'titulo': 'Productos'
-    }
-    return render(request, 'listado.html', contexto)
+class ProductoListView(ListView):
+    model = Producto
+    context_object_name = 'Productos'
+    template_name = 'listado_base.html'
 
 
 class ProductoList(ListView):
