@@ -96,6 +96,7 @@ def crud_producto(request):
                 'Titulo español',
                 'Titulo japones',
                 'Stock',
+                'Portada',
                 'Precio',
                 'Descripcion',
                 'Numero de paginas',
@@ -105,8 +106,18 @@ def crud_producto(request):
                 'Es destacado'
 
             ],
-        'filas': [[a.isbn, a.titulo_es, a.titulo_jp, a.stock, a.precio, a.descripcion, a.numero_paginas, a.es_color,
-                   a.fecha_publicacion, a.esta_publicado, a.es_destacado] for a in Producto.objects.all()],
+        'filas': [[a.isbn,
+                   a.titulo_es,
+                   a.titulo_jp,
+                   a.stock,
+                   a.portada,
+                   a.precio,
+                   a.descripcion,
+                   a.numero_paginas,
+                   a.es_color,
+                   a.fecha_publicacion,
+                   a.esta_publicado,
+                   a.es_destacado] for a in Producto.objects.all()],
         'titulo': 'Productos'
     }
     return render(request, 'listado.html', contexto)
