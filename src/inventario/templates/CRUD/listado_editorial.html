@@ -1,4 +1,4 @@
-{% extends "CRUD/listado_base.html" %}
+{% extends "CRUD/_listado_base.html" %}
 
 {% block titulo %}Listado Autores{% endblock %}
 
@@ -6,6 +6,7 @@
     <th>ID</th>
     <th>Nombre</th>
     <th>País</th>
+    <th>Acciones</th>
 {% endblock %}
 
 {% block filas %}
@@ -14,7 +15,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.nombre }}</td>
             <td>{{ item.pais }}</td>
-            {% include 'CRUD/accion_botones.html' %}
+            {% include 'CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}
 

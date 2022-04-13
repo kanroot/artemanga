@@ -1,8 +1,14 @@
-{% extends "CRUD/listado_base.html" %}
+{% extends "CRUD/_listado_base.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
 
 {% block titulo %}Listado Productos{% endblock %}
 
 {% block cabeceras %}
+    <th>PK</th>
     <th>ISBN</th>
     <th>Título Esp</th>
     <th>Título Jap</th>
@@ -16,6 +22,7 @@
 {% block filas %}
     {% for item in object_list %}
         <tr>
+            <td>{{ item.pk }}</td>
             <td>{{ item.isbn }}</td>
             <td>{{ item.titulo_es }}</td>
             <td>{{ item.titulo_jp }}</td>
@@ -23,7 +30,7 @@
             <td>{{ item.stock }}</td>
             <td>{{ item.precio }}</td>
             <td>{{ item.precio_con_iva }}</td>
-            {% include 'CRUD/accion_botones.html' %}
+            {% include 'CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}
 

@@ -1,9 +1,10 @@
-{% extends "CRUD/listado_base.html" %}
+{% extends "CRUD/_listado_base.html" %}
 
 {% block titulo %}Listado Productos{% endblock %}
 
 {% block cabeceras %}
     <th>Nombre</th>
+    <th>Acciones</th>
 
 {% endblock %}
 
@@ -11,7 +12,7 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.nombre }}</td>
-            {% include 'CRUD/accion_botones.html' %}
+            {% include 'CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}
 
