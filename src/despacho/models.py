@@ -11,6 +11,8 @@ class Region(models.Model):
 
 class Cuidad(models.Model):
     nombre = models.CharField(primary_key=True, max_length=100, choices=CIUDAD_CHILE_CHOICE)
+    # conexion con la tabla region
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
 
 class Despacho(models.Model):
