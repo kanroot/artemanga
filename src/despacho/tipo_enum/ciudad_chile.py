@@ -22,6 +22,23 @@ class CiudadChile(Enum):
     PUDAHUEL = 'Pudahuel'
     SERENA = 'La Serena'
     IQUIQUE = 'Iquique'
+    PINTANA = 'La Pintana'
+    PUERTO_MONTT = 'Puerto Montt'
+    CHILLAN = 'Chillán'
+    BOSQUE = 'El Bosque'
+    CALAMA = 'Calama'
+    RECOLETA = 'Recoleta'
+    COPIAPO = 'Copiapó'
+    VALDIVIA = 'Valdivia'
+    QUILPUE = 'Quilpué'
+    TALCAHUANO = 'Talcahuano'
+    OSORNO = 'Osorno'
+    RENCA= 'Renca'
+    ANGELES = 'Los Ángeles'
+    PROVIDENCIA = 'Providencia'
+    ESTACION_CENTRAL = 'Estación Central'
+    CERRO_NAVIA = 'Cerro Navia'
+    PAZ = 'San Pedro de la Paz'
 
 
 CIUDAD_CHILE_CHOICE = [[estadoDes.value, estadoDes.name.capitalize()] for estadoDes in CiudadChile]
