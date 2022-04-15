@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class RegionChile(Enum):
+class RegionChile(StrEnum):
     TARAPACA = 'Region de Tarapacá'
     ANTOFAGASTA = 'Region de Antofagasta'
     ATACAMA = 'Region de Atacama'
@@ -20,4 +20,4 @@ class RegionChile(Enum):
     NUBLE = 'Región de Ñuble'
 
 
-REGION_CHILE_CHOISE = [[regionDes.value, regionDes.name.capitalize()] for regionDes in RegionChile]
+REGION_CHILE_CHOISE = [[regionDes.upper()] for regionDes in RegionChile]

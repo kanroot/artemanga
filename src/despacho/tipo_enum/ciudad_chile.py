@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class CiudadChile(Enum):
+class CiudadChile(StrEnum):
     PUENTE_ALTO = 'Puente Alto'
     MAIPU = 'Maipú'
     SANTIAGO = 'Santiago'
@@ -41,4 +41,4 @@ class CiudadChile(Enum):
     PAZ = 'San Pedro de la Paz'
 
 
-CIUDAD_CHILE_CHOICE = [[estadoDes.value, estadoDes.name.capitalize()] for estadoDes in CiudadChile]
+CIUDAD_CHILE_CHOICE = [[CiudadDes.upper()] for CiudadDes in CiudadChile]
