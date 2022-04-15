@@ -21,9 +21,11 @@ class Despacho(models.Model):
     def __str__(self):
         return f"{self.id}"
 
+    @property
     def get_estado(self):
         return self.estado
 
+    @property
     def get_codigo_postal(self):
         return self.codigo_postal
 
