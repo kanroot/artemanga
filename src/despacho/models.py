@@ -24,10 +24,15 @@ class Despacho(models.Model):
     def get_estado(self):
         return self.estado
 
+    @property
     def direccion_completa(self):
         return f"{self.calle} " \
                f"{self.numero}" \
                f" {self.departamento} " \
                f"{self.piso} {self.region}" \
-               f" {self.cuidad} " \
+               f" {self.ciudad} " \
                f"{self.codigo_postal}"
+    
+    @property
+    def direccion_corta(self):
+        return f"{self.calle} {self.numero}"

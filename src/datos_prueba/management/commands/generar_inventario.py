@@ -2,19 +2,24 @@ import random
 from datetime import date
 
 from django.core.management.base import BaseCommand
-from cuenta_usuario.models import Usuario
-from inventario.models import Producto, Autor, Editorial, Genero, OtrosAutores, IVA, Pais
-from catalogo.models import Oferta
 from faker import Faker
-from django.core.management import call_command
+
+from catalogo.models import Oferta
+from inventario.models import Producto, Autor, Editorial, Genero, OtrosAutores, IVA, Pais
+from tqdm import tqdm
 
 
 class Command(BaseCommand):
     help = 'Inicializa la base de datos del inventario con datos de prueba.'
     fake = Faker(['es_ES', 'ja_JP'])
+    cantidad: int = 100
+
+    def add_arguments(self, parser):
+        parser.add_argument('--cantidad', type=int, default=100)
 
     def handle(self, *args, **options):
-        self.inicializar_db()
+        self.cantidad = options['cantidad']
+
         self.generar_generos()
         self.generar_autores()
         self.generar_otros_autores()
@@ -22,31 +27,11 @@ class Command(BaseCommand):
         self.generar_IVA()
         self.generar_productos()
         self.generar_ofertas()
-        self.generar_admin()
 
     def generar_IVA(self):
         print('Generando IVA...')
         iva = IVA.objects.create(iva=19)
         iva.save()
-
-    def inicializar_db(self):
-        print('Limpiando datos en base de datos...')
-        call_command('flush', interactive=False)
-        print('Inicializando datos en base de datos...')
-        call_command('makemigrations', interactive=False)
-        call_command('migrate', interactive=False)
-
-    def generar_admin(self):
-        print('Generando admin...')
-        admin = Usuario.objects.create_superuser(
-            username='admin',
-            email='admin@admin.com',
-            password='admin',
-            primer_nombre='admin',
-            primer_apellido='admin',
-        )
-
-        admin.save()
 
     def generar_generos(self):
         print('Generando géneros...')
@@ -60,7 +45,7 @@ class Command(BaseCommand):
 
     def generar_autores(self):
         print('Generando autores...')
-        for i in range(100):
+        for _ in tqdm(range(self.cantidad)):
             p_nombre, apellido = self.fake.first_romanized_name(), self.fake.last_romanized_name()
             a = Autor.objects.create(nombre=p_nombre, apellido=apellido)
             a.save()
@@ -73,7 +58,7 @@ class Command(BaseCommand):
             pais = Pais.objects.create(nombre=p)
             pais.save()
 
-        for i in range(100):
+        for _ in tqdm(range(self.cantidad)):
             nombre = self.fake.company()
             pais = random.choice(Pais.objects.all())
             e = Editorial.objects.create(nombre=nombre, pais=pais)
@@ -81,7 +66,7 @@ class Command(BaseCommand):
 
     def generar_otros_autores(self):
         print('Generando otros autores...')
-        for i in range(100):
+        for _ in tqdm(range(self.cantidad)):
             nombre = self.fake.name()
             cargo = self.fake['es_ES'].job()
             oa = OtrosAutores.objects.create(nombre=nombre, cargo=cargo)
@@ -90,7 +75,7 @@ class Command(BaseCommand):
     def generar_productos(self):
         print('Generando productos...')
 
-        for i in range(100):
+        for _ in tqdm(range(self.cantidad)):
             cant_generos = random.randint(1, 3)
             generos = [random.choice(Genero.objects.all()) for _ in range(cant_generos)]
             otros_autores = [

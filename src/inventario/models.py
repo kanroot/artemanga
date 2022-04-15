@@ -2,6 +2,10 @@ from django.db import models
 
 
 class Autor(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Autores"
+
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="nombre")
     apellido = models.CharField(max_length=200, verbose_name="apellido")
@@ -19,6 +23,10 @@ class Genero(models.Model):
 
 
 class Pais(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Países"
+
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="pais")
 
@@ -27,6 +35,10 @@ class Pais(models.Model):
 
 
 class Editorial(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Editoriales"
+
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="editorial")
     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
