@@ -22,14 +22,6 @@ class Despacho(models.Model):
         return f"{self.id}"
 
     @property
-    def get_estado(self):
-        return self.estado
-
-    @property
-    def get_codigo_postal(self):
-        return self.codigo_postal
-
-    @property
     def direccion_completa(self):
         return f"{self.calle} " \
                f"{self.numero}" \
