@@ -10,7 +10,7 @@ class Despacho(models.Model):
     departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
     region = models.CharField(max_length=200, verbose_name="region")
-    ciudad = models.CharField(max_length=200, verbose_name="cuidad")
+    ciudad = models.CharField(max_length=200, verbose_name="ciudad")
     codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal")
     telefono = models.IntegerField(verbose_name="telefono")
     estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
