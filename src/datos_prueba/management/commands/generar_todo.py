@@ -63,7 +63,6 @@ class Command(BaseCommand):
     def generar_localidad(self):
         call_command('generar_localidad')
 
-
     def generar_ventas(self):
         if self.cantidad_ventas:
             call_command('generar_ventas', cantidad=self.cantidad_ventas)

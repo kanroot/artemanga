@@ -26,13 +26,13 @@ class Command(BaseCommand):
 
     def generar_regiones(self):
         print('Creando regiones...')
-        for region in RegionChile.labels:
+        for region in tqdm(RegionChile.labels):
             r = Region.objects.create(nombre=region.upper())
             r.save()
 
     def generar_provincia(self):
         print('Creando provincia...')
-        for prov in provincia:
+        for prov in tqdm(provincia):
             id_region = prov[2]
             region = Region.objects.get(id=id_region)
             p = Provincia.objects.create(nombre=prov[1].upper(), region=region)
@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
     def generar_comunas(self):
         print('Creando comunas...')
-        for comuna in comunas:
+        for comuna in tqdm(comunas):
             id_provincia = comuna[2]
             prov = Provincia.objects.get(id=id_provincia)
             c = Comuna.objects.create(nombre=comuna[1].upper(), provincia=prov)
@@ -48,7 +48,6 @@ class Command(BaseCommand):
 
     def generar_direccion_falsa(self):
         print('Creando direcciones falsas...')
-        print('Generando despachos...')
         for i in tqdm(range(1, 100)):
             calle = self.fake.street_name()
             numero = self.fake.building_number()
