@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 
 class Command(BaseCommand):
-    help = 'Genera datos de prueba para el módulo de ventas'
+    help = 'Genera datos de prueba para el módulo de despacho en el apartado de direcciones'
     fake = Faker(['es_ES'])
 
     def handle(self, *args, **options):
@@ -22,6 +22,8 @@ class Command(BaseCommand):
     def limpiar_localidad(self):
         Provincia.objects.all().delete()
         Region.objects.all().delete()
+        Comuna.objects.all().delete()
+        Direccion.objects.all().delete()
 
     def generar_regiones(self):
         print('Creando regiones...')
