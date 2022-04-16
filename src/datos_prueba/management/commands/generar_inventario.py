@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 
 from catalogo.models import Oferta
-from inventario.models import Producto, Autor, Editorial, Genero, OtrosAutores, IVA, Pais
+from inventario.models import Producto, Autor, Editorial, Genero, OtrosAutores, Pais
 from tqdm import tqdm
 
 

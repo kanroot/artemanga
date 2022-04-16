@@ -1,6 +1,8 @@
 from django.db import models
 
 
+VALOR_IVA = 19
+
 class Autor(models.Model):
 
     class Meta:
@@ -56,13 +58,6 @@ class OtrosAutores(models.Model):
         return f"{self.nombre}, {self.cargo}"
 
 
-class IVA(models.Model):
-    iva = models.IntegerField(verbose_name="iva")
-
-    def __str__(self):
-        return f"{self.iva}%"
-
-
 class Producto(models.Model):
     isbn = models.CharField(max_length=200, verbose_name="isbn", unique=True)
     titulo_es = models.CharField(max_length=200, verbose_name="titulo")
@@ -81,11 +76,10 @@ class Producto(models.Model):
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     genero = models.ManyToManyField(Genero, verbose_name="genero")
     otros_autores = models.ManyToManyField(OtrosAutores, verbose_name="otros autores", blank=True)
-    iva = models.ForeignKey(IVA, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo_es
 
     @property
     def precio_con_iva(self):
-        return self.precio + (self.precio * self.iva.iva / 100)
+        return self.precio + (self.precio * VALOR_IVA / 100)

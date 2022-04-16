@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import Producto, Autor, Genero, Pais, Editorial, OtrosAutores, IVA
-
-
-# Register your models here.
+from .models import Producto, Autor, Genero, Pais, Editorial, OtrosAutores
 
 
 @admin.register(Producto)
