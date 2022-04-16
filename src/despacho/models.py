@@ -57,7 +57,6 @@ class Despacho(models.Model):
     # conexiones
     # no t0d0 usuario debe teber un despacho
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name="region")
     # una direccion puede pertenecer a un despacho o más de uno, pero un despacho puede solo pertenecer una direccion
     direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, verbose_name="direccion", blank=True, null=True)
 
