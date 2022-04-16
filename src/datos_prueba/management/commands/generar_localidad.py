@@ -2,7 +2,7 @@ import random
 from django.core.management.base import BaseCommand
 from despacho.models import Region, Provincia, Comuna, Direccion
 from despacho.tipo_enum.region_chile import RegionChile
-from despacho.tipo_enum.provincia_vinculada import provincia
+from despacho.tipo_enum.provincia_vinculada import provincias
 from despacho.tipo_enum.comuna_vinculada import comunas
 from faker import Faker
 from tqdm import tqdm
@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
     def generar_provincia(self):
         print('Creando provincia...')
-        for prov in tqdm(provincia):
+        for prov in tqdm(provincias):
             id_region = prov[2]
             region = Region.objects.get(id=id_region)
             p = Provincia.objects.create(nombre=prov[1].upper(), region=region)
