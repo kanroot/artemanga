@@ -14,7 +14,7 @@ class Usuario(AbstractUser):
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
     segundo_apellido = models.CharField(max_length=200, verbose_name="segundo apellido", blank=True)
     es_activo = models.BooleanField(default=True)
-    sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=Sexo.MASCULINO.value)
+    sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=Sexo.NO_RESPONDE.value)
     tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=Tipo.CLIENTE.value)
 
     REQUIRED_FIELDS = ['primer_nombre', 'primer_apellido']
