@@ -42,7 +42,7 @@ class Direccion(models.Model):
     def direccion_completa(self):
         return f"{self.calle} " \
                f"{self.numero}" \
-               f" {self.departamento} " \
+               f"{self.departamento} " \
                f"{self.piso} {self.region}" \
                f"{self.codigo_postal}"
 
@@ -56,9 +56,15 @@ class Despacho(models.Model):
     estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
     # conexiones
     # no t0d0 usuario debe teber un despacho
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     # una direccion puede pertenecer a un despacho o más de uno, pero un despacho puede solo pertenecer una direccion
-    direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, verbose_name="direccion", blank=True, null=True)
+    direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, verbose_name="direccion")
 
     def __str__(self):
         return f"{self.id}"
+
+    @property
+    def estado_usuario(self):
+        return f"{self.estado}" \
+               f"{self.usuario}" \
+
