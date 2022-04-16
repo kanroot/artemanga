@@ -24,14 +24,8 @@ class Command(BaseCommand):
         self.generar_autores()
         self.generar_otros_autores()
         self.generar_editorial()
-        self.generar_IVA()
         self.generar_productos()
         self.generar_ofertas()
-
-    def generar_IVA(self):
-        print('Generando IVA...')
-        iva = IVA.objects.create(iva=19)
-        iva.save()
 
     def generar_generos(self):
         print('Generando géneros...')
@@ -97,13 +91,11 @@ class Command(BaseCommand):
             autor = random.choice(Autor.objects.all())
             editorial = random.choice(Editorial.objects.all())
 
-            iva = IVA.objects.get(iva=19)
-
             producto = Producto.objects.create(
                 isbn=isbn, titulo_es=titulo_es, titulo_jp=titulo_jp, stock=stock, precio=precio,
                 descripcion=descripcion, numero_paginas=numero_paginas, es_color=es_color,
                 fecha_publicacion=fecha_publicacion, esta_publicado=esta_publicado, es_destacado=es_destacado,
-                autor=autor, editorial=editorial, iva=iva
+                autor=autor, editorial=editorial
             )
 
             producto.save()
