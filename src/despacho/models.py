@@ -6,7 +6,7 @@ from .tipo_enum.region_chile import RegionChile
 
 class Region(models.Model):
     id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100, choices=RegionChile.choices)
+    nombre = models.CharField(max_length=100)
 
 
 class Provincia(models.Model):

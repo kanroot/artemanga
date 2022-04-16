@@ -1,26 +1,25 @@
 from django.contrib import admin
-from .models import Despacho
+from .models import Despacho, Provincia, Comuna, Region, Direccion
 
 
-@admin.register(Despacho)
+@admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre')
 
 
-@admin.register(Despacho)
+@admin.register(Provincia)
 class ProvinciaAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre')
 
 
-@admin.register(Despacho)
+@admin.register(Comuna)
 class ComunaAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre')
 
 
-@admin.register(Despacho)
+@admin.register(Direccion)
 class DireccionAdmin(admin.ModelAdmin):
     list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono')
-
 
 @admin.register(Despacho)
 class DespachoAdmin(admin.ModelAdmin):
