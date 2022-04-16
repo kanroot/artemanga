@@ -26,21 +26,8 @@ class Command(BaseCommand):
     def generar_despachos(self):
         print('Generando despachos...')
         for _ in tqdm(range(self.cantidad)):
-            calle = self.fake.street_name()
-            numero = self.fake.building_number()
-            region = self.fake.state()
-            ciudad = self.fake.city()
-            codigo_postal = self.fake.postcode()
-            telefono = self.fake.random_int(min=1000000, max=9999999)
             usuario = random.choice(Usuario.objects.filter(tipo_usuario=Tipo.CLIENTE.value).all())
-
             despacho = Despacho.objects.create(
-                calle=calle,
-                numero=numero,
-                region=region,
-                ciudad=ciudad,
-                codigo_postal=codigo_postal,
-                telefono=telefono,
                 usuario=usuario
             )
             despacho.save()
@@ -63,5 +50,3 @@ class Command(BaseCommand):
             for p in productos:
                 venta.productos.add(p)
             venta.save()
-
-
