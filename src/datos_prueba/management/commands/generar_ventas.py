@@ -3,7 +3,7 @@ import random
 from django.core.management.base import BaseCommand
 from venta.models import Venta
 from inventario.models import Producto
-from despacho.models import Despacho
+from despacho.models import Despacho, Direccion
 from cuenta_usuario.models import Usuario
 from cuenta_usuario.tipo_enum.tipo_usuario import Tipo
 from faker import Faker
@@ -27,8 +27,10 @@ class Command(BaseCommand):
         print('Generando despachos...')
         for _ in tqdm(range(self.cantidad)):
             usuario = random.choice(Usuario.objects.filter(tipo_usuario=Tipo.CLIENTE.value).all())
+            direccion = random.choice(Direccion.objects.all())
             despacho = Despacho.objects.create(
-                usuario=usuario
+                usuario=usuario,
+                direccion=direccion
             )
             despacho.save()
 
