@@ -23,6 +23,7 @@ class Command(BaseCommand):
         self.generar_admin()
         self.generar_clientes()
         self.generar_inventario()
+        self.generar_localidad()
         self.generar_ventas()
 
     def preparar_base_de_datos(self):
@@ -58,6 +59,10 @@ class Command(BaseCommand):
             call_command('generar_inventario', cantidad=self.cantidad_inventario)
             return
         call_command('generar_inventario')
+
+    def generar_localidad(self):
+        call_command('generar_localidad')
+
 
     def generar_ventas(self):
         if self.cantidad_ventas:
