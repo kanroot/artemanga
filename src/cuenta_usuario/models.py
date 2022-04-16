@@ -1,10 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .tipo_enum.tipo_usuario import TIPO_CHOICES, Tipo
+from .tipo_enum.sexo_usuario import SEXO_CHOICES, Sexo
 
 
 class Usuario(AbstractUser):
-
     class Meta:
         verbose_name_plural = "Usuarios"
 
@@ -14,6 +14,7 @@ class Usuario(AbstractUser):
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
     segundo_apellido = models.CharField(max_length=200, verbose_name="segundo apellido", blank=True)
     es_activo = models.BooleanField(default=True)
+    sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=Sexo.NO_RESPONDE.value)
     tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=Tipo.CLIENTE.value)
 
     REQUIRED_FIELDS = ['primer_nombre', 'primer_apellido']

@@ -17,7 +17,7 @@ class UsuarioAdmin(admin.ModelAdmin):
         }),
         ('Información personal', {
             'classes': ('wide',),
-            'fields': ('primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido')
+            'fields': ('primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'sexo')
         }),
 
     )
