@@ -2,11 +2,11 @@ from django.db import models
 
 
 class RegionChile(models.TextChoices):
-    tarapaca = '1', 'region de tarapacá'
-    antofagasta = '2', 'region de antofagasta'
-    atacama = '3', 'region de atacama'
-    coquimbo = '4', 'region de coquimbo'
-    valparaiso = '5', 'region de valparaíso'
+    tarapaca = '1', 'región de tarapacá'
+    antofagasta = '2', 'región de antofagasta'
+    atacama = '3', 'región de atacama'
+    coquimbo = '4', 'región de coquimbo'
+    valparaiso = '5', 'región de valparaíso'
     ohiggins = '6', 'región del libertador general bernardo o’higgins'
     maule = '7', 'región del maule'
     biobio = '8', 'región del biobío'

@@ -53,8 +53,8 @@ magallanes = [51, 'magallanes', 15]
 fuego = [52, 'tierra del fuego', 15]
 esperanza = [53, 'última esperanza', 1]
 
-provincia = [arica, parinacota, iquique, tamarugal, antofagasta, loa, tocopilla, chanaral, copiapo, hausco, choapa,
-             elqui, limari, pascua, andes, petorca, quillota, antonio, felipe, valparaiso, chacabuco, cordillera, maipo,
-             melipilla, santiago, talagante, cachapoal, cardenal, colchagua, cauquenes, curico, linares, talca, arauco,
-             biobio, concepcion, nuble, cautin, malleco, valdivia, ranco, chiloe, llanquihue, osorno, palena, aisen,
-             prat, coihaique, general, antartica, magallanes, fuego, esperanza]
+provincias = [arica, parinacota, iquique, tamarugal, antofagasta, loa, tocopilla, chanaral, copiapo, hausco, choapa,
+              elqui, limari, pascua, andes, petorca, quillota, antonio, felipe, valparaiso, chacabuco, cordillera, maipo,
+              melipilla, santiago, talagante, cachapoal, cardenal, colchagua, cauquenes, curico, linares, talca, arauco,
+              biobio, concepcion, nuble, cautin, malleco, valdivia, ranco, chiloe, llanquihue, osorno, palena, aisen,
+              prat, coihaique, general, antartica, magallanes, fuego, esperanza]
