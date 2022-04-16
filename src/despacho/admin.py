@@ -21,6 +21,7 @@ class ComunaAdmin(admin.ModelAdmin):
 class DireccionAdmin(admin.ModelAdmin):
     list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono')
 
+
 @admin.register(Despacho)
 class DespachoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'usuario')
+    list_display = ('id', 'estado', 'usuario', 'direccion')
