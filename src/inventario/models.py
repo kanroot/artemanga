@@ -63,7 +63,7 @@ class Producto(models.Model):
     titulo_es = models.CharField(max_length=200, verbose_name="titulo")
     titulo_jp = models.CharField(max_length=200, verbose_name="titulo jp", blank=True)
     stock = models.IntegerField(verbose_name="stock", blank=False)
-    portada = models.CharField(max_length=200, verbose_name="ruta de portada portada")
+    portada = models.ImageField(upload_to="portadas", verbose_name="portada", blank=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="precio")
     descripcion = models.CharField(max_length=200, verbose_name="descripcion", blank=True)
     numero_paginas = models.IntegerField(verbose_name="numero de paginas")

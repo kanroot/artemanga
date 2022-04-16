@@ -23,6 +23,8 @@ RUN apk add --no-cache libpq \
     openssl-dev \
     cargo \
     postgresql-dev \
+    jpeg-dev \
+    zlib-dev \
     && pip install poetry \
     && poetry config virtualenvs.create false \
     && poetry install --no-dev \
