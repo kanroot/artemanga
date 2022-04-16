@@ -22,7 +22,6 @@ class Command(BaseCommand):
     def limpiar_localidad(self):
         Provincia.objects.all().delete()
         Region.objects.all().delete()
-        print('Se han eliminado las regiones y ciudades')
 
     def generar_regiones(self):
         print('Creando regiones...')
