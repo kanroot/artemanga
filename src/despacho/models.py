@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from cuenta_usuario.models import Usuario
 from .tipo_enum.estado_despacho import ESTADO_DESPACHO_CHOICE, EstadoDes
@@ -30,7 +31,12 @@ class Direccion(models.Model):
     departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
     codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal")
-    telefono = models.IntegerField(verbose_name="telefono")
+    telefono = models.CharField(verbose_name="telefono", max_length=12, validators=[
+        RegexValidator(
+            regex=r'^(\+?56)?(\s?)(0?9)(\s?)[9876543]\d{7}$',
+            message='El celular debe seguir el siguiente formato: +569123456789',
+            code='invalid_celular')
+    ])
     # conexiones
     comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE, related_name='direcciones')
     # un usuario puede tener más de una direccion, pero una direccion puede o no pertenecer a un usuario
@@ -66,5 +72,4 @@ class Despacho(models.Model):
     @property
     def estado_usuario(self):
         return f"{self.estado}" \
-               f"{self.usuario}" \
-
+               f"{self.usuario}"
