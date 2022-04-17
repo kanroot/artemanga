@@ -35,6 +35,6 @@ para volver en el tiempo a ese punto.
 
 ## Solución nuclear
 
-``git fetch upstream && git reset upstream/develop --hard``
+``git fetch upstream && git reset upstream/devel --hard``
 
 Vuelve a la versión más reciente de la rama ``devel`` en el repo principal, destruye cualquier cambio que se haya realizado en la rama actual.

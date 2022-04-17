@@ -30,7 +30,13 @@ class Direccion(models.Model):
     numero = models.IntegerField()
     departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
-    codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal")
+    codigo_postal = models.IntegerField(verbose_name="codigo postal", validators=[
+        RegexValidator(
+            regex=r'^[0-9]{7}$',
+            message='El codigo postal debe tener 7 digitos. Ej: 1234567',
+            code='invalid_codigo_postal'
+        )
+    ])
     # los validadores funcionan en los formularios
     telefono = models.CharField(verbose_name="telefono", max_length=12, default='+569123456789', validators=[
         RegexValidator(
