@@ -31,7 +31,7 @@ class Direccion(models.Model):
     departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
     codigo_postal = models.CharField(max_length=200, verbose_name="codigo postal")
-    telefono = models.CharField(verbose_name="telefono", max_length=12, validators=[
+    telefono = models.CharField(verbose_name="telefono", max_length=12,default='+569123456789', validators=[
         RegexValidator(
             regex=r'^(\+?56)?(\s?)(0?9)(\s?)[9876543]\d{7}$',
             message='El celular debe seguir el siguiente formato: +569123456789',
@@ -41,8 +41,6 @@ class Direccion(models.Model):
     comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE, related_name='direcciones')
     # un usuario puede tener más de una direccion, pero una direccion puede o no pertenecer a un usuario
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='direcciones', blank=True, null=True)
-
-    # un Despacho puede tener una sola direccion, pero una direccion puede o no pertenecer a un Despacho
 
     @property
     def direccion_completa(self):
