@@ -32,7 +32,7 @@ class Direccion(models.Model):
     piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
     codigo_postal = models.IntegerField(max_length=7, verbose_name="codigo postal", validators=[
         RegexValidator(
-            regex='^[0-9]{7}$',
+            regex=r'^[0-9]{7}$',
             message='El codigo postal debe tener 7 digitos. Ej: 1234567',
             code='invalid_codigo_postal'
         )
