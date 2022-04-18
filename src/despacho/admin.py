@@ -19,7 +19,7 @@ class ComunaAdmin(admin.ModelAdmin):
 
 @admin.register(Direccion)
 class DireccionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono')
+    list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono', 'comuna', 'provincia', 'region')
 
 
 @admin.register(Despacho)

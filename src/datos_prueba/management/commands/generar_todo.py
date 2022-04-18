@@ -20,10 +20,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.manejar_argumentos(options)
         self.preparar_base_de_datos()
+        self.generar_localidad()
         self.generar_admin()
         self.generar_clientes()
         self.generar_inventario()
-        self.generar_localidad()
         self.generar_ventas()
 
     def preparar_base_de_datos(self):
@@ -61,7 +61,7 @@ class Command(BaseCommand):
         call_command('generar_inventario')
 
     def generar_localidad(self):
-        call_command('generar_localidad')
+        call_command('poblar_localidad')
 
     def generar_ventas(self):
         if self.cantidad_ventas:
