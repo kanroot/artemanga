@@ -5,19 +5,25 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UserRegisterForm(UserCreationForm):
     # Se define el modelo de datos que se va a utilizar en el formulario
-    primer_nombre = forms.CharField(label='Primer Nombre')
-    segundo_nombre = forms.CharField(label='Segundo Nombre', required=False)
-    primer_apellido = forms.CharField(label='Primer Apellido')
-    segundo_apellido = forms.CharField(label='Segundo Apellido', required=False)
-    email = forms.EmailField(label='Correo Electrónico')
     sexo = forms.ChoiceField(label='Sexo',
-                             choices=(('M', 'Masculino'), ('F', 'Femenino'), ('O', 'Otro')),
+                             choices=((1, 'Masculino'), (2, 'Femenino'), (3, 'Otro'), (4, 'No deseo responder')),
                              required=False)
-
     class Meta:
         model = Usuario
-        fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo',
+        fields = ['username', 'primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo',
                   'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super(UserRegisterForm, self).save(commit=False)
+        user.username = self.cleaned_data['username']
+        user.primer_nombre = self.cleaned_data['primer_nombre']
+        user.segundo_nombre = self.cleaned_data['segundo_nombre']
+        user.primer_apellido = self.cleaned_data['primer_apellido']
+        user.segundo_apellido = self.cleaned_data['segundo_apellido']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -29,4 +35,4 @@ class UserUpdateForm(forms.ModelForm):
 class DeleteUserForm(forms.ModelForm):
     class Meta:
         model = Usuario
-
+        fields = []
