@@ -13,6 +13,7 @@ class AutorListView(ListView):
     context_object_name = 'Autores'
     template_name = 'CRUD/listado_autor.html'
     paginate_by = 10
+    ordering = ['id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

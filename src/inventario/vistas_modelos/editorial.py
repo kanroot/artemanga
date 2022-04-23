@@ -11,6 +11,7 @@ class EditorialListView(ListView):
     model = Editorial
     template_name = 'CRUD/listado_editorial.html'
     paginate_by = 10
+    ordering = ['id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

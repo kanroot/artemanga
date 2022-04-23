@@ -11,6 +11,7 @@ class OtrosAutoresListView(ListView):
     model = OtrosAutores
     template_name = 'CRUD/listado_otro_autor.html'
     paginate_by = 10
+    ordering = ['id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -19,7 +19,7 @@
     <ul class="messages">
         {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Importante: {% endif %}
                 {{ message }}
             </li>
         {% endfor %}
@@ -29,7 +29,7 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-        <a href="#" class="navbar-brand">Brand</a>
+        <a href="#" class="navbar-brand">Administración</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,7 +45,6 @@
                         <a href="{% url 'listado-producto' %}" class="dropdown-item">Producto</a>
                         <a href="{% url 'listado-autor' %}" class="dropdown-item">Autor</a>
                         <a href="{% url 'listado-otro-autor' %}" class="dropdown-item">Otros Autores</a>
-                        <a href="{% url 'listado-producto' %}" class="dropdown-item">Producto</a>
                         <a href="{% url 'listado-genero' %}" class="dropdown-item">Genero</a>
                         <a href="{% url 'listado-editorial' %}" class="dropdown-item">Editorial</a>
                         <a href="{% url 'listado-pais' %}" class="dropdown-item">Pais</a>
