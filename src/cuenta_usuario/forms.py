@@ -17,13 +17,3 @@ class UserRegisterForm(UserCreationForm):
         model = Usuario
         fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo',
                   'password1', 'password2']
-        widgets = {
-            'password1': forms.PasswordInput(),
-            'password2': forms.PasswordInput(),
-            'email': forms.TextInput(
-                attrs={
-                    'type': 'email',
-                    'class': 'validate',
-                }
-            )
-        }
