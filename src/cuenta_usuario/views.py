@@ -1,26 +1,20 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from cuenta_usuario.forms import UserRegisterForm
+from django.views.generic import CreateView, UpdateView, DeleteView
+from .forms import UserRegisterForm, UserUpdateForm
 
 
 # Create your views here.
 class SignUpView(CreateView):
-    template_name = 'cuenta_usuario/templates/registro.html'
-    success_url = reverse_lazy('login')
+    template_name = 'registro.html'
+    success_url = '/'
     form_class = UserRegisterForm
     success_message = "Tú perfil ha sido creado con éxito"
 
 
-class ModifyProfileView(CreateView):
-    template_name = 'cuenta_usuario/templates/modificar_perfil.html'
-    success_url = reverse_lazy('login')
-    form_class = UserRegisterForm
+class ModifyProfileView(UpdateView):
+    template_name = 'modificar_perfil.html'
+    success_url = '/'
+    form_class = UserUpdateForm
     success_message = "Tú perfil ha sido modificado con éxito"
 
 
-class DeleteProfileView(CreateView):
-    template_name = 'cuenta_usuario/templates/eliminar_perfil.html'
-    success_url = reverse_lazy('login')
-    form_class = UserRegisterForm
-    success_message = "Tú perfil ha sido eliminado con éxito"
+
