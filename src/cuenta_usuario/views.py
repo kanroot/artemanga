@@ -10,3 +10,17 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     form_class = UserRegisterForm
     success_message = "Tú perfil ha sido creado con éxito"
+
+
+class ModifyProfileView(CreateView):
+    template_name = 'cuenta_usuario/templates/modificar_perfil.html'
+    success_url = reverse_lazy('login')
+    form_class = UserRegisterForm
+    success_message = "Tú perfil ha sido modificado con éxito"
+
+
+class DeleteProfileView(CreateView):
+    template_name = 'cuenta_usuario/templates/eliminar_perfil.html'
+    success_url = reverse_lazy('login')
+    form_class = UserRegisterForm
+    success_message = "Tú perfil ha sido eliminado con éxito"
