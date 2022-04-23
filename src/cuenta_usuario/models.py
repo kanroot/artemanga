@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .tipo_enum.tipo_usuario import TIPO_CHOICES, Tipo
 from .tipo_enum.sexo_usuario import SEXO_CHOICES, Sexo
+from .validators import UsernameValidator
 
 
 class Usuario(AbstractUser):
@@ -9,6 +10,7 @@ class Usuario(AbstractUser):
         verbose_name_plural = "Usuarios"
 
     id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=50, unique=True, validators=[UsernameValidator()])
     primer_nombre = models.CharField(max_length=200, verbose_name="primer nombre", db_index=True)
     segundo_nombre = models.CharField(max_length=200, verbose_name="segundo nombre", blank=True)
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
