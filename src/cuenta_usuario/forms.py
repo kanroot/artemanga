@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class UserRegisterForm(UserCreationForm):
+    # Se define el modelo de datos que se va a utilizar en el formulario
     primer_nombre = forms.CharField(label='Primer Nombre')
     segundo_nombre = forms.CharField(label='Segundo Nombre', required=False)
     primer_apellido = forms.CharField(label='Primer Apellido')
@@ -17,3 +18,15 @@ class UserRegisterForm(UserCreationForm):
         model = Usuario
         fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo',
                   'password1', 'password2']
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo']
+
+
+class DeleteUserForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+
