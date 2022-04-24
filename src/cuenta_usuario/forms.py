@@ -20,8 +20,3 @@ class UserUpdateForm(forms.ModelForm):
         model = Usuario
         fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'email', 'sexo']
 
-
-class DeleteUserForm(forms.ModelForm):
-    class Meta:
-        model = Usuario
-        fields = []
