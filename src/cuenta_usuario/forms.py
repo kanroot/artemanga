@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, UpdateView
 from django import forms
 from .models import Usuario
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 class UserForm(UserCreationForm):
