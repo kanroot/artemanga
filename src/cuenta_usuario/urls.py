@@ -10,5 +10,4 @@ urlpatterns = [
     path('editar-perfil/<pk>/', UserUpdateForm.as_view(), name='editar-perfil'),
 
 
-
 ]
