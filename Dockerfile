@@ -15,7 +15,6 @@ COPY poetry.lock pyproject.toml ./
 
 RUN apk add --no-cache libpq \
     && apk add --no-cache --virtual .build-deps \
-    # https://cryptography.io/en/latest/installation/#alpine
     gcc \
     musl-dev \
     python3-dev \
@@ -24,11 +23,13 @@ RUN apk add --no-cache libpq \
     cargo \
     postgresql-dev \
     jpeg-dev \
+    libjpeg \
     zlib-dev \
     && pip install poetry \
     && poetry config virtualenvs.create false \
     && poetry install --no-dev \
-    && apk del --purge .build-deps
+    && apk del --purge .build-deps \
+    && apk add libjpeg
 
 COPY src .
 
