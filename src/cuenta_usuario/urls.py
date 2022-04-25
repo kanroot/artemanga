@@ -1,6 +1,6 @@
 from django.urls import path
 from .forms import UserRegisterForm, UserUpdateForm
-from django.contrib.auth.views import LoginView
+from .views import LoginUsuario
 
 urlpatterns = [
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('editar-perfil/<pk>/', UserUpdateForm.as_view(), name='editar-perfil'),
 
     #login
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', LoginUsuario.as_view(), name='login'),
 
 
 
