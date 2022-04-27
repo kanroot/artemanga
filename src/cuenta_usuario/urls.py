@@ -1,8 +1,11 @@
 from django.urls import path
 from .forms import UserRegisterForm, UserUpdateForm
-from .views import LoginUsuario
+from .views import LoginUsuario, ReinicioContrasena
 
 urlpatterns = [
+
+    #reset password
+    path('reset-password/', ReinicioContrasena.as_view(), name='reset-password'),
 
     # crear
     path('crear-perfil/', UserRegisterForm.as_view(), name='crear-perfil'),
