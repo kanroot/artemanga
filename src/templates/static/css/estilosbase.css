@@ -1,0 +1,23 @@
+.container-fluid{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+}
+
+.logo{
+    text-align: center;
+}
+
+.text-white{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+
+}
+
+.text-warning{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+}
+
+.footer__input{
+  width: 100%;
+}
