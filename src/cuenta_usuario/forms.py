@@ -25,7 +25,7 @@ class UserRegisterForm(CreateView):
 
 class UserUpdateForm(UpdateView):
     model = Usuario
-    template_name = 'generico_form.html'
+    template_name = 'modificar_form.html'
     fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'sexo']
     success_message = "Tú perfil ha sido modificado con éxito"
 
