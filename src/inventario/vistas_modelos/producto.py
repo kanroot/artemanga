@@ -3,6 +3,7 @@ from django.views.generic import ListView
 
 from inventario.models import Producto
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
+from inventario.forms import ProductoBodegaForm
 
 
 class ProductoListView(ListView):
@@ -25,14 +26,16 @@ class ProductoListView(ListView):
 
 class ProductoUpdateView(ActualizarGenerico):
     model = Producto
+    fields = None
+    form_class = ProductoBodegaForm
     success_url = reverse_lazy('listado-producto')
-    fields = '__all__'
 
 
 class ProductoCreateView(CrearGenerico):
     model = Producto
+    fields = None
+    form_class = ProductoBodegaForm
     success_url = reverse_lazy('listado-producto')
-    fields = '__all__'
 
 
 class ProductoDeleteView(EliminarGenerico):

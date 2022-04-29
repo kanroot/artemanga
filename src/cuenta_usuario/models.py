@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .tipo_enum.tipo_usuario import TIPO_CHOICES, Tipo
-from .tipo_enum.sexo_usuario import SEXO_CHOICES, Sexo
+from .enums.opciones import TipoUsuario, TIPO_CHOICES, SexoUsuario, SEXO_CHOICES
 from .validators import UsernameValidator
 
 
@@ -16,8 +15,8 @@ class Usuario(AbstractUser):
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
     segundo_apellido = models.CharField(max_length=200, verbose_name="segundo apellido", blank=True)
     es_activo = models.BooleanField(default=True)
-    sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=Sexo.NO_RESPONDE.value)
-    tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=Tipo.CLIENTE.value)
+    sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=SexoUsuario.NO_RESPONDE.value)
+    tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=TipoUsuario.CLIENTE.value)
 
     REQUIRED_FIELDS = ['primer_nombre', 'primer_apellido']
 
@@ -25,16 +24,16 @@ class Usuario(AbstractUser):
         return f"{self.username}"
 
     def es_ventas(self) -> bool:
-        return self.tipo_usuario == Tipo.VENTAS.value
+        return self.tipo_usuario == TipoUsuario.VENTAS.value
 
     def es_bodega(self) -> bool:
-        return self.tipo_usuario == Tipo.BODEGA.value
+        return self.tipo_usuario == TipoUsuario.BODEGA.value
 
     def es_sysadmin(self) -> bool:
-        return self.tipo_usuario == Tipo.ADMINISTRADOR.value
+        return self.tipo_usuario == TipoUsuario.ADMINISTRADOR.value
 
     def es_cliente(self) -> bool:
-        return self.tipo_usuario <= Tipo.CLIENTE.value
+        return self.tipo_usuario <= TipoUsuario.CLIENTE.value
 
     def generar_pass_temporal_empleados(self) -> str:
         ident = f"{str(self.id).zfill(2)[:2]}"

@@ -1,23 +1,23 @@
-.container-fluid{
+.container-fluid {
     font-family: 'Quicksand', sans-serif;
     font-size: 24px;
 }
 
-.logo{
+.logo {
     text-align: center;
 }
 
-.text-white{
+.text-white {
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
 
 }
 
-.text-warning{
+.text-warning {
     font-family: 'Quicksand', sans-serif;
     font-size: 24px;
 }
 
-.footer__input{
-  width: 100%;
+.footer__input {
+    width: 100%;
 }

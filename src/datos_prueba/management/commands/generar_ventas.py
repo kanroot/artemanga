@@ -5,7 +5,7 @@ from venta.models import Venta, VentaProducto
 from inventario.models import Producto
 from despacho.models import Despacho, Direccion, Comuna
 from cuenta_usuario.models import Usuario
-from cuenta_usuario.tipo_enum.tipo_usuario import Tipo
+from cuenta_usuario.enums.opciones import TipoUsuario
 from faker import Faker
 from tqdm import tqdm
 
@@ -27,7 +27,7 @@ class Command(BaseCommand):
     def generar_direcciones(self):
         print('Creando direcciones falsas...')
         for _ in tqdm(range(self.cantidad)):
-            usuario = random.choice(Usuario.objects.filter(tipo_usuario=Tipo.CLIENTE.value).all())
+            usuario = random.choice(Usuario.objects.filter(tipo_usuario=TipoUsuario.CLIENTE.value).all())
             calle = self.fake.street_name()
             numero = self.fake.building_number()
             codigo_postal = self.fake.postcode()

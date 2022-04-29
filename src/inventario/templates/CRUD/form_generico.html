@@ -1,17 +1,15 @@
 {% extends 'administracion/base.html' %}
 
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% bootstrap_messages %}
+{% load crispy_forms_filters %}
 
-{% block body %}
+{% block contenido %}
     <div class="card">
         <div class="card-body">
             <form role="form" method="post">
                 {% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons submit='OK' reset="Reset" %}{% endbuttons %}
+                {{ form|crispy }}
+                <input type="submit" name="submit" value="Guardar" class="submit submitButton" />
+                <input type="reset" name="submit" value="Limpiar" class="submit submitButton" />
             </form>
         </div>
     </div>
