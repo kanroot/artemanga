@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, PasswordResetView, LogoutView
 from django.http import Http404
-from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView
 from .models import Usuario
 from .forms import RegistroUsuarioForm
