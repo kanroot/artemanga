@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView
 from .models import Usuario
-from .forms import RegistroUsuarioForm, EditarUsuarioForm
+from .forms import RegistroUsuarioForm
 from artemangaweb.mixins import MensajeResultadoFormMixin
 
 
@@ -49,7 +49,6 @@ class ReinicioContrasenaView(MensajeResultadoFormMixin, PasswordResetView):
     email_template_name = 'registration/password_reset_email.html'
     mensaje_exito = "Te hemos enviado un correo con las instrucciones para reiniciar tu contraseña"
     mensaje_error = "No se ha podido enviar el correo"
-    success_url = '/'
 
 
 class CerrarSesionView(LogoutView):
