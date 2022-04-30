@@ -3,18 +3,6 @@
 {% block title %}{% endblock %}
 
 {% block contenido %}
-    {% if form.errors %}
-        <p>Tú username y/o password no concuerdan con nuestros registros. Intenta nuevamente.</p>
-    {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Tú cuenta no tiene acceso a esta pagina, prueba con otra cuenta con los permisos correspondientes.</p>
-        {% else %}
-            <p>Haz ingreso a tu cuenta para ver el contenido de esta página.</p>
-        {% endif %}
-    {% endif %}
-
     <div class="container">
         <div class="row">
             <div class="col 12 col-md-8 offset-md-2">

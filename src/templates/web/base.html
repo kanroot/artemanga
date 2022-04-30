@@ -6,22 +6,26 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-2 col-md-12">
                 <div class="logo">
-                    <a class="navbar-brand" href="#"><img src="{% static 'img/manga.png' %}" width="150" height="100" alt="logo"></a>
+                    <a class="navbar-brand" href="#"><img src="{% static 'img/manga.png' %}" width="150" height="100"
+                                                          alt="logo"></a>
                 </div>
             </div>
 
             <form class="col-lg-10 col-md-12">
                 <div class="row">
                     <div class="col-lg-8">
-                        <input class="form-control" type="search" placeholder="Buscar por título, autor, categoría, etc" aria-label="Search">
+                        <input class="form-control" type="search" placeholder="Buscar por título, autor, categoría, etc"
+                               aria-label="Search">
                     </div>
                     <div class="col-lg-4">
                         <button type="button" class="btn btn-primary btn-block">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
-                        <button type="button" class="btn btn-primary btn-block">
-                            <i class="fa-solid fa-user"></i>
-                        </button>
+                        <a href="{% url 'login' %}">
+                            <button type="button" class="btn btn-primary btn-block">
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                        </a>
                         {% if user.is_authenticated %}<span>Hola, {{ user.username }}</span>{% endif %}
                     </div>
                 </div>
@@ -83,7 +87,8 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <button class="btn">{% if user.is_authenticated %}{{ username }}{% endif %}<i class="fa-solid fa-user"></i></button>
+                    <button class="btn">{% if user.is_authenticated %}{{ username }}{% endif %}<i
+                            class="fa-solid fa-user"></i></button>
                 </ul>
 
             </div>
