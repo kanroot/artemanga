@@ -36,7 +36,7 @@ class ActualizarUsuarioView(MensajeResultadoFormMixin, UpdateView):
         return obj
 
     template_name = 'generico_form.html'
-    fields = ['segundo_nombre', 'segundo_apellido', 'sexo']
+    fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'sexo']
     mensaje_exito = "Tu perfil ha sido modificado con éxito"
     mensaje_error = "No se ha podido modificar tu perfil"
     success_url = '/'
