@@ -22,5 +22,4 @@ urlpatterns = [
     path('inventario/', include('inventario.urls')),
     path('cuenta-usuario/', include('cuenta_usuario.urls')),
     path('cuenta-usuario/', include('django.contrib.auth.urls')),
-
 ]

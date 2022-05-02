@@ -1,9 +1,13 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
+
+from artemangaweb.mixins import MensajeResultadoFormMixin
+from cuenta_usuario.enums.opciones import TipoUsuario
+from cuenta_usuario.restriccion import VistaRestringida
 
 from inventario.models import Producto
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from inventario.forms import ProductoBodegaForm
+from inventario.forms import ProductoBodegaForm, ActualizarProductoVentasForm
 
 
 class ProductoListView(ListView):
@@ -41,3 +45,21 @@ class ProductoCreateView(CrearGenerico):
 class ProductoDeleteView(EliminarGenerico):
     model = Producto
     success_url = reverse_lazy('listado-producto')
+
+
+class ActualizarProductoVentasView(VistaRestringida, MensajeResultadoFormMixin, UpdateView):
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
+    template_name = 'CRUD/form_generico.html'
+    model = Producto
+    form_class = ActualizarProductoVentasForm
+    success_url = reverse_lazy('ventas-listado-productos')
+
+
+class VentasListadoProductosView(VistaRestringida, ListView):
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
+    model = Producto
+    template_name = "ventas/listado_productos.html"
+    queryset = Producto.objects.all()
+    ordering = ['esta_publicado']
+    paginate_by = 10
+    context_object_name = 'productos'

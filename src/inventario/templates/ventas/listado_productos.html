@@ -1,0 +1,82 @@
+{% extends 'administración/base.html' %}
+
+{% block titulo %}Administrar productos{% endblock %}
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <h1>Administrar productos</h1>
+                <div class="card">
+                    <div class="card-body">
+                        Se presentan todos los productos en lista. Primero, muestra productos que no han sido publicados
+                        aún
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>PK</th>
+                                    <th>Titulo</th>
+                                    <th>Autor</th>
+                                    <th>Editorial</th>
+                                    <th>Generos</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Destacado</th>
+                                    <th>Publicado</th>
+                                    <th>Examinar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for producto in productos %}
+                                    <tr>
+                                        <td>{{ producto.pk }}</td>
+                                        <td>{{ producto.titulo_es }}</td>
+                                        <td>{{ producto.autor }}</td>
+                                        <td>{{ producto.editorial }}</td>
+                                        <td>
+                                            {% if producto.genero %}
+                                                {% for genero in producto.genero.all %}
+                                                    <span class="badge rounded-pill bg-secondary">{{ genero.nombre }}</span>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="badge rounded-pill bg-dark">No asignado</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ producto.precio }}</td>
+                                        <td>{{ producto.stock }}</td>
+                                        <td style="text-align: center;">
+                                <span class="badge rounded-pill
+                                        {% if producto.es_destacado %} bg-success {% else %} bg-danger {% endif %}">
+                                    <i class="fa {% if producto.es_destacado %}fa-check{% else %}fa-remove{% endif %}"></i>
+                                </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                <span class="badge rounded-pill
+                                        {% if producto.esta_publicado %} bg-success {% else %} bg-danger {% endif %}">
+
+                                    <i class="fa {% if producto.esta_publicado %}fa-check{% else %}fa-remove{% endif %}"></i>
+                                </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="{% url 'ventas-actualizar-producto' producto.pk %}" class="btn btn-outline-primary">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% include 'común/includes/paginación.html' %}
+
+        </div>
+    </div>
+{% endblock %}

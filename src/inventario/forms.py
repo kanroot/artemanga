@@ -17,3 +17,9 @@ class ProductoBodegaForm(forms.ModelForm):
     class Meta:
         model = Producto
         exclude = ['es_destacado', 'esta_publicado']
+
+
+class ActualizarProductoVentasForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['es_destacado', 'esta_publicado', 'precio']

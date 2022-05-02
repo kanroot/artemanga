@@ -4,7 +4,8 @@ from .vistas_modelos.editorial import EditorialListView, EditorialCreateView, Ed
 from .vistas_modelos.pais import PaisListView, PaisCreateView, PaisUpdateView, PaisDeleteView
 from .vistas_modelos.genero import GeneroListView, GeneroCreateView, GeneroUpdateView, GeneroDeleteView
 from .vistas_modelos.autor import AutorListView, AutorCreateView, AutorUpdateView, AutorDeleteView
-from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, ProductoCreateView, ProductoDeleteView
+from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, ProductoCreateView, ProductoDeleteView, \
+    ActualizarProductoVentasView, VentasListadoProductosView
 from .views import DashboardView
 
 urlpatterns = [
@@ -41,4 +42,8 @@ urlpatterns = [
     path('eliminar-pais/<pk>/', PaisDeleteView.as_view(), name='eliminar-pais'),
     path('eliminar-editorial/<pk>/', EditorialDeleteView.as_view(), name='eliminar-editorial'),
     path('eliminar-otro-autor/<pk>/', OtrosAutoresDeleteView.as_view(), name='eliminar-otro-autor'),
+
+    # específicos de ventas
+    path('ventas-listado-productos', VentasListadoProductosView.as_view(), name='ventas-listado-productos'),
+    path('ventas-actualizar-producto/<pk>', ActualizarProductoVentasView.as_view(), name='ventas-actualizar-producto'),
 ]
