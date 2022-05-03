@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="col-3">
+    <div class="card border-0">
+        <img class="card-img-top h-70" src="{{ producto.portada.url }}" alt="">
+        <div class="card-body">
+            <div class="container text-center">
+                <div class="row">
+                    <span class="card-title text-secondary">{{ producto.editorial.nombre }}</span>
+                </div>
+                <div class="row">
+                    <h4 class="card-title">{{ producto.titulo_es }}</h4>
+                </div>
+                <div class="row">
+                    <h4><strong>${{ producto.precio }}</strong></h4>
+                </div>
+                {% if esta_en_oferta %}
+                <div class="row">
+                    <span class="text-secondary"><s>{{ precio_sin_oferta }}</s></span>
+                </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    <div class="col-3 p-2">
+                        <button type="button" class="btn btn-warning">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
