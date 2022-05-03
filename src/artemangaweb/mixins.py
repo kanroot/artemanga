@@ -16,7 +16,7 @@ class MensajeResultadoFormMixin:
 
 class TituloPaginaMixin(object):
     def get_page_title(self, context):
-        return getattr(self, "page_title", "Default Page Title")
+        return getattr(self, "titulo_pagina", "Default Page Title")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
