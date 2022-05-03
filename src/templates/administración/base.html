@@ -32,6 +32,8 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ventas</a>
                     <div class="dropdown-menu">
                         <a href="{% url 'ventas-listado-productos' %}" class="dropdown-item">Productos</a>
+                        <a href="{% url 'ventas-validar' %}" class="dropdown-item">Por validar</a>
+                         <a href="{% url 'venta-validada' %}" class="dropdown-item">Validadas</a>
                     </div>
                 </li>
                 {% endif %}

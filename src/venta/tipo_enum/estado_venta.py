@@ -7,7 +7,7 @@ class EstadoVenta(Enum):
     """
     PENDIENTE = 1
     CANCELADA = 2
-    FINALIZADA = 3
+    APROBADA = 3
 
 
 ESTADO_VENTA_CHOICES = [[estadoVenta.value, estadoVenta.name.capitalize()] for estadoVenta in EstadoVenta]
