@@ -7,7 +7,7 @@ from .vistas_modelos.genero import GeneroListView, GeneroCreateView, GeneroUpdat
 from .vistas_modelos.autor import AutorListView, AutorCreateView, AutorUpdateView, AutorDeleteView
 from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, ProductoCreateView, ProductoDeleteView, \
     ActualizarProductoVentasView, VentasListadoProductosView
-from .vistas_modelos.venta import VentasLisView, VentasAprobadasLisView, VentaUpdateView
+from .vistas_modelos.venta import VentasPendientesLisView, VentasAprobadasLisView, VentaUpdateView
 from .views import DashboardView
 
 urlpatterns = [
@@ -48,7 +48,7 @@ urlpatterns = [
     # específicos de ventas
     path('ventas-listado-productos', VentasListadoProductosView.as_view(), name='ventas-listado-productos'),
     path('ventas-actualizar-producto/<pk>', ActualizarProductoVentasView.as_view(), name='ventas-actualizar-producto'),
-    path('ventas-validar/', VentasLisView.as_view(), name='ventas-validar'),
+    path('ventas-validar/', VentasPendientesLisView.as_view(), name='ventas-validar'),
     path('venta-validar-producto/<pk>', VentaUpdateView.as_view(), name='venta-validar-producto'),
     path('venta-validada', VentasAprobadasLisView.as_view(), name='venta-validada'),
 ]

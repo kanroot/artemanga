@@ -2,12 +2,13 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 from cuenta_usuario.restriccion import VistaRestringida
 from cuenta_usuario.enums.opciones import TipoUsuario
-from artemangaweb.mixins import MensajeResultadoFormMixin
+from artemangaweb.mixins import MensajeResultadoFormMixin, PageTitleMixin
 from venta.models import Venta
 from venta.tipo_enum.estado_venta import EstadoVenta
 
 
-class VentasLisView(VistaRestringida, ListView):
+class VentasPendientesLisView(PageTitleMixin, VistaRestringida, ListView):
+    page_title = "Ventas Pendientes"
     usuarios_permitidos = [TipoUsuario.VENTAS]
     model = Venta
     template_name = 'ventas/listado_ventas.html'
@@ -17,7 +18,8 @@ class VentasLisView(VistaRestringida, ListView):
     context_object_name = 'ventas'
 
 
-class VentasAprobadasLisView(VistaRestringida, ListView):
+class VentasAprobadasLisView(PageTitleMixin, VistaRestringida, ListView):
+    page_title = "Ventas Aprobadas"
     usuarios_permitidos = [TipoUsuario.VENTAS]
     model = Venta
     template_name = 'ventas/listado_ventas.html'
