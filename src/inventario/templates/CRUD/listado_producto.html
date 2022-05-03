@@ -10,7 +10,7 @@
     <th>Autor</th>
     <th>Stock</th>
     <th>Precio</th>
-    <th>Precio con IVA</th>
+    <th>Precio sin IVA</th>
     <th>Acciones</th>
 {% endblock %}
 
@@ -24,7 +24,7 @@
             <td>{{ item.autor }}</td>
             <td>{{ item.stock }}</td>
             <td>{{ item.precio }}</td>
-            <td>{{ item.precio_con_iva }}</td>
+            <td>{{ item.precio_sin_iva }}</td>
             {% include 'CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}

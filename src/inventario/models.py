@@ -71,6 +71,7 @@ class Producto(models.Model):
     fecha_publicacion = models.DateField(verbose_name="fecha de publicacion")
     esta_publicado = models.BooleanField(default=False)
     es_destacado = models.BooleanField(default=False)
+    es_nuevo = models.BooleanField(default=False)
     # conexiones
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
@@ -81,5 +82,5 @@ class Producto(models.Model):
         return self.titulo_es
 
     @property
-    def precio_con_iva(self):
-        return self.precio + (self.precio * VALOR_IVA / 100)
+    def precio_sin_iva(self):
+        return self.precio - (self.precio * VALOR_IVA / 100)

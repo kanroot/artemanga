@@ -1,0 +1,33 @@
+{% extends 'web/base.html' %}
+{% block contenido %}
+{% include 'web/includes/banner.html' %}
+{% load static %}
+<div class="container mb-4">
+    {% if nuevos %}
+    <div class="row">
+        </hr>
+        <h1>Recién llegados</h1>
+        </hr>
+    </div>
+    <div class="row">
+        {% for nuevo in nuevos %}
+            {% include 'web/includes/card-producto.html' with producto=nuevo %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if destacados %}
+    <div class="row">
+        </hr>
+        <h1>Destacados</h1>
+        </hr>
+    </div>
+    <div class="row">
+        {% for destacado in destacados %}
+            {% include 'web/includes/card-producto.html' with producto=destacado %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
