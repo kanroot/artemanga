@@ -45,8 +45,16 @@ class Command(BaseCommand):
             primer_apellido='admin',
             tipo_usuario=1
         )
+        ventas = Usuario.objects.create_user(
+            username='ventas',
+            email='ventas@admin.com',
+            password='admin',
+            primer_nombre='ventas',
+            primer_apellido='ventas',
+            tipo_usuario=2)
 
         admin.save()
+        ventas.save()
 
     def generar_clientes(self):
         if self.cantidad_clientes:
