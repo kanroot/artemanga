@@ -59,7 +59,9 @@ class Command(BaseCommand):
 
             venta = Venta.objects.create(
                 despacho=despacho,
-                total=total
+                total=total,
+                fecha_venta=self.fake.date_time_between(start_date='-1y', end_date='now'),
+                imagen_deposito=self.fake.image_url(),
             )
             venta.save()
 
