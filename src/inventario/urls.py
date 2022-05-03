@@ -1,11 +1,13 @@
 from django.urls import path
-from .vistas_modelos.otros_autores import OtrosAutoresListView, OtrosAutoresCreateView, OtrosAutoresUpdateView, OtrosAutoresDeleteView
+from .vistas_modelos.otros_autores import OtrosAutoresListView, OtrosAutoresCreateView, OtrosAutoresUpdateView, \
+    OtrosAutoresDeleteView
 from .vistas_modelos.editorial import EditorialListView, EditorialCreateView, EditorialUpdateView, EditorialDeleteView
 from .vistas_modelos.pais import PaisListView, PaisCreateView, PaisUpdateView, PaisDeleteView
 from .vistas_modelos.genero import GeneroListView, GeneroCreateView, GeneroUpdateView, GeneroDeleteView
 from .vistas_modelos.autor import AutorListView, AutorCreateView, AutorUpdateView, AutorDeleteView
 from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, ProductoCreateView, ProductoDeleteView, \
     ActualizarProductoVentasView, VentasListadoProductosView
+from .vistas_modelos.venta import VentasLisView, VentasAprobadasLisView, VentaUpdateView
 from .views import DashboardView
 
 urlpatterns = [
@@ -46,4 +48,7 @@ urlpatterns = [
     # específicos de ventas
     path('ventas-listado-productos', VentasListadoProductosView.as_view(), name='ventas-listado-productos'),
     path('ventas-actualizar-producto/<pk>', ActualizarProductoVentasView.as_view(), name='ventas-actualizar-producto'),
+    path('ventas-validar/', VentasLisView.as_view(), name='ventas-validar'),
+    path('venta-validar-producto/<pk>', VentaUpdateView.as_view(), name='venta-validar-producto'),
+    path('venta-validada', VentasAprobadasLisView.as_view(), name='venta-validada'),
 ]
