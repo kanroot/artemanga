@@ -1,7 +1,5 @@
 from .models import Producto, Genero
 from django import forms
-from venta.models import Venta
-from venta.tipo_enum.estado_venta import EstadoVenta
 
 
 class ProductoBodegaForm(forms.ModelForm):
@@ -25,21 +23,3 @@ class ActualizarProductoVentasForm(forms.ModelForm):
     class Meta:
         model = Producto
         fields = ['es_destacado', 'esta_publicado', 'precio']
-
-
-class ValidarTransferenciaForm(forms.Form):
-    producto = forms.ModelChoiceField(
-        queryset=Producto.objects.all(),
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-    cantidad = forms.IntegerField(
-        widget=forms.NumberInput(attrs={'class': 'form-control'})
-    )
-
-
-class ValidarVenta(forms.Form):
-    venta = forms.ModelChoiceField(
-        queryset=Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value),
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-

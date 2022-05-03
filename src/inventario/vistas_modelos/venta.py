@@ -2,13 +2,13 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 from cuenta_usuario.restriccion import VistaRestringida
 from cuenta_usuario.enums.opciones import TipoUsuario
-from artemangaweb.mixins import MensajeResultadoFormMixin, PageTitleMixin
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
 from venta.models import Venta
 from venta.tipo_enum.estado_venta import EstadoVenta
 
 
-class VentasPendientesLisView(PageTitleMixin, VistaRestringida, ListView):
-    page_title = "Ventas Pendientes"
+class VentasPendientesLisView(TituloPaginaMixin, VistaRestringida, ListView):
+    titulo_pagina = "Ventas Pendientes"
     usuarios_permitidos = [TipoUsuario.VENTAS]
     model = Venta
     template_name = 'ventas/listado_ventas.html'
@@ -18,14 +18,14 @@ class VentasPendientesLisView(PageTitleMixin, VistaRestringida, ListView):
     context_object_name = 'ventas'
 
 
-class VentasAprobadasLisView(PageTitleMixin, VistaRestringida, ListView):
-    page_title = "Ventas Aprobadas"
+class VentasAprobadasLisView(TituloPaginaMixin, VistaRestringida, ListView):
+    titulo_pagina = "Ventas Aprobadas"
     usuarios_permitidos = [TipoUsuario.VENTAS]
     model = Venta
     template_name = 'ventas/listado_ventas.html'
     queryset = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
     paginate_by = 10
-    ordering = ['fecha_venta']
+    ordering = ['-fecha_venta']
     context_object_name = 'ventas'
 
 

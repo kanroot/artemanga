@@ -1,7 +1,7 @@
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-
 from cuenta_usuario.models import Usuario
+from cuenta_usuario.enums.opciones import TipoUsuario
 
 
 class Command(BaseCommand):
@@ -43,7 +43,7 @@ class Command(BaseCommand):
             password='admin',
             primer_nombre='admin',
             primer_apellido='admin',
-            tipo_usuario=1
+            tipo_usuario=TipoUsuario.ADMINISTRADOR.value
         )
         ventas = Usuario.objects.create_user(
             username='ventas',
@@ -51,7 +51,8 @@ class Command(BaseCommand):
             password='admin',
             primer_nombre='ventas',
             primer_apellido='ventas',
-            tipo_usuario=2)
+            tipo_usuario=TipoUsuario.VENTAS.value
+        )
 
         admin.save()
         ventas.save()
