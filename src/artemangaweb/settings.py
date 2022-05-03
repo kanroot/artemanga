@@ -76,6 +76,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'artemangaweb.contexto_comun.obtener_editoriales_y_categorias',
+                'artemangaweb.contexto_comun.obtener_nuevos',
+                'artemangaweb.contexto_comun.obtener_destacados',
             ],
         },
     },
