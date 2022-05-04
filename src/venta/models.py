@@ -1,17 +1,120 @@
+from datetime import datetime
+
+from django.core.validators import RegexValidator
 from django.db import models
-from despacho.models import Despacho
+
+from cuenta_usuario.models import Usuario
 from inventario.models import Producto
-from .tipo_enum.estado_venta import ESTADO_VENTA_CHOICES, EstadoVenta
+from .enums.opciones import ESTADO_VENTA_CHOICES, EstadoVenta, EstadoDes, ESTADO_DESPACHO_CHOICE
+
+
+class Region(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Provincia(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    # conexion con la tabla region
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='provincias')
+
+    def __str__(self):
+        return self.nombre
+
+
+class Comuna(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    # conexion con la tabla provincia
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, related_name='comunas')
+
+    def __str__(self):
+        return self.nombre
+
+
+class Direccion(models.Model):
+    class Meta:
+        verbose_name_plural = 'Direcciones'
+
+    id = models.AutoField(primary_key=True)
+    calle = models.CharField(max_length=100)
+    numero = models.IntegerField()
+    departamento = models.CharField(max_length=200, verbose_name="departamento", blank=True)
+    piso = models.CharField(max_length=200, verbose_name="piso", blank=True, null=True)
+    codigo_postal = models.IntegerField(verbose_name="codigo postal", validators=[
+        RegexValidator(
+            regex=r'^[0-9]{7}$',
+            message='El codigo postal debe tener 7 digitos. Ej: 1234567',
+            code='invalid_codigo_postal'
+        )
+    ])
+    telefono = models.CharField(verbose_name="telefono", max_length=12, validators=[
+        RegexValidator(
+            regex=r'^(\+?56)?(\s?)(0?9)(\s?)[9876543]\d{7}$',
+            message='El celular debe seguir el siguiente formato: +569123456789',
+            code='invalid_celular')
+    ])
+    # conexiones
+    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE, related_name='direcciones')
+    # un usuario puede tener más de una dirección
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='direcciones')
+
+    @property
+    def provincia(self):
+        return self.comuna.provincia
+
+    @property
+    def region(self):
+        return self.provincia.region
+
+    @property
+    def direccion_completa(self):
+        return f"{self.calle} " \
+               f"#{self.numero} " \
+               f"{('depto.' + self.departamento) if self.departamento else ''} " \
+               f"{('piso' + self.piso) if self.piso else ''} " \
+               f"{self.comuna}, {self.provincia}, {self.region}"
+
+    @property
+    def direccion_corta(self):
+        return f"{self.calle} #{self.numero}, {self.comuna}"
+
+    def __str__(self):
+        return self.direccion_completa
+
+
+class Despacho(models.Model):
+    id = models.AutoField(primary_key=True)
+    estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
+    # conexiones
+    # una direccion puede pertenecer a un despacho o más de uno, pero un despacho puede solo pertenecer una direccion
+    direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, verbose_name="dirección")
+
+    @property
+    def usuario(self):
+        return self.direccion.usuario
+
+    def __str__(self):
+        return f"Despacho {self.id}, de {self.usuario}, en {self.direccion}"
 
 
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="total")
-    fecha_venta = models.DateField(verbose_name="fecha venta")
+    fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
-    imagen_deposito = models.ImageField(upload_to='comprobantes/', null=True, blank=True)
+    imagen_deposito = models.ImageField(default='comprobantes/holder.jpg' ,upload_to='comprobantes/')
     # conexiones
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.fecha_venta is None:
+            self.fecha_venta = datetime.now()
+        super().save(force_insert, force_update, using, update_fields)
 
 
 class VentaProducto(models.Model):

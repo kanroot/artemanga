@@ -80,14 +80,15 @@ class Command(BaseCommand):
             titulo_es = self.fake['es_ES'].sentence()
             titulo_jp = self.fake['ja_JP'].sentence()
             stock = random.randint(1, 100)
-            precio = self.fake.pydecimal(left_digits=6, right_digits=2, positive=True)
+            precio = self.fake.pyint(min_value=6000, max_value= 50000, step=1000)
             descripcion = self.fake['es_ES'].text()
             numero_paginas = random.randint(1, 1000)
             es_color = self.fake.boolean(chance_of_getting_true=10)
             fecha = date(*[int(d) for d in self.fake.date().split('-')])
             fecha_publicacion = fecha
-            esta_publicado = self.fake.boolean()
-            es_destacado = self.fake.boolean(chance_of_getting_true=10)
+            esta_publicado = self.fake.boolean(chance_of_getting_true=80)
+            es_nuevo = self.fake.boolean(chance_of_getting_true=50)
+            es_destacado = self.fake.boolean(chance_of_getting_true=50)
             autor = random.choice(Autor.objects.all())
             editorial = random.choice(Editorial.objects.all())
 
@@ -95,7 +96,7 @@ class Command(BaseCommand):
                 isbn=isbn, titulo_es=titulo_es, titulo_jp=titulo_jp, stock=stock, precio=precio,
                 descripcion=descripcion, numero_paginas=numero_paginas, es_color=es_color,
                 fecha_publicacion=fecha_publicacion, esta_publicado=esta_publicado, es_destacado=es_destacado,
-                autor=autor, editorial=editorial
+                es_nuevo=es_nuevo, autor=autor, editorial=editorial
             )
 
             producto.save()

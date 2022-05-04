@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'crispy_forms',
     'crispy_bootstrap5',
     'datos_prueba',
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     'catalogo',
     'contacto',
     'cuenta_usuario',
-    'despacho',
     'inventario',
     'venta',
 ]
@@ -78,6 +78,7 @@ TEMPLATES = [
                 'artemangaweb.contexto_comun.obtener_editoriales_y_categorias',
                 'artemangaweb.contexto_comun.obtener_nuevos',
                 'artemangaweb.contexto_comun.obtener_destacados',
+                'artemangaweb.contexto_comun.obtener_carrito',
             ],
         },
     },
@@ -167,4 +168,11 @@ MESSAGE_TAGS = {
         messages.SUCCESS: 'alert-success',
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
- }
+}
+
+# cookies de sesión
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_NAME = "user_session"
+SESSION_COOKIE_HTTPONLY = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

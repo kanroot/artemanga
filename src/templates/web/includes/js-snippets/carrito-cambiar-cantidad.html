@@ -1,0 +1,14 @@
+<script>
+    var $changedInput = $("#inputCantidad{{ pk }}");
+    $changedInput.on("change", function (event) {
+        actualizarCarritoAjax({{ pk }}, $(event.target).val());
+    });
+
+    actualizarCarritoAjax = (_pk, _cantidad) => {
+
+        $.post('actualizar-carrito', {pk: _pk, cantidad: _cantidad, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            (_) => {
+                location.reload(true);
+            });
+    };
+</script>

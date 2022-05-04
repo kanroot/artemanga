@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Venta, VentaProducto
+from .models import Venta, VentaProducto, Region, Provincia, Comuna, Direccion, Despacho
 
 
 class VentaProductoInline(admin.TabularInline):
@@ -10,3 +10,28 @@ class VentaProductoInline(admin.TabularInline):
 class VentaAdmin(admin.ModelAdmin):
     list_display = ('id', 'fecha_venta', 'total', 'estado')
     inlines = [VentaProductoInline]
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+
+
+@admin.register(Provincia)
+class ProvinciaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+
+
+@admin.register(Comuna)
+class ComunaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+
+
+@admin.register(Direccion)
+class DireccionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono', 'comuna', 'provincia', 'region')
+
+
+@admin.register(Despacho)
+class DespachoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'estado', 'usuario', 'direccion')

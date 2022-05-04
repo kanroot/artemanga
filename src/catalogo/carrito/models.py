@@ -16,7 +16,7 @@ def validar_stock(id_producto: int, cantidad: int) -> None:
 @dataclass
 class EntradaCarrito:
     cantidad: int
-    producto_id: int
+    pk: int
 
 
 @dataclass
@@ -27,7 +27,7 @@ class Carrito:
         """Obtiene un producto del carrito a partir de su id. Si el producto no existe, se lanza una excepción."""
 
         for p in self.productos:
-            if p.producto_id == id_producto:
+            if p.pk == id_producto:
                 return p
         raise ProductoNoExiste(id_producto)
 
@@ -35,7 +35,7 @@ class Carrito:
         """Agrega un producto al carrito. Si el producto ya existe, se aumenta la cantidad."""
 
         try:
-            producto_existente = self.obtener_producto(producto.producto_id)
+            producto_existente = self.obtener_producto(producto.pk)
             producto_existente.cantidad += producto.cantidad
         except ProductoNoExiste:
             self.productos.append(producto)
@@ -58,7 +58,7 @@ class Carrito:
 
         total = 0
         for p in self.productos:
-            total += self.total_producto(p.producto_id)
+            total += self.total_producto(p.pk)
         return total
 
     def aumentar_cantidad_producto(self, id_producto: int, cantidad: int) -> None:
@@ -111,7 +111,7 @@ class Carrito:
         productos: list[EntradaCarrito] = []
         for p in diccionario['productos']:
             try:
-                productos.append(EntradaCarrito(p['cantidad'], p['producto_id']))
+                productos.append(EntradaCarrito(p['cantidad'], p['pk']))
             except KeyError:
                 raise CarritoDeserializacionInvalida(p)
 

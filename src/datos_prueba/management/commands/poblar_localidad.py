@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
 from datos_prueba.datos_localidad import regiones, provincias, comunas
-from despacho.models import Region, Provincia, Comuna, Direccion
+from venta.models import Region, Provincia, Comuna, Direccion
 
 
 class Command(BaseCommand):

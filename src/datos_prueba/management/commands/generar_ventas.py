@@ -1,14 +1,14 @@
 import random
 
 from django.core.management.base import BaseCommand
-from venta.models import Venta, VentaProducto
-from venta.tipo_enum.estado_venta import ESTADO_VENTA_CHOICES
-from inventario.models import Producto
-from despacho.models import Despacho, Direccion, Comuna
-from cuenta_usuario.models import Usuario
-from cuenta_usuario.enums.opciones import TipoUsuario
 from faker import Faker
 from tqdm import tqdm
+
+from cuenta_usuario.enums.opciones import TipoUsuario
+from cuenta_usuario.models import Usuario
+from inventario.models import Producto
+from venta.enums.opciones import ESTADO_VENTA_CHOICES
+from venta.models import Venta, VentaProducto, Comuna, Direccion, Despacho
 
 
 class Command(BaseCommand):
@@ -62,7 +62,6 @@ class Command(BaseCommand):
                 despacho=despacho,
                 total=total,
                 fecha_venta=self.fake.date_time_between(start_date='-1y', end_date='now'),
-                imagen_deposito=self.fake.image_url(),
                 estado=random.choice(ESTADO_VENTA_CHOICES)[0]
             )
             venta.save()

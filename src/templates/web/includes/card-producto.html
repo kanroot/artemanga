@@ -1,6 +1,7 @@
 {% load static %}
+{% load humanize %}
 
-<div class="col-3">
+<div class="col-lg-3 col-md-6 col-sm-12">
     <div class="card border-0">
         <img class="card-img-top h-70" src="{{ producto.portada.url }}" alt="">
         <div class="card-body">
@@ -12,7 +13,7 @@
                     <h4 class="card-title">{{ producto.titulo_es }}</h4>
                 </div>
                 <div class="row">
-                    <h4><strong>${{ producto.precio }}</strong></h4>
+                    <h4><strong>${{ producto.precio | intcomma }}</strong></h4>
                 </div>
                 {% if esta_en_oferta %}
                 <div class="row">
@@ -21,7 +22,7 @@
                 {% endif %}
                 <div class="row justify-content-center">
                     <div class="col-3 p-2">
-                        <button type="button" class="btn btn-warning">
+                        <button type="button" onclick="agregarProducto({{ producto.pk }})" class="btn btn-warning">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
                     </div>
@@ -30,3 +31,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    agregarProducto = (id) => {
+        $.post('agregar-producto-carrito', {pk: id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            (_) => {
+                location.href = ('{% url "ver-carrito" %}')
+            })
+    }
+</script>

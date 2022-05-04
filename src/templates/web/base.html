@@ -6,7 +6,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-2 col-md-12">
                 <div class="logo">
-                    <a class="navbar-brand" href="#"><img src="{% static 'img/manga.png' %}" width="150" height="100"
+                    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/manga.png' %}" width="150" height="100"
                                                           alt="logo"></a>
                 </div>
             </div>
@@ -18,9 +18,11 @@
                                aria-label="Search">
                     </div>
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-primary btn-block">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
+                        <a href="{% url 'ver-carrito' %}">
+                            <button type="button" class="btn btn-primary btn-block">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </a>
                         <a href="{% url 'login' %}">
                             <button type="button" class="btn btn-primary btn-block">
                                 <i class="fa-solid fa-user"></i>
@@ -45,7 +47,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
