@@ -1,32 +1,57 @@
-{% extends "administración/CRUD/_listado_base.html" %}
+{% extends 'administración/base.html' %}
 
-{% block titulo %}Listado Productos{% endblock %}
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ titulo_pagina }}</h3>
+                    </div>
+                    <div class="card">
+                        <a class="btn btn-success rounded-circle position-absolute end-0"
+                           href="{% url url_crear %}">+</a>
+                        <div class="card-body">
 
-{% block cabeceras %}
-    <th>PK</th>
-    <th>ISBN</th>
-    <th>Título Esp</th>
-    <th>Título Jap</th>
-    <th>Autor</th>
-    <th>Stock</th>
-    <th>Precio</th>
-    <th>Precio sin IVA</th>
-    <th>Acciones</th>
-{% endblock %}
-
-{% block filas %}
-    {% for item in object_list %}
-        <tr>
-            <td>{{ item.pk }}</td>
-            <td>{{ item.isbn }}</td>
-            <td>{{ item.titulo_es }}</td>
-            <td>{{ item.titulo_jp }}</td>
-            <td>{{ item.autor }}</td>
-            <td>{{ item.stock }}</td>
-            <td>{{ item.precio }}</td>
-            <td>{{ item.precio_sin_iva }}</td>
-            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
-        </tr>
-    {% endfor %}
-
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>PK</th>
+                                        <th>ISBN</th>
+                                        <th>Título Esp</th>
+                                        <th>Título Jap</th>
+                                        <th>Autor</th>
+                                        <th>Stock</th>
+                                        <th>Precio</th>
+                                        <th>Precio sin IVA</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for producto in productos %}
+                                        <tr>
+                                            <td>{{ producto.pk }}</td>
+                                            <td>{{ producto.isbn }}</td>
+                                            <td>{{ producto.titulo_es }}</td>
+                                            <td>{{ producto.titulo_jp }}</td>
+                                            <td>{{ producto.autor }}</td>
+                                            <td>{{ producto.stock }}</td>
+                                            <td>{{ producto.precio }}</td>
+                                            <td>{{ producto.precio_sin_iva }}</td>
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=producto.pk %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% include 'común/includes/paginación.html' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
