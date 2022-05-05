@@ -10,7 +10,7 @@ from cuenta_usuario.restriccion import VistaRestringida
 URL_EXITO = reverse_lazy('listado-otro-autor')
 
 
-class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida,ListView):
+class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida, ListView):
     titulo_pagina = 'Listado de Generos'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = OtrosAutores
@@ -31,16 +31,28 @@ class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida,ListView):
         return context
 
 
-class OtrosAutoresCreateView(CrearGenerico):
+class OtrosAutoresCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+    titulo_pagina = 'Crear Otro Autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo crear el Otro Autor"
+    mensaje_exito = "Otro Autor creado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresUpdateView(ActualizarGenerico):
+class OtrosAutoresUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+    titulo_pagina = 'Actualizar Otro Autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo actualizar el Otro Autor"
+    mensaje_exito = "Otro Autor actualizado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresDeleteView(EliminarGenerico):
+class OtrosAutoresDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+    titulo_pagina = 'Eliminar Otro Autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo eliminar el Otro Autor"
+    mensaje_exito = "Otro Autor eliminado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
