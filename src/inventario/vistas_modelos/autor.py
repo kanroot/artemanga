@@ -1,16 +1,19 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-
 from inventario.models import Autor
-
+from cuenta_usuario.enums.opciones import TipoUsuario
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
 
 EXITO_URL = reverse_lazy('listado-autor')
 
 
-class AutorListView(ListView):
+class AutorListView(TituloPaginaMixin,
+                    ListView):
     model = Autor
     context_object_name = 'Autores'
+    titulo_pagina = "Autores registrados"
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     template_name = 'administración/CRUD/listado_autor.html'
     paginate_by = 10
     ordering = ['id']
