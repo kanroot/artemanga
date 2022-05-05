@@ -9,7 +9,7 @@ from .enums.opciones import TipoUsuario
 
 
 class InicioSesionView(MensajeResultadoFormMixin, LoginView):
-    template_name = 'login.html'
+    template_name = 'web/login.html'
     mensaje_exito = 'Ha iniciado sesión correctamente'
     mensaje_error = ''
     success_url = '/'
@@ -17,7 +17,7 @@ class InicioSesionView(MensajeResultadoFormMixin, LoginView):
 
 class RegistroUsuarioView(MensajeResultadoFormMixin, CreateView):
     model = Usuario
-    template_name = 'generico_form.html'
+    template_name = 'web/generico_form.html'
     form_class = RegistroUsuarioForm
     mensaje_exito = "Tu perfil ha sido creado con éxito"
     mensaje_error = "No se ha podido crear tu perfil"
@@ -38,7 +38,7 @@ class ActualizarUsuarioView(VistaRestringida, MensajeResultadoFormMixin, UpdateV
             raise Http404("No user matching this query")
         return obj
 
-    template_name = 'generico_form.html'
+    template_name = 'web/generico_form.html'
     fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'sexo']
     mensaje_exito = "Tu perfil ha sido modificado con éxito"
     mensaje_error = "No se ha podido modificar tu perfil"
