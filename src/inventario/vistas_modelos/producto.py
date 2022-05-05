@@ -12,7 +12,7 @@ from inventario.forms import ProductoBodegaForm, ActualizarProductoVentasForm
 
 class ProductoListView(ListView):
     model = Producto
-    template_name = 'CRUD/listado_producto.html'
+    template_name = 'administración/CRUD/listado_producto.html'
     paginate_by = 10
     ordering = ['pk']
 
@@ -49,7 +49,7 @@ class ProductoDeleteView(EliminarGenerico):
 
 class ActualizarProductoVentasView(VistaRestringida, MensajeResultadoFormMixin, UpdateView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
-    template_name = 'CRUD/form_generico.html'
+    template_name = 'administración/CRUD/form_generico.html'
     model = Producto
     form_class = ActualizarProductoVentasForm
     success_url = reverse_lazy('ventas-listado-productos')
@@ -58,7 +58,7 @@ class ActualizarProductoVentasView(VistaRestringida, MensajeResultadoFormMixin, 
 class VentasListadoProductosView(VistaRestringida, ListView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Producto
-    template_name = "ventas/listado_productos.html"
+    template_name = "administración/ventas/listado_productos.html"
     queryset = Producto.objects.all()
     ordering = ['esta_publicado']
     paginate_by = 10

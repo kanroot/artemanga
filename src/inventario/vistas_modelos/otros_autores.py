@@ -9,7 +9,7 @@ URL_EXITO = reverse_lazy('listado-otro-autor')
 
 class OtrosAutoresListView(ListView):
     model = OtrosAutores
-    template_name = 'CRUD/listado_otro_autor.html'
+    template_name = 'administración/CRUD/listado_otro_autor.html'
     paginate_by = 10
     ordering = ['id']
 

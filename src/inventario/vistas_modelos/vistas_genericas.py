@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 
-FORM_TEMPLATE = 'CRUD/form_generico.html'
-ELIMINAR_TEMPLATE = 'CRUD/eliminar_generico.html'
+FORM_TEMPLATE = 'administración/CRUD/form_generico.html'
+ELIMINAR_TEMPLATE = 'administración/CRUD/eliminar_generico.html'
 
 
 class CrearGenerico(CreateView):

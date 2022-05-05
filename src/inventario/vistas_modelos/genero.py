@@ -8,7 +8,7 @@ EXITO_URL = reverse_lazy('listado-genero')
 
 class GeneroListView(ListView):
     model = Genero
-    template_name = 'CRUD/listado_genero.html'
+    template_name = 'administración/CRUD/listado_genero.html'
     paginate_by = 10
     ordering = ['id']
 

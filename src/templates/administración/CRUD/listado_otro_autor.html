@@ -1,18 +1,21 @@
-{% extends "CRUD/_listado_base.html" %}
+{% extends "administración/CRUD/_listado_base.html" %}
 
 {% block titulo %}Listado Productos{% endblock %}
 
 {% block cabeceras %}
+    <th>ID</th>
     <th>Nombre</th>
+    <th>Cargo</th>
     <th>Acciones</th>
-
 {% endblock %}
 
 {% block filas %}
     {% for item in object_list %}
         <tr>
+            <td>{{ item.id }}</td>
             <td>{{ item.nombre }}</td>
-            {% include 'CRUD/accion_botones.html' with pk=item.pk %}
+            <td>{{ item.cargo }}</td>
+            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}
 

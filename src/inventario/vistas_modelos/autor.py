@@ -11,7 +11,7 @@ EXITO_URL = reverse_lazy('listado-autor')
 class AutorListView(ListView):
     model = Autor
     context_object_name = 'Autores'
-    template_name = 'CRUD/listado_autor.html'
+    template_name = 'administración/CRUD/listado_autor.html'
     paginate_by = 10
     ordering = ['id']
 

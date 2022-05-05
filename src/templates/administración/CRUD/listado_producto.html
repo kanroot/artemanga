@@ -1,4 +1,4 @@
-{% extends "CRUD/_listado_base.html" %}
+{% extends "administración/CRUD/_listado_base.html" %}
 
 {% block titulo %}Listado Productos{% endblock %}
 
@@ -25,7 +25,7 @@
             <td>{{ item.stock }}</td>
             <td>{{ item.precio }}</td>
             <td>{{ item.precio_sin_iva }}</td>
-            {% include 'CRUD/accion_botones.html' with pk=item.pk %}
+            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
         </tr>
     {% endfor %}
 

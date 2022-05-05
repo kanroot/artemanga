@@ -9,7 +9,7 @@ EXITO_URL = reverse_lazy('listado-editorial')
 
 class EditorialListView(ListView):
     model = Editorial
-    template_name = 'CRUD/listado_editorial.html'
+    template_name = 'administración/CRUD/listado_editorial.html'
     paginate_by = 10
     ordering = ['id']
 
