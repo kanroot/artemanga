@@ -26,7 +26,7 @@
                                     {% for genero in generos %}
                                         <tr>
                                             <td>{{ genero.nombre }}</td>
-                                            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=genero.pk %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>

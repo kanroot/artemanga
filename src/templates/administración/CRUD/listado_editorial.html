@@ -30,7 +30,7 @@
                                             <td>{{ editorial.id }}</td>
                                             <td>{{ editorial.nombre }}</td>
                                             <td>{{ editorial.pais }}</td>
-                                            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=editorial.pk %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>

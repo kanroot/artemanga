@@ -38,7 +38,7 @@
                                     <i class="fa {% if autor.es_activo %}fa-check{% else %}fa-remove{% endif %}"></i>
                                 </span>
                                             </td>
-                                            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=autor.pk %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
