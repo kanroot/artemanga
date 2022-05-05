@@ -1,22 +1,47 @@
-{% extends "administración/CRUD/_listado_base.html" %}
+{% extends 'administración/base.html' %}
 
-{% block titulo %}Listado Autores{% endblock %}
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ titulo_pagina }}</h3>
+                    </div>
+                    <div class="card">
+                        <a class="btn btn-success rounded-circle position-absolute end-0"
+                           href="{% url url_crear %}">+</a>
+                        <div class="card-body">
 
-{% block cabeceras %}
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>País</th>
-    <th>Acciones</th>
-{% endblock %}
-
-{% block filas %}
-    {% for item in object_list %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.pais }}</td>
-            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
-        </tr>
-    {% endfor %}
-
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>País</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for editorial in editoriales %}
+                                        <tr>
+                                            <td>{{ editorial.id }}</td>
+                                            <td>{{ editorial.nombre }}</td>
+                                            <td>{{ editorial.pais }}</td>
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=item.pk %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% include 'común/includes/paginación.html' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
