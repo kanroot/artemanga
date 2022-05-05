@@ -11,7 +11,7 @@ URL_EXITO = reverse_lazy('listado-otro-autor')
 
 
 class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida, ListView):
-    titulo_pagina = 'Listado de Generos'
+    titulo_pagina = 'Listado de otros autores'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = OtrosAutores
     template_name = 'administración/CRUD/listado_otro_autor.html'
@@ -32,7 +32,7 @@ class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida, ListView):
 
 
 class OtrosAutoresCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
-    titulo_pagina = 'Crear Otro Autor'
+    titulo_pagina = 'Crear otro autor'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo crear el Otro Autor"
     mensaje_exito = "Otro Autor creado con éxito"
@@ -41,7 +41,7 @@ class OtrosAutoresCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, Vista
 
 
 class OtrosAutoresUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
-    titulo_pagina = 'Actualizar Otro Autor'
+    titulo_pagina = 'Actualizar otro autor'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo actualizar el Otro Autor"
     mensaje_exito = "Otro Autor actualizado con éxito"
@@ -50,7 +50,7 @@ class OtrosAutoresUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, Vista
 
 
 class OtrosAutoresDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
-    titulo_pagina = 'Eliminar Otro Autor'
+    titulo_pagina = 'Eliminar otro autor'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo eliminar el Otro Autor"
     mensaje_exito = "Otro Autor eliminado con éxito"
