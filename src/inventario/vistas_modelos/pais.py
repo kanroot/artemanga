@@ -38,7 +38,6 @@ class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestring
     model = Pais
     success_url = EXITO_URL
 
-
 class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
     titulo_pagina = 'Actualizar País'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]

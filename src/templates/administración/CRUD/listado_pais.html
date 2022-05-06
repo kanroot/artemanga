@@ -26,7 +26,7 @@
                                     {% for pais in paises %}
                                         <tr>
                                             <td>{{ pais.nombre }}</td>
-                                            {% include 'administración/CRUD/accion_botones.html' with pais=producto.pk %}
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=pais.id %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>

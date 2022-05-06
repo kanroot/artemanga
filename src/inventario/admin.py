@@ -7,7 +7,8 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = (
         'isbn',
         'titulo_es', 'titulo_jp', 'precio', 'stock',
-        'fecha_publicacion', 'esta_publicado', 'autor',
+        'fecha_publicacion', 'esta_publicado', 'autor', 'es_destacado',
+        'es_nuevo',
         'editorial'
     )
 

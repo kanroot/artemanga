@@ -27,7 +27,9 @@
                                     <th>Stock</th>
                                     <th>Destacado</th>
                                     <th>Publicado</th>
+                                    <th>Nuevo</th>
                                     <th>Examinar</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,7 +64,15 @@
                                 </span>
                                         </td>
                                         <td style="text-align: center;">
-                                            <a href="{% url 'ventas-actualizar-producto' producto.pk %}" class="btn btn-outline-primary">
+                                <span class="badge rounded-pill
+                                        {% if producto.es_nuevo %} bg-success {% else %} bg-danger {% endif %}">
+
+                                    <i class="fa {% if producto.es_nuevo %}fa-check{% else %}fa-remove{% endif %}"></i>
+                                </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="{% url 'ventas-actualizar-producto' producto.pk %}"
+                                               class="btn btn-outline-primary">
                                                 <i class="fa fa-search"></i>
                                             </a>
                                         </td>

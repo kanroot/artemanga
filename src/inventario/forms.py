@@ -22,4 +22,4 @@ class ProductoBodegaForm(forms.ModelForm):
 class ActualizarProductoVentasForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['es_destacado', 'esta_publicado', 'precio']
+        fields = ['es_nuevo', 'es_destacado', 'esta_publicado', 'precio']
