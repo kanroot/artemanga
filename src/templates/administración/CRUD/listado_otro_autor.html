@@ -30,7 +30,7 @@
                                             <td>{{ autor.id }}</td>
                                             <td>{{ autor.nombre }}</td>
                                             <td>{{ autor.cargo }}</td>
-                                            {% include 'administración/CRUD/accion_botones.html' with autor=item.pk %}
+                                            {% include 'administración/CRUD/accion_botones.html' with pk=autor.id %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
