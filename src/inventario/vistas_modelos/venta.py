@@ -11,7 +11,7 @@ class VentasPendientesLisView(TituloPaginaMixin, VistaRestringida, ListView):
     titulo_pagina = "Ventas Pendientes"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
-    template_name = 'ventas/listado_ventas.html'
+    template_name = 'administración/ventas/listado_ventas.html'
     queryset = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value)
     paginate_by = 10
     ordering = ['fecha_venta']
@@ -22,7 +22,7 @@ class VentasAprobadasLisView(TituloPaginaMixin, VistaRestringida, ListView):
     titulo_pagina = "Ventas Aprobadas"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
-    template_name = 'ventas/listado_ventas.html'
+    template_name = 'administración/ventas/listado_ventas.html'
     queryset = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
     paginate_by = 10
     ordering = ['-fecha_venta']
@@ -32,6 +32,6 @@ class VentasAprobadasLisView(TituloPaginaMixin, VistaRestringida, ListView):
 class VentaUpdateView(VistaRestringida, MensajeResultadoFormMixin, UpdateView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
-    template_name = 'CRUD/form_generico.html'
+    template_name = 'administración/CRUD/form_generico.html'
     success_url = reverse_lazy('ventas-validar')
     fields = ['estado']

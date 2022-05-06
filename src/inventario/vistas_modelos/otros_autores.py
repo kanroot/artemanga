@@ -3,15 +3,21 @@ from django.views.generic import ListView
 
 from inventario.models import OtrosAutores
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
+from cuenta_usuario.enums.opciones import TipoUsuario
+from cuenta_usuario.restriccion import VistaRestringida
 
 URL_EXITO = reverse_lazy('listado-otro-autor')
 
 
-class OtrosAutoresListView(ListView):
+class OtrosAutoresListView(TituloPaginaMixin, VistaRestringida, ListView):
+    titulo_pagina = 'Listado de otros autores'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = OtrosAutores
-    template_name = 'CRUD/listado_otro_autor.html'
+    template_name = 'administración/CRUD/listado_otro_autor.html'
     paginate_by = 10
     ordering = ['id']
+    context_object_name = 'otros_autores'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,16 +31,28 @@ class OtrosAutoresListView(ListView):
         return context
 
 
-class OtrosAutoresCreateView(CrearGenerico):
+class OtrosAutoresCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+    titulo_pagina = 'Crear otro autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo crear el Otro Autor"
+    mensaje_exito = "Otro Autor creado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresUpdateView(ActualizarGenerico):
+class OtrosAutoresUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+    titulo_pagina = 'Actualizar otro autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo actualizar el Otro Autor"
+    mensaje_exito = "Otro Autor actualizado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresDeleteView(EliminarGenerico):
+class OtrosAutoresDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+    titulo_pagina = 'Eliminar otro autor'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = "No se pudo eliminar el Otro Autor"
+    mensaje_exito = "Otro Autor eliminado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO

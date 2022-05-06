@@ -1,16 +1,20 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-
 from inventario.models import Pais
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
+from cuenta_usuario.enums.opciones import TipoUsuario
+from cuenta_usuario.restriccion import VistaRestringida
 
 EXITO_URL = reverse_lazy('listado-pais')
 
 
-class PaisListView(ListView):
+class PaisListView(TituloPaginaMixin, VistaRestringida, ListView):
+    titulo_pagina = 'Listado de Países'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    context_object_name = 'paises'
     model = Pais
-    template_name = 'CRUD/listado_pais.html'
+    template_name = 'administración/CRUD/listado_pais.html'
     paginate_by = 10
     ordering = ['id']
 
@@ -26,16 +30,28 @@ class PaisListView(ListView):
         return context
 
 
-class PaisCreateView(CrearGenerico):
+class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+    titulo_pagina = 'Crear País'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = 'No se pudo crear el país'
+    mensaje_exito = 'País creado con éxito'
     model = Pais
     success_url = EXITO_URL
 
 
-class PaisUpdateView(ActualizarGenerico):
+class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+    titulo_pagina = 'Actualizar País'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = 'No se pudo actualizar el país'
+    mensaje_exito = 'País actualizado con éxito'
     model = Pais
     success_url = EXITO_URL
 
 
-class PaisDeleteView(EliminarGenerico):
+class PaisDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+    titulo_pagina = 'Eliminar País'
+    usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
+    mensaje_error = 'No se pudo eliminar el país'
+    mensaje_exito = 'País eliminado con éxito'
     model = Pais
     success_url = EXITO_URL
