@@ -38,6 +38,11 @@ class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestring
     model = Pais
     success_url = EXITO_URL
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nombre'] = self.get_object().nombre
+        return context
+
 
 class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
     titulo_pagina = 'Actualizar País'
