@@ -57,7 +57,7 @@
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
 
                             {% for i in categorias %}
-                                <li><a class="dropdown-item" href="#">{{ i }}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'productos-por-categoria' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
                             <li>
@@ -72,7 +72,7 @@
                         </a>
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
                             {% for i in editoriales %}
-                                <li><a class="dropdown-item" href="#">{{ i }}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'productos-por-editorial' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
                             <li>

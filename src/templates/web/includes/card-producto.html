@@ -2,16 +2,16 @@
 {% load humanize %}
 
 <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="card border-0">
+    <div class="card h-100 border-0">
         <a class="card-block stretched-link text-decoration-none" href="{% url 'detalle-producto' producto.pk %}"></a>
-        <img class="card-img-top h-70" src="{{ producto.portada.url }}" alt="">
+        <img class="card-img-top" src="{{ producto.portada.url }}" alt="">
         <div class="card-body">
             <div class="container text-center">
                 <div class="row">
                     <span class="card-title text-secondary">{{ producto.editorial.nombre }}</span>
                 </div>
                 <div class="row">
-                    <h4 class="card-title">{{ producto.titulo_es }}</h4>
+                    <h5 class="card-title">{{ producto.titulo_es }}</h5>
                 </div>
                 <div class="row">
                     <h4><strong>${{ producto.precio | intcomma }}</strong></h4>
@@ -35,7 +35,7 @@
 
 <script>
     agregarProducto = (id) => {
-        $.post('agregar-producto-carrito', {pk: id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+        $.post('{% url "ajax-agregar-producto-carrito" %}', {pk: id, csrfmiddlewaretoken: '{{ csrf_token }}'},
             (_) => {
                 location.href = ('{% url "ver-carrito" %}')
             })

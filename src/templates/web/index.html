@@ -27,5 +27,17 @@
     </div>
     {% endif %}
 
+    {% if randoms %}
+    <div class="row">
+        <h1>¿Qué leo ahora? Recomendaciones random:</h1>
+        <hr>
+    </div>
+    <div class="row">
+        {% for random in randoms %}
+            {% include 'web/includes/card-producto.html' with producto=random %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </div>
 {% endblock %}
