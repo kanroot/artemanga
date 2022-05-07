@@ -24,7 +24,7 @@ class RegistroUsuarioView(MensajeResultadoFormMixin, CreateView):
 
 
 class ActualizarUsuarioView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
-    usuarios_permitidos = [TipoUsuario.CLIENTE]
+    usuarios_permitidos = [TipoUsuario.CLIENTE, TipoUsuario.ADMINISTRADOR]
     model = Usuario
 
     def get_object(self, queryset=None):
