@@ -4,7 +4,6 @@ from django.views.generic import CreateView, UpdateView
 from .models import Usuario
 from .forms import RegistroUsuarioForm
 from artemangaweb.mixins import MensajeResultadoFormMixin, VistaRestringidaMixin
-from .enums.opciones import TipoUsuario
 
 
 class InicioSesionView(MensajeResultadoFormMixin, LoginView):
@@ -24,7 +23,7 @@ class RegistroUsuarioView(MensajeResultadoFormMixin, CreateView):
 
 
 class ActualizarUsuarioView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
-    usuarios_permitidos = [TipoUsuario.CLIENTE, TipoUsuario.ADMINISTRADOR]
+    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     model = Usuario
 
     def get_object(self, queryset=None):
