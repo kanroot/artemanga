@@ -1,15 +1,14 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from cuenta_usuario.enums.opciones import TipoUsuario
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
-from cuenta_usuario.restriccion import VistaRestringida
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 from inventario.models import Editorial
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
 
 EXITO_URL = reverse_lazy('listado-editorial')
 
 
-class EditorialListView(TituloPaginaMixin, VistaRestringida, ListView):
+class EditorialListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
     titulo_pagina = 'Editoriales'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
@@ -30,7 +29,7 @@ class EditorialListView(TituloPaginaMixin, VistaRestringida, ListView):
         return context
 
 
-class EditorialCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+class EditorialCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
     titulo_pagina = 'Crear Editorial'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
@@ -39,7 +38,7 @@ class EditorialCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRes
     success_url = EXITO_URL
 
 
-class EditorialUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+class EditorialUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
     titulo_pagina = 'Actualizar Editorial'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
@@ -48,7 +47,7 @@ class EditorialUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRes
     success_url = EXITO_URL
 
 
-class EditorialDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+class EditorialDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
     titulo_pagina = 'Eliminar Editorial'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial

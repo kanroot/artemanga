@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Venta, VentaProducto, Region, Provincia, Comuna, Direccion, Despacho
+from .models import Venta, VentaProducto, Region, Provincia, Comuna, Direccion, Despacho, ComprobanteTemporal
 
 
 class VentaProductoInline(admin.TabularInline):
@@ -29,9 +29,14 @@ class ComunaAdmin(admin.ModelAdmin):
 
 @admin.register(Direccion)
 class DireccionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono', 'comuna', 'provincia', 'region')
+    list_display = ('id', 'usuario', 'calle', 'numero', 'departamento', 'piso', 'codigo_postal', 'telefono', 'comuna', 'provincia', 'region')
 
 
 @admin.register(Despacho)
 class DespachoAdmin(admin.ModelAdmin):
     list_display = ('id', 'estado', 'usuario', 'direccion')
+
+
+@admin.register(ComprobanteTemporal)
+class ComprobanteTemporalAdmin(admin.ModelAdmin):
+    list_display = ('id', 'usuario', 'fecha_creacion')

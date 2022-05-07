@@ -128,3 +128,9 @@ class VentaProducto(models.Model):
     class Meta:
         verbose_name = "Productos de la venta"
         verbose_name_plural = "Productos de la venta"
+
+
+class ComprobanteTemporal(models.Model):
+    comprobante = models.ImageField(upload_to='tmp/')
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

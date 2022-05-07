@@ -2,14 +2,13 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 from inventario.models import Pais
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from cuenta_usuario.restriccion import VistaRestringida
 
 EXITO_URL = reverse_lazy('listado-pais')
 
 
-class PaisListView(TituloPaginaMixin, VistaRestringida, ListView):
+class PaisListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
     titulo_pagina = 'Listado de Países'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     context_object_name = 'paises'
@@ -30,7 +29,7 @@ class PaisListView(TituloPaginaMixin, VistaRestringida, ListView):
         return context
 
 
-class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
     titulo_pagina = 'Crear País'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = 'No se pudo crear el país'
@@ -38,7 +37,8 @@ class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestring
     model = Pais
     success_url = EXITO_URL
 
-class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+
+class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
     titulo_pagina = 'Actualizar País'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = 'No se pudo actualizar el país'
@@ -47,7 +47,7 @@ class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestring
     success_url = EXITO_URL
 
 
-class PaisDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+class PaisDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
     titulo_pagina = 'Eliminar País'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = 'No se pudo eliminar el país'

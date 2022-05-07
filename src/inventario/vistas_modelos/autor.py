@@ -3,13 +3,12 @@ from django.views.generic import ListView
 from inventario.models import Autor
 from cuenta_usuario.enums.opciones import TipoUsuario
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
-from cuenta_usuario.restriccion import VistaRestringida
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 
 EXITO_URL = reverse_lazy('listado-autor')
 
 
-class AutorListView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida,
+class AutorListView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin,
                     ListView):
     model = Autor
     context_object_name = 'Autores'
@@ -31,7 +30,7 @@ class AutorListView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringi
         return context
 
 
-class AutorCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida,CrearGenerico):
+class AutorCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
     titulo_pagina = "Crear autor"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo crear el autor"
@@ -40,7 +39,7 @@ class AutorCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestrin
     success_url = EXITO_URL
 
 
-class AutorUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida,ActualizarGenerico):
+class AutorUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
     titulo_pagina = "Actualizar autor"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo actualizar el autor"
@@ -49,7 +48,7 @@ class AutorUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestrin
     success_url = EXITO_URL
 
 
-class AutorDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida,EliminarGenerico):
+class AutorDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
     titulo_pagina = "Eliminar autor"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo eliminar el autor"

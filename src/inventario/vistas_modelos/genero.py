@@ -2,14 +2,13 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 from inventario.models import Genero
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from cuenta_usuario.restriccion import VistaRestringida
 
 EXITO_URL = reverse_lazy('listado-genero')
 
 
-class GeneroListView(TituloPaginaMixin, VistaRestringida, ListView):
+class GeneroListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
     titulo_pagina = 'Listado de Generos'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Genero
@@ -30,7 +29,7 @@ class GeneroListView(TituloPaginaMixin, VistaRestringida, ListView):
         return context
 
 
-class GeneroCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+class GeneroCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
     titulo_pagina = "Actualizar producto"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo crear el genero"
@@ -39,7 +38,7 @@ class GeneroCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestri
     success_url = EXITO_URL
 
 
-class GeneroUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+class GeneroUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
     titulo_pagina = "Actualizar genero"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo actualizar el genero"
@@ -48,7 +47,7 @@ class GeneroUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestri
     success_url = EXITO_URL
 
 
-class GeneroDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+class GeneroDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
     titulo_pagina = "Eliminar genero"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     mensaje_error = "No se pudo eliminar el genero"

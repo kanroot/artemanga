@@ -3,8 +3,7 @@ from django.http import Http404
 from django.views.generic import CreateView, UpdateView
 from .models import Usuario
 from .forms import RegistroUsuarioForm
-from artemangaweb.mixins import MensajeResultadoFormMixin
-from .restriccion import VistaRestringida
+from artemangaweb.mixins import MensajeResultadoFormMixin, VistaRestringidaMixin
 from .enums.opciones import TipoUsuario
 
 
@@ -24,7 +23,7 @@ class RegistroUsuarioView(MensajeResultadoFormMixin, CreateView):
     success_url = '/'
 
 
-class ActualizarUsuarioView(VistaRestringida, MensajeResultadoFormMixin, UpdateView):
+class ActualizarUsuarioView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
     usuarios_permitidos = [TipoUsuario.CLIENTE]
     model = Usuario
 

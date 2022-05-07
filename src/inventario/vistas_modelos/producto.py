@@ -1,14 +1,13 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 from cuenta_usuario.enums.opciones import TipoUsuario
-from cuenta_usuario.restriccion import VistaRestringida
 from inventario.models import Producto
 from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
 from inventario.forms import ProductoBodegaForm, ActualizarProductoVentasForm
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin
+from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 
 
-class ProductoListView(TituloPaginaMixin, VistaRestringida, ListView):
+class ProductoListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
     titulo_pagina = "Productos en inventario"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
@@ -29,7 +28,7 @@ class ProductoListView(TituloPaginaMixin, VistaRestringida, ListView):
         return context
 
 
-class ProductoUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, ActualizarGenerico):
+class ProductoUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
     titulo_pagina = "Actualizar producto"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
@@ -40,7 +39,7 @@ class ProductoUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRest
     success_url = reverse_lazy('listado-producto')
 
 
-class ProductoCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, CrearGenerico):
+class ProductoCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
     titulo_pagina = 'Crear producto'
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
@@ -51,7 +50,7 @@ class ProductoCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRest
     success_url = reverse_lazy('listado-producto')
 
 
-class ProductoDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringida, EliminarGenerico):
+class ProductoDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
     titulo_pagina = "Confirmar eliminación de producto"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
@@ -60,7 +59,7 @@ class ProductoDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRest
     success_url = reverse_lazy('listado-producto')
 
 
-class ActualizarProductoVentasView(VistaRestringida, MensajeResultadoFormMixin, UpdateView):
+class ActualizarProductoVentasView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     template_name = 'administración/CRUD/form_generico.html'
     model = Producto
@@ -68,7 +67,7 @@ class ActualizarProductoVentasView(VistaRestringida, MensajeResultadoFormMixin, 
     success_url = reverse_lazy('ventas-listado-productos')
 
 
-class VentasListadoProductosView(VistaRestringida, ListView):
+class VentasListadoProductosView(VistaRestringidaMixin, ListView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Producto
     template_name = "administración/ventas/listado_productos.html"
