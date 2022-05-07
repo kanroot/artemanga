@@ -6,8 +6,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-2 col-md-12">
                 <div class="logo">
-                    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/manga.png' %}" width="150"
-                                                                         height="100"
+                    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/manga.png' %}" width="150" height="100"
                                                                          alt="logo"></a>
                 </div>
             </div>
@@ -24,7 +23,6 @@
                                 <i class="fa-solid fa-cart-plus"></i>
                             </button>
                         </a>
-                        {% if user.is_authenticated %}<span>Hola, {{ user.username }}</span>{% endif %}
                     </div>
                 </div>
             </form>
@@ -53,8 +51,7 @@
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
 
                             {% for i in categorias %}
-                                <li><a class="dropdown-item" href="{% url 'productos-por-categoria' i.id %}">{{ i }}</a>
-                                </li>
+                                <li><a class="dropdown-item" href="{% url 'productos-por-categoria' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
                             <li>
@@ -69,13 +66,10 @@
                         </a>
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
                             {% for i in editoriales %}
-                                <li><a class="dropdown-item" href="{% url 'productos-por-editorial' i.id %}">{{ i }}</a>
-                                </li>
+                                <li><a class="dropdown-item" href="{% url 'productos-por-editorial' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Todas las editoriales</a></li>
                         </ul>
                     </li>
