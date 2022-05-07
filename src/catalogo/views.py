@@ -1,7 +1,10 @@
+
 from django.http import HttpResponse
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
+from inventario.models import Producto
 
 from catalogo.carrito.models import Carrito, EntradaCarrito
+
 
 
 # Create your views here.
@@ -38,3 +41,8 @@ class AgregarProductoCarritoView(View):
         carrito.agregar_producto(producto)
         carrito.guardar(request.session)
         return HttpResponse(carrito)
+
+class DetalleProducto(DetailView):
+    template_name= "web/detalle_pro.html"
+    model= Producto
+

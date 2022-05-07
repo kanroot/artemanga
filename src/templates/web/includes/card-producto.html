@@ -3,6 +3,7 @@
 
 <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="card border-0">
+        <a class="card-block stretched-link text-decoration-none" href="{% url 'detalle-producto' producto.pk %}"></a>
         <img class="card-img-top h-70" src="{{ producto.portada.url }}" alt="">
         <div class="card-body">
             <div class="container text-center">

@@ -1,0 +1,102 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+<div class="container producto my-5 pt-5">
+    <div class="row mt-5">
+        <div class="col-lg-5 col-md-12 col-12">
+            <img class="img-fluid w-100 pb-1" src="{{object.portada.url}}" alt="">
+
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="{{object.portada.url}}" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{object.portada.url}}" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{object.portada.url}}" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{object.portada.url}}" width="100%" class="small-img" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-5 col-md-12 col-12 text-center">
+            <h1>{{object.titulo_es}}</h1>
+            <h6>Sinopsis</h6>
+            <p>{{object.descripcion}}
+            </p>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h5>Géneros : </h5>
+                    </div>
+                    <div class="col">
+                        {% if producto.genero %}
+                        {% for genero in producto.genero.all %}
+                        <span class="badge rounded-pill bg-secondary">{{ genero.nombre }}</span>
+                        {% endfor %}
+                        {% else %}
+                        <span class="badge rounded-pill bg-dark">No asignado</span>
+                        {% endif %}
+                    </div>
+
+                    
+                    <div class="row">
+                        <div class="col">
+                            <h5>ISBN : </h5>
+                        </div>
+                        <div class="col">
+                            {{ object.isbn }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Editorial : </h5>
+                        </div>
+                        <div class="col">
+                            {{ object.editorial }}
+                        </div>
+                    </div>
+                   
+                </div>
+                
+            </div>
+
+            <div class="row text-center">
+                <h4><strong>${{ object.precio | intcomma }}</strong></h4>
+            </div>
+            <div class="row text-center">          
+                <h6>
+                    {% if not object.stock %}
+                    !No hay stock!
+                    {% elif object.stock <= 3 %}
+                    ¡Quedan pocas unidades!
+                    {% else %}
+                    ¡Hay stock!                
+                    {% endif %}
+                </h6>
+
+
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3 p-2">
+                    <button type="button" class="btn btn-warning">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}
