@@ -1,0 +1,18 @@
+<div class="position-absolute top-0 end-0">
+    <div class="d-flex justify-content-between">
+        {% if producto.es_nuevo %}
+            <div class="align-self-end flex-wrap">
+                {% include 'web/includes/tag.html' with texto='¡Nuevo!' clase_color_bg='bg-secondary' %}
+            </div>
+        {% endif %}
+
+        {% for oferta in ofertas_validas %}
+            {% if oferta.id == producto %}
+                <div class="align-self-end flex-wrap">
+                    {% include 'web/includes/tag.html' with texto=oferta.descuento texto_2='%' clase_icono='fa-solid fa-tag' %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
