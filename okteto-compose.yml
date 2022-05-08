@@ -1,0 +1,35 @@
+# Archivo de arranque para preview de okteto
+
+version: "3"
+
+services:
+    db:
+        image: postgres:14.2-alpine
+        container_name: db
+        environment:
+            POSTGRES_HOST_AUTH_METHOD: trust
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+    web:
+        depends_on:
+            - db
+        build: .
+        environment:
+            SECRET_KEY: MYVERYLONGSECRETTOENCRYPTSTUFF
+            DB_ENGINE: django.db.backends.postgresql
+            DB_NAME: postgres
+            DB_HOST: db
+            DB_PORT: 5432
+            DEBUG: 1
+            DATOS_PRUEBA: 1
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./src:/src
+        command: python manage.py runserver 0.0.0.0:8000
+
+volumes:
+    db-data:
