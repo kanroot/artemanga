@@ -30,4 +30,15 @@ python manage.py migrate --noinput
 # busca estáticos y los copia a la carpeta de producción
 python manage.py collectstatic --no-input
 
+if [ -n "$DATOS_PRUEBA" ]
+then
+    # copia las fotos que tenemos en las carpetas de statics
+    mkdir  /home/website/media/comprobantes
+    mkdir  /home/website/media/portadas
+    cp -r templates/static/img/* /home/website/media/comprobantes/
+    cp -r templates/static/img/* /home/website/media/portadas/
+
+    python manage.py generar_todo
+fi
+
 exec "$@"
