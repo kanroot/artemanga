@@ -81,6 +81,7 @@ TEMPLATES = [
                 'artemangaweb.contexto_comun.obtener_nuevos',
                 'artemangaweb.contexto_comun.obtener_destacados',
                 'artemangaweb.contexto_comun.obtener_carrito',
+                'artemangaweb.contexto_comun.obtener_ofertas_validas',
             ],
         },
     },
