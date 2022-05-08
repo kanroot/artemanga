@@ -7,7 +7,7 @@
             <div class="col-lg-2 col-md-12">
                 <div class="logo">
                     <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/manga.png' %}" width="150" height="100"
-                                                          alt="logo"></a>
+                                                                         alt="logo"></a>
                 </div>
             </div>
 
@@ -23,12 +23,6 @@
                                 <i class="fa-solid fa-cart-plus"></i>
                             </button>
                         </a>
-                        <a href="{% url 'login' %}">
-                            <button type="button" class="btn btn-primary btn-block">
-                                <i class="fa-solid fa-user"></i>
-                            </button>
-                        </a>
-                        {% if user.is_authenticated %}<span>Hola, {{ user.username }}</span>{% endif %}
                     </div>
                 </div>
             </form>
@@ -75,9 +69,7 @@
                                 <li><a class="dropdown-item" href="{% url 'productos-por-editorial' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Todas las editoriales</a></li>
                         </ul>
                     </li>
@@ -87,6 +79,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contáctenos</a>
                     </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Mi cuenta
+                            </a>
+                            <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
+                                <li><a class="dropdown-item" href="{% url 'editar-perfil' %}">Modificar mi perfil</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                            </ul>
+                            {% else %}
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Iniciar sesión
+                        </a>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar sesión</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear-perfil' %}">Registrarse</a></li>
+                        </ul>
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <button class="btn">{% if user.is_authenticated %}{{ username }}{% endif %}<i
