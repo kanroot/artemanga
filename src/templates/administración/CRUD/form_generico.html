@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <h3>{{ titulo_pagina }}</h3>
-            <form role="form" method="post">
+            <form role="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input type="submit" name="submit" value="Guardar" class="submit submitButton" />
