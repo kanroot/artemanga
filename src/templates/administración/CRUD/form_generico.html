@@ -1,6 +1,13 @@
 {% extends 'administración/base.html' %}
 
 {% load crispy_forms_filters %}
+{% load static %}
+
+{% block javascript_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/datepicker.css' %}">
+    <script src="{% static 'js/bootstrap-datepicker.js' %}" charset="UTF-8"></script>
+{% endblock %}
 
 {% block contenido %}
     <div class="card">
@@ -8,10 +15,15 @@
             <h3>{{ titulo_pagina }}</h3>
             <form role="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ form | crispy}}
                 <input type="submit" name="submit" value="Guardar" class="submit submitButton" />
                 <input type="reset" name="submit" value="Limpiar" class="submit submitButton" />
             </form>
         </div>
     </div>
+
+    <script src="{% static 'js/locales/bootstrap-datepicker.es.js' %}"></script>
+    <script>
+        $('#datepicker').datepicker();
+    </script>
 {% endblock %}

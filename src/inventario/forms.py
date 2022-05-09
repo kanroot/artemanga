@@ -3,9 +3,12 @@ from django import forms
 
 
 class ProductoBodegaForm(forms.ModelForm):
-    fecha_publicacion = forms.DateTimeField(
-        input_formats=['%d/%m/%Y'],
-        widget=forms.widgets.DateInput(attrs={'type': 'date'})
+    fecha_publicacion = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'id': 'datepicker',
+            'data-date-format': 'dd/mm/yyyy',
+            'data-date-language': 'es',
+        }),
     )
 
     genero = forms.ModelMultipleChoiceField(
