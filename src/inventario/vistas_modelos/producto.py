@@ -1,14 +1,13 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView
+
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from inventario.models import Producto
-from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
 from inventario.forms import ProductoBodegaForm, ActualizarProductoVentasForm
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
+from inventario.models import Producto
+from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, EliminarGenericoView, ListaGenericaView
 
 
-class ProductoListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
-    titulo_pagina = "Productos en inventario"
+class ProductoListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
     template_name = 'administración/CRUD/listado_producto.html'
@@ -28,46 +27,38 @@ class ProductoListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
         return context
 
 
-class ProductoUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
-    titulo_pagina = "Actualizar producto"
+class ProductoUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
     fields = None
-    mensaje_error = "No se pudo actualizar el producto"
-    mensaje_exito = "Producto actualizado correctamente"
     form_class = ProductoBodegaForm
     success_url = reverse_lazy('listado-producto')
 
 
-class ProductoCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
-    titulo_pagina = 'Crear producto'
+class ProductoCreateView(VistaRestringidaMixin, CrearGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
     fields = None
-    mensaje_error = "No se pudo crear el producto"
-    mensaje_exito = "Producto creado correctamente"
     form_class = ProductoBodegaForm
     success_url = reverse_lazy('listado-producto')
 
 
-class ProductoDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
-    titulo_pagina = "Confirmar eliminación de producto"
+class ProductoDeleteView(VistaRestringidaMixin, EliminarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
-    mensaje_error = "No se pudo eliminar el producto"
-    mensaje_exito = "Producto eliminado correctamente"
     success_url = reverse_lazy('listado-producto')
 
 
-class ActualizarProductoVentasView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
+class ActualizarProductoVentasView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     template_name = 'administración/CRUD/form_generico.html'
     model = Producto
+    fields = None
     form_class = ActualizarProductoVentasForm
     success_url = reverse_lazy('ventas-listado-productos')
 
 
-class VentasListadoProductosView(VistaRestringidaMixin, ListView):
+class VentasListadoProductosView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Producto
     template_name = "administración/ventas/listado_productos.html"

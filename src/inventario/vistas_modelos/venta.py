@@ -1,12 +1,13 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView
+
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
-from venta.models import Venta
 from venta.enums.opciones import EstadoVenta
+from venta.models import Venta
+from .vistas_genericas import ActualizarGenericoView, ListaGenericaView
 
 
-class VentasPendientesLisView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
+class VentasPendientesLisView(VistaRestringidaMixin, ListaGenericaView):
     titulo_pagina = "Ventas Pendientes"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
@@ -17,7 +18,7 @@ class VentasPendientesLisView(TituloPaginaMixin, VistaRestringidaMixin, ListView
     context_object_name = 'ventas'
 
 
-class VentasAprobadasLisView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
+class VentasAprobadasLisView(VistaRestringidaMixin, ListaGenericaView):
     titulo_pagina = "Ventas Aprobadas"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
@@ -28,7 +29,7 @@ class VentasAprobadasLisView(TituloPaginaMixin, VistaRestringidaMixin, ListView)
     context_object_name = 'ventas'
 
 
-class VentaUpdateView(VistaRestringidaMixin, MensajeResultadoFormMixin, UpdateView):
+class VentaUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
     template_name = 'administración/CRUD/form_generico.html'

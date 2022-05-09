@@ -1,15 +1,14 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView
-from inventario.models import Pais
-from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
+
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
+from inventario.models import Pais
+from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, EliminarGenericoView, ListaGenericaView
 
 EXITO_URL = reverse_lazy('listado-pais')
 
 
-class PaisListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
-    titulo_pagina = 'Listado de Países'
+class PaisListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     context_object_name = 'paises'
     model = Pais
@@ -29,28 +28,19 @@ class PaisListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
         return context
 
 
-class PaisCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
-    titulo_pagina = 'Crear País'
+class PaisCreateView(VistaRestringidaMixin, CrearGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = 'No se pudo crear el país'
-    mensaje_exito = 'País creado con éxito'
     model = Pais
     success_url = EXITO_URL
 
 
-class PaisUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
-    titulo_pagina = 'Actualizar País'
+class PaisUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = 'No se pudo actualizar el país'
-    mensaje_exito = 'País actualizado con éxito'
     model = Pais
     success_url = EXITO_URL
 
 
-class PaisDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
-    titulo_pagina = 'Eliminar País'
+class PaisDeleteView(VistaRestringidaMixin, EliminarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = 'No se pudo eliminar el país'
-    mensaje_exito = 'País eliminado con éxito'
     model = Pais
     success_url = EXITO_URL

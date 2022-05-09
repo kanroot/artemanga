@@ -18,7 +18,10 @@ class Autor(models.Model):
 
 
 class Genero(models.Model):
-    nombre = models.CharField(max_length=200, verbose_name="genero", unique=True)
+    class Meta:
+        verbose_name = "Género"
+
+    nombre = models.CharField(max_length=200, verbose_name="género", unique=True)
 
     def __str__(self):
         return self.nombre
@@ -27,6 +30,7 @@ class Genero(models.Model):
 class Pais(models.Model):
 
     class Meta:
+        verbose_name = "País"
         verbose_name_plural = "Países"
 
     id = models.AutoField(primary_key=True)
@@ -50,6 +54,10 @@ class Editorial(models.Model):
 
 
 class OtrosAutores(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Otros Autores"
+
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, verbose_name="nombre")
     cargo = models.CharField(max_length=200, verbose_name="cargo")

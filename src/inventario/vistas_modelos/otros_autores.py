@@ -1,16 +1,14 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView
 
-from inventario.models import OtrosAutores
-from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
+from inventario.models import OtrosAutores
+from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, EliminarGenericoView, ListaGenericaView
 
 URL_EXITO = reverse_lazy('listado-otro-autor')
 
 
-class OtrosAutoresListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
-    titulo_pagina = 'Listado de otros autores'
+class OtrosAutoresListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = OtrosAutores
     template_name = 'administración/CRUD/listado_otro_autor.html'
@@ -30,28 +28,19 @@ class OtrosAutoresListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
         return context
 
 
-class OtrosAutoresCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
-    titulo_pagina = 'Crear otro autor'
+class OtrosAutoresCreateView(VistaRestringidaMixin, CrearGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo crear el Otro Autor"
-    mensaje_exito = "Otro Autor creado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
-    titulo_pagina = 'Actualizar otro autor'
+class OtrosAutoresUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo actualizar el Otro Autor"
-    mensaje_exito = "Otro Autor actualizado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO
 
 
-class OtrosAutoresDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
-    titulo_pagina = 'Eliminar otro autor'
+class OtrosAutoresDeleteView(VistaRestringidaMixin, EliminarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo eliminar el Otro Autor"
-    mensaje_exito = "Otro Autor eliminado con éxito"
     model = OtrosAutores
     success_url = URL_EXITO

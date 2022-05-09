@@ -12,7 +12,13 @@ from cuenta_usuario.enums.opciones import TipoUsuario
 
 class MensajeResultadoFormMixin:
     mensaje_exito = 'Operación realizada con éxito'
-    mensaje_error = 'Ha ocurrido un error'
+    mensaje_error = 'Operación ha fallado'
+
+    def get_mensaje_exito(self):
+        return self.mensaje_exito
+
+    def get_mensaje_error(self):
+        return self.mensaje_error
 
     def form_valid(self, form):
         messages.success(self.request, self.mensaje_exito)
@@ -23,13 +29,15 @@ class MensajeResultadoFormMixin:
         return super().form_invalid(form)
 
 
-class TituloPaginaMixin(object):
-    def get_page_title(self, context):
-        return getattr(self, "titulo_pagina", "Una página sin título")
+class TituloPaginaMixin:
+    titulo_pagina = None
+
+    def get_titulo_pagina(self, context):
+        return getattr(self, "titulo_pagina", None)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = self.get_page_title(context)
+        context["titulo_pagina"] = self.get_titulo_pagina(context)
 
         return context
 

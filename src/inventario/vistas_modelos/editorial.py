@@ -1,15 +1,14 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
 from inventario.models import Editorial
-from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
+from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, EliminarGenericoView, ListaGenericaView
 
 EXITO_URL = reverse_lazy('listado-editorial')
 
 
-class EditorialListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
-    titulo_pagina = 'Editoriales'
+class EditorialListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
     template_name = 'administración/CRUD/listado_editorial.html'
@@ -29,28 +28,19 @@ class EditorialListView(TituloPaginaMixin, VistaRestringidaMixin, ListView):
         return context
 
 
-class EditorialCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
-    titulo_pagina = 'Crear Editorial'
+class EditorialCreateView(VistaRestringidaMixin, CrearGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
-    mensaje_error = 'No se pudo crear la editorial'
-    mensaje_exito = 'Editorial creada con éxito'
     success_url = EXITO_URL
 
 
-class EditorialUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
-    titulo_pagina = 'Actualizar Editorial'
+class EditorialUpdateView( VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
-    mensaje_error = 'No se pudo actualizar la editorial'
-    mensaje_exito = 'Editorial actualizada con éxito'
     success_url = EXITO_URL
 
 
-class EditorialDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
-    titulo_pagina = 'Eliminar Editorial'
+class EditorialDeleteView(VistaRestringidaMixin, EliminarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Editorial
-    mensaje_error = 'No se pudo eliminar la editorial'
-    mensaje_exito = 'Editorial eliminada con éxito'
     success_url = EXITO_URL

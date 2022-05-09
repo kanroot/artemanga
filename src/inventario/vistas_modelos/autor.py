@@ -1,18 +1,16 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView
-from inventario.models import Autor
+
+from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from .vistas_genericas import CrearGenerico, ActualizarGenerico, EliminarGenerico
-from artemangaweb.mixins import MensajeResultadoFormMixin, TituloPaginaMixin, VistaRestringidaMixin
+from inventario.models import Autor
+from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, EliminarGenericoView, ListaGenericaView
 
 EXITO_URL = reverse_lazy('listado-autor')
 
 
-class AutorListView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin,
-                    ListView):
+class AutorListView(VistaRestringidaMixin, ListaGenericaView):
     model = Autor
     context_object_name = 'Autores'
-    titulo_pagina = "Autores registrados"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     template_name = 'administración/CRUD/listado_autor.html'
     paginate_by = 10
@@ -30,27 +28,19 @@ class AutorListView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringi
         return context
 
 
-class AutorCreateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, CrearGenerico):
-    titulo_pagina = "Crear autor"
+class AutorCreateView(VistaRestringidaMixin, CrearGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo crear el autor"
-    mensaje_exito = "Se creó el autor"
     model = Autor
     success_url = EXITO_URL
 
 
-class AutorUpdateView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, ActualizarGenerico):
-    titulo_pagina = "Actualizar autor"
+class AutorUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo actualizar el autor"
-    mensaje_exito = "Se actualizó el autor"
     model = Autor
     success_url = EXITO_URL
 
 
-class AutorDeleteView(TituloPaginaMixin, MensajeResultadoFormMixin, VistaRestringidaMixin, EliminarGenerico):
-    titulo_pagina = "Eliminar autor"
+class AutorDeleteView(VistaRestringidaMixin, EliminarGenericoView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
-    mensaje_error = "No se pudo eliminar el autor"
     model = Autor
     success_url = EXITO_URL
