@@ -2,9 +2,10 @@
 {% load humanize %}
 
 <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="card h-100 border-0 position-relative">
+    <div class="card h-100 border-0 position-relative rounded">
         {% include 'web/includes/producto-tag.html' with producto=producto %}
-        <a class="card-block stretched-link text-decoration-none" href="{% url 'detalle-producto' producto.pk %}"></a>
+        <a style="z-index: 1" class="card-block stretched-link text-decoration-none"
+           href="{% url 'detalle-producto' producto.pk %}"></a>
         <img class="card-img-top" src="{{ producto.portada.url }}" alt="">
         <div class="card-body">
             <div class="container text-center">
@@ -24,7 +25,8 @@
                 {% endif %}
                 <div class="row justify-content-center">
                     <div class="col-3 p-2">
-                        <button type="button" onclick="agregarProducto({{ producto.pk }})" class="btn btn-warning">
+                        <button style="z-index: 1; position: relative" type="button"
+                                onclick="agregarProducto({{ producto.pk }})" class="btn btn-warning">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
                     </div>
