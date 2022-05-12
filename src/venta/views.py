@@ -4,13 +4,104 @@ from django.shortcuts import reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, FormView, TemplateView
-
 from artemangaweb.mixins import VistaRestringidaMixin, TituloPaginaMixin, ImpedirSinRedireccionMixin
 from catalogo.carrito.models import Carrito
 from inventario.models import Producto
+from inventario.vistas_modelos.vistas_genericas import ActualizarGenericoView, ListaGenericaView, EliminarGenericoView
 from .forms import CrearDireccionForm, ElegirDireccionForm
 from .models import Direccion, ComprobanteTemporal, VentaProducto, Venta, Despacho
 from sistema.models import RegistroError
+from django.http import Http404
+
+URL_EXITO = reverse_lazy('ver-direccion')
+
+
+class DireccionesView(ListaGenericaView):
+    model = Direccion
+    template_name = "web/mis_direcciones.html"
+    ordering = ['id']
+    paginate_by = 10
+    context_object_name = 'direcciones'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        contexto_extra = {
+            'url_crear': 'crear-direccion',
+            'url_editar': 'editar-direccion',
+            'url_eliminar': 'eliminar-direccion',
+        }
+        context.update(contexto_extra)
+        return context
+
+    def get_queryset(self):
+        return Direccion.objects.filter(usuario=self.request.user)
+
+
+class ActualizarDireccionView(ActualizarGenericoView):
+    model = Direccion
+    fields = ['calle', 'numero', 'piso', 'departamento', 'codigo_postal']
+    template_name = "web/generico_form.html"
+    success_url = URL_EXITO
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user == self.get_object().usuario:
+            raise Http404()
+        return super().dispatch(request, *args, **kwargs)
+
+
+class EliminarDireccionView(EliminarGenericoView):
+    model = Direccion
+    template_name = "web/generico_form.html"
+    success_url = URL_EXITO
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user == self.get_object().usuario:
+            raise Http404()
+        return super().dispatch(request, *args, **kwargs)
+
+
+class CrearDireccionView(VistaRestringidaMixin, TituloPaginaMixin, CreateView):
+    titulo_pagina = 'Crear dirección de envío'
+    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
+    permission_denied_message = '¡Debe iniciar sesión o registrarse para agregar una dirección a su usuario!'
+    model = Direccion
+    form_class = CrearDireccionForm
+    template_name = 'web/generico_form.html'
+    success_url = reverse_lazy('elegir-direccion')
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next', None)  # here method should be GET or POST.
+        if next_url:
+            return reverse(next_url)  # you can include some query strings as well
+        else:
+            return reverse('home')  # what url you wish to return
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['initial']['usuario'] = self.request.user.pk
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+
+class ElegirDireccionView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, TituloPaginaMixin, FormView):
+    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
+    paginas_permitidas = ['crear-direccion', 'confirmar-compra', 'ver-carrito', 'elegir-direccion']
+    titulo_pagina = 'Elegir dirección de envío'
+    template_name = 'web/elegir_direccion.html'
+    form_class = ElegirDireccionForm
+    success_url = reverse_lazy('finalizar-compra')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['usuario'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        url = super().get_success_url() + f'?direccion={self.request.POST.get("direccion", )}'
+        return url
 
 
 class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, View):
@@ -36,40 +127,6 @@ class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Vie
 
         return HttpResponseRedirect(reverse('elegir-direccion'))
 
-class CrearDireccionView(VistaRestringidaMixin, TituloPaginaMixin, CreateView):
-    titulo_pagina = 'Crear dirección de envío'
-    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
-    permission_denied_message = '¡Debe iniciar sesión o registrarse para agregar una dirección a su usuario!'
-    model = Direccion
-    form_class = CrearDireccionForm
-    template_name = 'web/generico_form.html'
-    success_url = reverse_lazy('elegir-direccion')
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['initial']['usuario'] = self.request.user.pk
-        return kwargs
-
-    def form_valid(self, form):
-        form.instance.usuario = self.request.user
-        return super().form_valid(form)
-
-class ElegirDireccionView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, TituloPaginaMixin, FormView):
-    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
-    paginas_permitidas = ['crear-direccion', 'confirmar-compra', 'ver-carrito', 'elegir-direccion']
-    titulo_pagina = 'Elegir dirección de envío'
-    template_name = 'web/elegir_direccion.html'
-    form_class = ElegirDireccionForm
-    success_url = reverse_lazy('finalizar-compra')
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['usuario'] = self.request.user
-        return kwargs
-
-    def get_success_url(self):
-        url = super().get_success_url() + f'?direccion={self.request.POST.get("direccion", )}'
-        return url
 
 class FinalizarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, TemplateView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
