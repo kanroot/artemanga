@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView
 from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
-from inventario.vistas_modelos.vistas_genericas import ListaGenericaView
 from django.shortcuts import redirect
 from venta.models import Venta
 from venta.enums.opciones import EstadoVenta
