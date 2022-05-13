@@ -18,7 +18,7 @@ class DashboardView(VistaRestringidaMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class VentaDashboardView(ListaGenericaView):
+class VentaDashboardView(TemplateView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     template_name = 'administración/ventas/tareas_urgentes.html'
     model = Venta
