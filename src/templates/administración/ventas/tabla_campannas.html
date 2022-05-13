@@ -1,0 +1,17 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for campanna in campannas %}
+        <tr>
+            <td>{{ campanna.nombre }}</td>
+            <td>{{ campanna.estado_humanizado }}</td>
+            <td>{{ campanna.redireccion_humanizada }}</td>
+            {% if campanna.auto_expira %}
+                <td>{{ campanna.fecha_expiracion }}</td>
+            {% else %}
+                <td>{{ campanna.fecha_expiracion }} (No automático)</td>
+            {% endif %}
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=campanna.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

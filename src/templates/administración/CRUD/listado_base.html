@@ -1,0 +1,49 @@
+{% extends 'administración/base.html' %}
+
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ titulo_pagina }}</h3>
+                </div>
+                <div class="card-body">
+                    {{ tabla_descripcion }}
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar no ha sido implementado aún" aria-label="Search">
+                    </form>
+                </div>
+                <div class="card position-relative">
+                    {% if tabla_boton_crear %}
+                        <a class="btn btn-success rounded-circle position-absolute end-0" href="{% url tabla_boton_crear %}">+</a>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    {% block tabla_cabeza %}
+                                        {% for cabecera in tabla_cabecera %}
+                                            <th>{{ cabecera }}</th>
+                                        {% endfor %}
+                                    {% endblock %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% block tabla_cuerpo %}
+                                {% endblock %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% include 'común/includes/paginación.html' %}
+        </div>
+    </div>
+{% endblock %}

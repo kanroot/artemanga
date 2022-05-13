@@ -1,0 +1,17 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+{% block tabla_cuerpo %}
+    {% for autor in object_list %}
+        <tr>
+            <td>{{ autor.id }}</td>
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.apellido }}</td>
+            <td>
+                <span class="badge rounded-pill
+                        {% if autor.es_activo %} bg-success {% else %} bg-danger {% endif %}">
+                    <i class="fa {% if autor.es_activo %}fa-check{% else %}fa-remove{% endif %}"></i>
+                </span>
+            </td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=autor.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

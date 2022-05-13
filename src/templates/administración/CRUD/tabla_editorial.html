@@ -1,0 +1,12 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for editorial in editoriales %}
+        <tr>
+            <td>{{ editorial.id }}</td>
+            <td>{{ editorial.nombre }}</td>
+            <td>{{ editorial.pais }}</td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=editorial.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

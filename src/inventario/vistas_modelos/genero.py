@@ -11,21 +11,11 @@ EXITO_URL = reverse_lazy('listado-genero')
 class GeneroListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Genero
-    template_name = 'administración/CRUD/listado_genero.html'
-    paginate_by = 10
+    template_name = 'administración/CRUD/tabla_genero.html'
     ordering = ['id']
     context_object_name = 'generos'
+    tabla_cabecera = ['ID', 'Nombre']
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        contexto_extra = {
-            'url_crear': 'crear-genero',
-            'url_editar': 'editar-genero',
-            'url_eliminar': 'eliminar-genero',
-        }
-
-        context.update(contexto_extra)
-        return context
 
 
 class GeneroCreateView(VistaRestringidaMixin, CrearGenericoView):

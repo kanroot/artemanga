@@ -1,0 +1,12 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for autor in otros_autores %}
+        <tr>
+            <td>{{ autor.id }}</td>
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.cargo }}</td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=autor.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

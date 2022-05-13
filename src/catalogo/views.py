@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView, View, ListView, DetailView
 
 from catalogo.carrito.models import Carrito, EntradaCarrito
+from catalogo.models import Campanna
+from catalogo.enums.opciones import EstadoCampanna
 from inventario.models import Producto, Genero, Editorial
 
 
@@ -11,6 +13,7 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['randoms'] = Producto.objects.order_by('?')[:5]
+        context['campannas'] = Campanna.objects.filter(estado=EstadoCampanna.PUBLICADA.value)
         return context
 
 

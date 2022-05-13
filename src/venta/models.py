@@ -104,7 +104,7 @@ class Despacho(models.Model):
 
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="total")
+    total = models.IntegerField(verbose_name="total")
     fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
     imagen_deposito = models.ImageField(default='comprobantes/holder.jpg' ,upload_to='comprobantes/')
@@ -115,6 +115,13 @@ class Venta(models.Model):
         if self.fecha_venta is None:
             self.fecha_venta = datetime.now()
         super().save(force_insert, force_update, using, update_fields)
+
+    @property
+    def total_humanizado(self):
+        return '{:,}'.format(int(self.total)).replace(',', '.')
+
+    def __str__(self):
+        return f'Compra de {self.despacho.usuario} por ${self.total_humanizado} el {self.fecha_venta}'
 
 
 class VentaProducto(models.Model):

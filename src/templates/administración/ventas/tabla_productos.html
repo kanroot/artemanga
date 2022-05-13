@@ -1,0 +1,44 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for producto in productos %}
+        <tr>
+            <td>{{ producto.pk }}</td>
+            <td>{{ producto.titulo_es }}</td>
+            <td>{{ producto.autor }}</td>
+            <td>{{ producto.editorial }}</td>
+            <td>
+                {% if producto.genero %}
+                    {% for genero in producto.genero.all %}
+                        <span class="badge rounded-pill bg-secondary">{{ genero.nombre }}</span>
+                    {% endfor %}
+                {% else %}
+                    <span class="badge rounded-pill bg-dark">No asignado</span>
+                {% endif %}
+            </td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td style="text-align: center;">
+    <span class="badge rounded-pill
+            {% if producto.es_destacado %} bg-success {% else %} bg-danger {% endif %}">
+        <i class="fa {% if producto.es_destacado %}fa-check{% else %}fa-remove{% endif %}"></i>
+    </span>
+            </td>
+            <td style="text-align: center;">
+    <span class="badge rounded-pill
+            {% if producto.esta_publicado %} bg-success {% else %} bg-danger {% endif %}">
+
+        <i class="fa {% if producto.esta_publicado %}fa-check{% else %}fa-remove{% endif %}"></i>
+    </span>
+            </td>
+            <td style="text-align: center;">
+    <span class="badge rounded-pill
+            {% if producto.es_nuevo %} bg-success {% else %} bg-danger {% endif %}">
+
+        <i class="fa {% if producto.es_nuevo %}fa-check{% else %}fa-remove{% endif %}"></i>
+    </span>
+            </td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=producto.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -32,12 +32,12 @@ class MensajeResultadoFormMixin:
 class TituloPaginaMixin:
     titulo_pagina = None
 
-    def get_titulo_pagina(self, context):
-        return getattr(self, "titulo_pagina", None)
+    def get_titulo_pagina(self):
+        return self.titulo_pagina
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["titulo_pagina"] = self.get_titulo_pagina(context)
+        context["titulo_pagina"] = self.get_titulo_pagina()
 
         return context
 

@@ -6,8 +6,9 @@ from .vistas_modelos.pais import PaisListView, PaisCreateView, PaisUpdateView, P
 from .vistas_modelos.genero import GeneroListView, GeneroCreateView, GeneroUpdateView, GeneroDeleteView
 from .vistas_modelos.autor import AutorListView, AutorCreateView, AutorUpdateView, AutorDeleteView
 from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, ProductoCreateView, ProductoDeleteView, \
-    ActualizarProductoVentasView, VentasListadoProductosView
+    ActualizarProductoVentasView, ProductoVentasListView
 from .vistas_modelos.venta import VentasPendientesLisView, VentasAprobadasLisView, VentaUpdateView
+from .vistas_modelos.campanna import CampannaListView, EditarCampannaView, CrearCampannaView, EliminarCampannaView
 from .views import DashboardView
 
 urlpatterns = [
@@ -46,9 +47,13 @@ urlpatterns = [
     path('eliminar-otro-autor/<pk>/', OtrosAutoresDeleteView.as_view(), name='eliminar-otro-autor'),
 
     # específicos de ventas
-    path('ventas-listado-productos', VentasListadoProductosView.as_view(), name='ventas-listado-productos'),
+    path('ventas-listado-productos', ProductoVentasListView.as_view(), name='ventas-listado-productos'),
     path('ventas-actualizar-producto/<pk>', ActualizarProductoVentasView.as_view(), name='ventas-actualizar-producto'),
     path('ventas-validar/', VentasPendientesLisView.as_view(), name='ventas-validar'),
     path('venta-validar-producto/<pk>', VentaUpdateView.as_view(), name='venta-validar-producto'),
     path('venta-validada', VentasAprobadasLisView.as_view(), name='venta-validada'),
+    path('listado-campannas', CampannaListView.as_view(), name='listado-campannas'),
+    path('crear-campanna', CrearCampannaView.as_view(), name='crear-campanna'),
+    path('editar-campanna/<pk>', EditarCampannaView.as_view(), name='editar-campanna'),
+    path('eliminar-campanna/<pk>', EliminarCampannaView.as_view(), name='eliminar-campanna'),
 ]

@@ -1,0 +1,18 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+
+{% block tabla_cuerpo %}
+    {% for producto in object_list %}
+        <tr>
+            <td>{{ producto.pk }}</td>
+            <td>{{ producto.isbn }}</td>
+            <td>{{ producto.titulo_es }}</td>
+            <td>{{ producto.titulo_jp }}</td>
+            <td>{{ producto.autor }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.precio_sin_iva }}</td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=producto.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar  %}
+        </tr>
+    {% endfor %}
+{% endblock %}

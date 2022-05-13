@@ -1,0 +1,11 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for pais in paises %}
+        <tr>
+            <td>{{ pais.id }}</td>
+            <td>{{ pais.nombre }}</td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=pais.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

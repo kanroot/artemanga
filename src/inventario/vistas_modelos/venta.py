@@ -11,22 +11,28 @@ class VentasPendientesLisView(VistaRestringidaMixin, ListaGenericaView):
     titulo_pagina = "Ventas Pendientes"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
-    template_name = 'administración/ventas/listado_ventas.html'
+    template_name = 'administración/ventas/tabla_ventas.html'
     queryset = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value)
-    paginate_by = 10
     ordering = ['fecha_venta']
     context_object_name = 'ventas'
+    tabla_cabecera = ['ID', 'Total', 'Fecha de la venta', 'Imagen del depósito']
+    tabla_boton_crear = None
+    tabla_boton_editar = 'venta-validar-producto'
+    tabla_boton_eliminar = None
 
 
 class VentasAprobadasLisView(VistaRestringidaMixin, ListaGenericaView):
     titulo_pagina = "Ventas Aprobadas"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Venta
-    template_name = 'administración/ventas/listado_ventas.html'
+    template_name = 'administración/ventas/tabla_ventas.html'
     queryset = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
-    paginate_by = 10
     ordering = ['-fecha_venta']
     context_object_name = 'ventas'
+    tabla_cabecera = ['ID', 'Total', 'Fecha de la venta', 'Imagen del depósito']
+    tabla_boton_crear = None
+    tabla_boton_editar = 'venta-validar-producto'
+    tabla_boton_eliminar = None
 
 
 class VentaUpdateView(VistaRestringidaMixin, ActualizarGenericoView):

@@ -11,21 +11,13 @@ URL_EXITO = reverse_lazy('listado-otro-autor')
 class OtrosAutoresListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = OtrosAutores
-    template_name = 'administración/CRUD/listado_otro_autor.html'
-    paginate_by = 10
+    template_name = 'administración/CRUD/tabla_otros_autores.html'
     ordering = ['id']
     context_object_name = 'otros_autores'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        contexto_extra = {
-            'url_crear': 'crear-otro-autor',
-            'url_editar': 'editar-otro-autor',
-            'url_eliminar': 'eliminar-otro-autor',
-        }
-
-        context.update(contexto_extra)
-        return context
+    tabla_cabecera = ['ID', 'Nombre', 'Cargo']
+    tabla_boton_crear = 'crear-otro-autor'
+    tabla_boton_editar = 'editar-otro-autor'
+    tabla_boton_eliminar = 'eliminar-otro-autor'
 
 
 class OtrosAutoresCreateView(VistaRestringidaMixin, CrearGenericoView):

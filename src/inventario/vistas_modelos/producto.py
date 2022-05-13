@@ -10,21 +10,10 @@ from .vistas_genericas import CrearGenericoView, ActualizarGenericoView, Elimina
 class ProductoListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA]
     model = Producto
-    template_name = 'administración/CRUD/listado_producto.html'
-    paginate_by = 10
+    template_name = 'administración/CRUD/tabla_producto.html'
     ordering = ['pk']
-    context_object_name = 'productos'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        contexto_extra = {
-            'url_crear': 'crear-producto',
-            'url_editar': 'editar-producto',
-            'url_eliminar': 'eliminar-producto',
-        }
-
-        context.update(contexto_extra)
-        return context
+    tabla_cabecera = ['PK', 'ISBN', 'Título Esp', 'Título Jap', 'Autor', 'Stock', 'Precio', 'Precio sin IVA']
 
 
 class ProductoUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
@@ -58,11 +47,15 @@ class ActualizarProductoVentasView(VistaRestringidaMixin, ActualizarGenericoView
     success_url = reverse_lazy('ventas-listado-productos')
 
 
-class VentasListadoProductosView(VistaRestringidaMixin, ListaGenericaView):
+class ProductoVentasListView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.VENTAS]
     model = Producto
-    template_name = "administración/ventas/listado_productos.html"
-    queryset = Producto.objects.all()
+    template_name = "administración/ventas/tabla_productos.html"
     ordering = ['esta_publicado']
-    paginate_by = 10
     context_object_name = 'productos'
+    tabla_cabecera = ['PK', 'Titulo', 'Autor', 'Editorial', 'Generos', 'Precio',
+                      'Stock', 'Destacado', 'Publicado', 'Nuevo', 'Editar'
+                      ]
+    tabla_boton_crear = None
+    tabla_boton_eliminar = None
+    tabla_boton_editar = 'ventas-actualizar-producto'

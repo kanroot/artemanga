@@ -1,0 +1,15 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for venta in ventas %}
+        <tr>
+            <td>{{ venta.pk }}</td>
+            <td>{{ venta.total }}</td>
+            <td>{{ venta.fecha_venta }}</td>
+            <td>
+                <img src="{{ venta.imagen_deposito.url }}" alt="{{ venta.imagen_deposito }}" width="200px" height="200px">
+            </td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=venta.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

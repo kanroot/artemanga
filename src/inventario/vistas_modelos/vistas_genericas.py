@@ -65,16 +65,66 @@ class EliminarGenericoView(TituloPaginaMixin, MensajeResultadoFormMixin, DeleteV
 
 
 class ListaGenericaView(TituloPaginaMixin, ListView):
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titulo_pagina'] = f"Listado de {self.nombre_modelo_plural}"
-
-        if self.titulo_pagina:
-            context['titulo_pagina'] = self.titulo_pagina
-
-        return context
+    tabla_cabecera: list[str] = []
+    tabla_descripcion: str = ''
+    tabla_boton_crear: str = ''
+    tabla_boton_editar: str = ''
+    tabla_boton_eliminar: str = ''
+    paginate_by = 10
 
     @property
     def nombre_modelo_plural(self):
         return self.model._meta.verbose_name_plural.title()
+
+    def get_titulo_pagina(self):
+        if self.titulo_pagina:
+            return self.titulo_pagina
+        return f"Listado de {self.nombre_modelo_plural}"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tabla_cabecera'] = self.tabla_cabecera
+        context['tabla_descripcion'] = self.get_tabla_descripcion()
+        context['tabla_boton_editar'] = self.get_boton_editar()
+        context['tabla_boton_eliminar'] = self.get_boton_eliminar()
+        context['tabla_boton_crear'] = self.get_boton_crear()
+
+        return context
+
+    def get_tabla_descripcion(self) -> str:
+        if self.tabla_descripcion:
+            return self.tabla_descripcion
+
+        texto = f'Se presenta un listado de {self.nombre_modelo_plural}.'
+        orden = self.get_ordering()
+        if orden:
+            texto += f' Los resultados se ordenan por {orden}'
+            if '-' in orden:
+                texto += ' en orden descendente.'
+            else:
+                texto += ' en orden ascendente.'
+        return texto
+
+    def get_boton_crear(self) -> str | None:
+        if self.tabla_boton_crear or self.tabla_boton_crear is None:
+            return self.tabla_boton_crear
+        return self.intentar_obtener_boton('crear')
+
+    def get_boton_editar(self) -> str | None:
+        if self.tabla_boton_editar or self.tabla_boton_editar is None:
+            return self.tabla_boton_editar
+        return self.intentar_obtener_boton('editar')
+
+    def get_boton_eliminar(self) -> str | None:
+        if self.tabla_boton_eliminar or self.tabla_boton_eliminar is None:
+            return self.tabla_boton_eliminar
+        return self.intentar_obtener_boton('eliminar')
+
+    def intentar_obtener_boton(self, accion: str) -> str:
+        return f"{accion}-{self.model._meta.model_name.lower()}"
+
+
+
+
+
+
