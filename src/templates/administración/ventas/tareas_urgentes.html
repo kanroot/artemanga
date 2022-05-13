@@ -62,7 +62,6 @@
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr class="text-center">
-                <th scope="col">#</th>
                 <th scope="col">Total</th>
                 <th scope="col">Fecha de la venta</th>
                 <th scope="col">Editar</th>
@@ -72,10 +71,9 @@
 
                 <tbody>
                 <tr class="text-center">
-                    <td>{{ sin_aprobar.id }}</td>
                     <td>${{ sin_aprobar.total }}</td>
                     <td>{{ sin_aprobar.fecha_venta }}</td>
-                    {% include 'administración/CRUD/includes/accion_botones.html' with pk=sin_aprobar.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+                    {% include 'administración/CRUD/includes/accion_botones.html' with pk=sin_aprobar.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
                 </tr>
                 </tbody>
             {% endfor %}
@@ -88,19 +86,22 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Titulo español</th>
                 <th scope="col">Titulo japones</th>
-                <th scope="col">Stock</th>
-
+                <th scope="col">Editar</th>
             </tr>
             </thead>
             {% for sin_publicar in productos_sin_publicar %}
                 <tbody>
-                <tr>
+                <tr class="text-center">
                     <td>{{ sin_publicar.titulo_es }}</td>
                     <td>${{ sin_publicar.titulo_jp }}</td>
-                    <td>{{ sin_publicar.stock }}</td>
+                    <td>
+                        <a class="btn btn-outline-primary"  href="{% url 'ventas-actualizar-producto' sin_publicar.id %}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             {% endfor %}

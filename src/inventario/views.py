@@ -2,6 +2,8 @@ from django.views.generic import TemplateView
 from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
 from django.shortcuts import redirect
+
+from inventario.vistas_modelos.vistas_genericas import ListaGenericaView
 from venta.models import Venta
 from venta.enums.opciones import EstadoVenta
 from inventario.models import Producto
@@ -17,14 +19,14 @@ class DashboardView(VistaRestringidaMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class VentaDashboardView(TemplateView):
+class VentaDashboardView(ListaGenericaView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     template_name = 'administración/ventas/tareas_urgentes.html'
     model = Venta
     tabla_boton_crear = None
-    tabla_boton_editar = 'venta-validar-producto'
     tabla_boton_eliminar = None
-    boton_editar_producto = 'ventas-actualizar-producto'
+    tabla_boton_editar = 'venta-validar-producto'
+    tabla_boton_editar_producto = 'ventas-actualizar-producto'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,5 +38,4 @@ class VentaDashboardView(TemplateView):
         context['ultimas_ventas_sin_aprobar'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value).order_by(
             '-fecha_venta')[:5]
         context['productos_sin_publicar'] = Producto.objects.filter(esta_publicado=False)[:]
-        context['boton_editar'] = 'venta-validar-producto'
         return context
