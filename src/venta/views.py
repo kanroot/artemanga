@@ -22,16 +22,9 @@ class DireccionesView(ListaGenericaView):
     ordering = ['id']
     paginate_by = 10
     context_object_name = 'direcciones'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        contexto_extra = {
-            'url_crear': 'crear-direccion',
-            'url_editar': 'editar-direccion',
-            'url_eliminar': 'eliminar-direccion',
-        }
-        context.update(contexto_extra)
-        return context
+    tabla_boton_crear = 'crear-direccion'
+    tabla_boton_editar = 'editar-direccion'
+    tabla_boton_eliminar = 'eliminar-direccion'
 
     def get_queryset(self):
         return Direccion.objects.filter(usuario=self.request.user)
