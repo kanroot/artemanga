@@ -36,6 +36,6 @@ class VentaDashboardView(ListaGenericaView):
         context['productos_destacados'] = Producto.objects.filter(es_destacado=True)
         context['productos_nuevos'] = Producto.objects.filter(es_nuevo=True)
         context['ultimas_ventas_sin_aprobar'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value).order_by(
-            '-fecha_venta')[:5]
-        context['productos_sin_publicar'] = Producto.objects.filter(esta_publicado=False)[:]
+            '-fecha_venta')[:6]
+        context['productos_sin_publicar'] = Producto.objects.filter(esta_publicado=False)[:6]
         return context
