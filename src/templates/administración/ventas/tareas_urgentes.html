@@ -1,0 +1,111 @@
+{% extends 'administración/base.html' %}
+{% block contenido %}
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Aprobadas:</h5>
+                    <h1 class="card-text text-center">
+                        {{ ventas_aprobada.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-warning h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Pendientes:</h5>
+                    <h1 class="card-text text-center">
+                        {{ ventas_pendientes.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-danger h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Canceladas:</h5>
+                    <h1 class="card-text text-center">
+                        {{ ventas_cancelada.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-dark h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Destacados:</h5>
+                    <h1 class="card-text text-center">
+                        {{ productos_destacados.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-dark h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nuevos:</h5>
+                    <h1 class="card-text text-center">
+                        {{ productos_nuevos.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <h2 class="text-center">Ventas por aprobar</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Total</th>
+                <th scope="col">Fecha de la venta</th>
+                <th scope="col">Editar</th>
+            </tr>
+            </thead>
+            {% for sin_aprobar in ultimas_ventas_sin_aprobar %}
+
+                <tbody>
+                <tr class="text-center">
+                    <td>{{ sin_aprobar.id }}</td>
+                    <td>${{ sin_aprobar.total }}</td>
+                    <td>{{ sin_aprobar.fecha_venta }}</td>
+                    {% include 'administración/CRUD/includes/accion_botones.html' with pk=sin_aprobar.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br>
+
+    <h2 class="text-center">Productos sin publicar</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Titulo español</th>
+                <th scope="col">Titulo japones</th>
+                <th scope="col">Stock</th>
+
+            </tr>
+            </thead>
+            {% for sin_publicar in productos_sin_publicar %}
+                <tbody>
+                <tr>
+                    <td>{{ sin_publicar.titulo_es }}</td>
+                    <td>${{ sin_publicar.titulo_jp }}</td>
+                    <td>{{ sin_publicar.stock }}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock %}

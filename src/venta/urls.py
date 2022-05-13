@@ -10,5 +10,4 @@ urlpatterns = [
     path('crear-direccion/', CrearDireccionView.as_view(), name='crear-direccion'),
     path('editar-direccion/<int:pk>/', ActualizarDireccionView.as_view(), name='editar-direccion'),
     path('eliminar-direccion/<int:pk>/', EliminarDireccionView.as_view(), name='eliminar-direccion'),
-
 ]
