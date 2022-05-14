@@ -2,7 +2,6 @@ from django.views.generic import TemplateView
 from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
 from django.shortcuts import redirect
-
 from inventario.vistas_modelos.vistas_genericas import ListaGenericaView
 from venta.models import Venta
 from venta.enums.opciones import EstadoVenta
@@ -16,11 +15,31 @@ class DashboardView(VistaRestringidaMixin, TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.es_ventas():
             return redirect('dashboard-ventas')
+        if request.user.es_bodega() or request.user.es_sysadmin():
+            return redirect('dashboard-productos')
         return super().dispatch(request, *args, **kwargs)
 
 
+class BodegaDashboardView(VistaRestringidaMixin, ListaGenericaView):
+    template_name = "administración/bodega/tareas_urgentes.html"
+    usuarios_permitidos = [TipoUsuario.BODEGA, TipoUsuario.ADMINISTRADOR]
+    model = Producto
+    context_object_name = 'productos'
+    tabla_boton_crear = None
+    tabla_boton_eliminar = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sin_stock'] = Producto.objects.filter(stock=0)
+        context['bajo_stock'] = Producto.objects.filter(stock__lte=5).order_by('stock')[:10]
+        context['sin_portada'] = Producto.objects.filter(portada=None)
+        context['sin_genero'] = Producto.objects.filter(genero=None)
+        context['sin_portada_o_genero'] = Producto.objects.filter(portada=None) | Producto.objects.filter(genero=None)[:10]
+        return context
+
+
 class VentaDashboardView(ListaGenericaView):
-    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
+    usuarios_permitidos = [TipoUsuario.VENTAS, TipoUsuario.ADMINISTRADOR]
     template_name = 'administración/ventas/tareas_urgentes.html'
     model = Venta
     tabla_boton_crear = None
