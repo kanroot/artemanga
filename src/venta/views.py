@@ -20,11 +20,8 @@ class DireccionesView(ListaGenericaView):
     model = Direccion
     template_name = "web/mis_direcciones.html"
     ordering = ['id']
-    paginate_by = 10
     context_object_name = 'direcciones'
-    tabla_boton_crear = 'crear-direccion'
-    tabla_boton_editar = 'editar-direccion'
-    tabla_boton_eliminar = 'eliminar-direccion'
+
 
     def get_queryset(self):
         return Direccion.objects.filter(usuario=self.request.user)
