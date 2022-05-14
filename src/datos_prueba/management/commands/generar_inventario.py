@@ -70,7 +70,7 @@ class Command(BaseCommand):
         print('Generando productos...')
 
         for _ in tqdm(range(self.cantidad)):
-            cant_generos = random.randint(1, 3)
+            cant_generos = random.randint(0, 3)
             generos = [random.choice(Genero.objects.all()) for _ in range(cant_generos)]
             otros_autores = [
                 random.choice(OtrosAutores.objects.all()) for _ in range(cant_generos) if
@@ -79,7 +79,7 @@ class Command(BaseCommand):
             isbn = self.fake.isbn13()
             titulo_es = self.fake['es_ES'].sentence()
             titulo_jp = self.fake['ja_JP'].sentence()
-            stock = random.randint(1, 100)
+            stock = random.randint(0, 100)
             precio = self.fake.pyint(min_value=6000, max_value= 50000, step=1000)
             descripcion = self.fake['es_ES'].text()
             numero_paginas = random.randint(1, 1000)
