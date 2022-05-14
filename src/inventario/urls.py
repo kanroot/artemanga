@@ -59,6 +59,6 @@ urlpatterns = [
 
     # dashboard
     path('dashboard-ventas', VentaDashboardView.as_view(), name='dashboard-ventas'),
-    path('dashboard-productos', BodegaDashboardView.as_view(), name='dashboard-productos'),
+    path('dashboard-productos', BodegaDashboardView.as_view(), name='dashboard-bodega'),
 
 ]

@@ -16,7 +16,7 @@ class DashboardView(VistaRestringidaMixin, TemplateView):
         if request.user.es_ventas():
             return redirect('dashboard-ventas')
         if request.user.es_bodega() or request.user.es_sysadmin():
-            return redirect('dashboard-productos')
+            return redirect('dashboard-bodega')
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -32,9 +32,12 @@ class BodegaDashboardView(VistaRestringidaMixin, ListaGenericaView):
         context = super().get_context_data(**kwargs)
         context['sin_stock'] = Producto.objects.filter(stock=0)
         context['bajo_stock'] = Producto.objects.filter(stock__lte=5).order_by('stock')[:10]
-        context['sin_portada'] = Producto.objects.filter(portada=None)
+        context['sin_portada'] = Producto.objects.filter(portada=None) | \
+                                 Producto.objects.filter(portada='portadas/portada.jpg')
         context['sin_genero'] = Producto.objects.filter(genero=None)
-        context['sin_portada_o_genero'] = Producto.objects.filter(portada=None) | Producto.objects.filter(genero=None)[:10]
+        context['sin_portada_o_genero'] = Producto.objects.filter(portada=None) | \
+                                          Producto.objects.filter(portada='portadas/portada.jpg') | \
+                                          Producto.objects.filter(genero=None)[:10]
         return context
 
 
