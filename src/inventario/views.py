@@ -35,8 +35,8 @@ class BodegaDashboardView(VistaRestringidaMixin, ListaGenericaView):
         context['sin_portada'] = Producto.objects.filter(portada=None) | \
                                  Producto.objects.filter(portada='portadas/portada.jpg')
         context['sin_genero'] = Producto.objects.filter(genero=None)
-        context['sin_portada_o_genero'] = Producto.objects.filter(portada=None) | \
-                                          Producto.objects.filter(portada='portadas/portada.jpg') | \
+        context['sin_portada_o_genero'] = Producto.objects.filter(portada=None)[:10] | \
+                                          Producto.objects.filter(portada='portadas/portada.jpg')[:10] | \
                                           Producto.objects.filter(genero=None)[:10]
         return context
 
