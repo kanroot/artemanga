@@ -9,7 +9,7 @@ from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, Produ
     ActualizarProductoVentasView, ProductoVentasListView
 from .vistas_modelos.venta import VentasPendientesLisView, VentasAprobadasLisView, VentaUpdateView
 from .vistas_modelos.campanna import CampannaListView, EditarCampannaView, CrearCampannaView, EliminarCampannaView
-from .views import DashboardView, VentaDashboardView
+from .views import DashboardView, VentaDashboardView, BodegaDashboardView
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='inventario-dashboard'),
@@ -57,6 +57,8 @@ urlpatterns = [
     path('editar-campanna/<pk>', EditarCampannaView.as_view(), name='editar-campanna'),
     path('eliminar-campanna/<pk>', EliminarCampannaView.as_view(), name='eliminar-campanna'),
 
-    #dashboard
+    # dashboard
     path('dashboard-ventas', VentaDashboardView.as_view(), name='dashboard-ventas'),
+    path('dashboard-productos', BodegaDashboardView.as_view(), name='dashboard-bodega'),
+
 ]

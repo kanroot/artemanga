@@ -1,0 +1,115 @@
+{% extends 'administración/base.html' %}
+{% block contenido %}
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Sin stock:</h5>
+                    <h1 class="card-text text-center">
+                        {{ sin_stock.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Stock bajo:</h5>
+                    <h1 class="card-text text-center">
+                        {{ bajo_stock.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-warning h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Sin portada:</h5>
+                    <h1 class="card-text text-center">
+                        {{ sin_portada.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-danger h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Sin genero:</h5>
+                    <h1 class="card-text text-center">
+                        {{ sin_genero.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <h2 class="text-center">Productos con poco stock</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col">Stock</th>
+                        <th scope="col">Título japones</th>
+                        <th scope="col">Título español</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Editar</th>
+                    </tr>
+                    </thead>
+                    {% for producto in bajo_stock %}
+
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{ producto.stock }}</td>
+                            <td>{{ producto.titulo_jp }}</td>
+                            <td>{{ producto.titulo_es }}</td>
+                            <td>${{ producto.precio }}</td>
+                            {% include 'administración/CRUD/includes/accion_botones.html' with pk=producto.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+
+            <h2 class="text-center">Productos sin portada o sin genero</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col">Título japones</th>
+                        <th scope="col">Título español</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Editar</th>
+                    </tr>
+                    </thead>
+                    {% for producto in sin_portada_o_genero %}
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{ producto.titulo_jp }}</td>
+                            <td>{{ producto.titulo_es }}</td>
+                            <td>${{ producto.precio }}</td>
+                            {% include 'administración/CRUD/includes/accion_botones.html' with pk=producto.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
