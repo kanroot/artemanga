@@ -22,6 +22,7 @@ class Command(BaseCommand):
         self.preparar_base_de_datos()
         self.generar_localidad()
         self.generar_admin()
+        self.generar_cliente_prueba()
         self.generar_clientes()
         self.generar_inventario()
         self.generar_ventas()
@@ -65,6 +66,17 @@ class Command(BaseCommand):
         admin.save()
         ventas.save()
         bodega.save()
+
+    def generar_cliente_prueba(self):
+        cliente = Usuario.objects.create_user(
+            username='cliente',
+            email='cliente@admin.com',
+            password='admin',
+            primer_nombre='ventas',
+            primer_apellido='ventas',
+            tipo_usuario=TipoUsuario.CLIENTE.value
+        )
+        cliente.save()
 
     def generar_clientes(self):
         if self.cantidad_clientes:
