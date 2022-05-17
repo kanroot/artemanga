@@ -22,7 +22,6 @@ class DireccionesView(ListaGenericaView):
     ordering = ['id']
     context_object_name = 'direcciones'
 
-
     def get_queryset(self):
         return Direccion.objects.filter(usuario=self.request.user)
 
@@ -96,7 +95,7 @@ class ElegirDireccionView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Tit
 
 class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, View):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
-    paginas_permitidas = ['ver-carrito']
+    paginas_permitidas = ['ver-carrito', 'crear-direccion']
     permission_denied_message = '¡Debe iniciar sesión o registrarse para realizar una compra!'
 
     def get(self, request):
@@ -113,7 +112,7 @@ class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Vie
 
         if not direcciones:
             messages.warning(request, '¡Es necesario crear una dirección para mandar sus productos!')
-            return HttpResponseRedirect(reverse('crear-direccion') + '?next=' + request.path)
+            return HttpResponseRedirect(reverse('crear-direccion') + '?next=' + 'confirmar-compra')
 
         return HttpResponseRedirect(reverse('elegir-direccion'))
 
