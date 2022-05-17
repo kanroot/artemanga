@@ -67,6 +67,16 @@ class Command(BaseCommand):
         bodega.save()
 
     def generar_clientes(self):
+        cliente = Usuario.objects.create_user(
+            username='cliente',
+            email='cliente@admin.com',
+            password='admin',
+            primer_nombre='ventas',
+            primer_apellido='ventas',
+            tipo_usuario=TipoUsuario.CLIENTE.value
+        )
+        cliente.save()
+
         if self.cantidad_clientes:
             call_command('generar_clientes', cantidad=self.cantidad_clientes)
             return

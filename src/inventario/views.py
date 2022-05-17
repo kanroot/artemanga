@@ -6,16 +6,24 @@ from inventario.vistas_modelos.vistas_genericas import ListaGenericaView
 from venta.models import Venta
 from venta.enums.opciones import EstadoVenta
 from inventario.models import Producto
+from cuenta_usuario.models import Usuario
 
 
 class DashboardView(VistaRestringidaMixin, TemplateView):
     template_name = "administración/dashboard.html"
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA, TipoUsuario.VENTAS]
+    model = Usuario
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['usuarios_activos'] = Usuario.objects.filter(es_activo=True)
+        context['usuarios_inactivos'] = Usuario.objects.filter(es_activo=False)
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.es_ventas():
             return redirect('dashboard-ventas')
-        if request.user.es_bodega() or request.user.es_sysadmin():
+        if request.user.es_bodega():
             return redirect('dashboard-bodega')
         return super().dispatch(request, *args, **kwargs)
 
