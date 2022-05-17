@@ -112,7 +112,7 @@ class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Vie
 
         if not direcciones:
             messages.warning(request, '¡Es necesario crear una dirección para mandar sus productos!')
-            return HttpResponseRedirect(reverse('crear-direccion') + '?next=' + 'confirmar-compra')
+            return HttpResponseRedirect(reverse('crear-direccion') + '?next=' + request.path.replace('/', ''))
 
         return HttpResponseRedirect(reverse('elegir-direccion'))
 
