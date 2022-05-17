@@ -1,23 +1,25 @@
 {% load static %}
 
 {% if campannas %}
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        {% for campanna in campannas %}
-            <div class="carousel-item active">
-                <a href="{{ campanna.url_resuelta }}">
-                    <img src="{{ campanna.imagen.url }}" class="d-block w-100" alt="...">
-                </a>
-            </div>
-        {% endfor %}
+        <div id="bannerCampannas" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for campanna in campannas %}
+                <div class="carousel-item{% if forloop.first %} active {% endif %}">
+                    <a href="{{ campanna.url_resuelta }}">
+                        <img src="{{ campanna.imagen.url }}" class="d-block w-100" alt="{{ campanna.nombre }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCampannas"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCampannas"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 {% endif %}
