@@ -98,8 +98,12 @@ class Despacho(models.Model):
     def usuario(self):
         return self.direccion.usuario
 
+    @property
+    def estado_despacho(self):
+        return EstadoDes(self.estado).name
+
     def __str__(self):
-        return f"Despacho {self.id}, de {self.usuario}, en {self.direccion}"
+        return f"Su pedido será enviado a {self.direccion}"
 
 
 class Venta(models.Model):
@@ -116,6 +120,10 @@ class Venta(models.Model):
         if self.fecha_venta is None:
             self.fecha_venta = datetime.now()
         super().save(force_insert, force_update, using, update_fields)
+
+    @property
+    def estado_venta(self):
+        return EstadoVenta(self.estado).name
 
     @property
     def total_humanizado(self):

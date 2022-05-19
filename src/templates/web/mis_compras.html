@@ -10,11 +10,18 @@
             {% for venta in ventas %}
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card border-dark h-100">
+                        <div class="card-header text-center"><h5><strong># {{ venta.id }} </strong></h5></div>
                         <div class="card-body">
-                            <h5 class="card-title text-center"><strong># {{ venta.id }} </strong></h5>
                             <p class="card-text text-center">
-                                <strong>Estado:</strong> {{ venta.estado }} <br>
                                 <strong>Total:</strong> $ {{ venta.total_humanizado }} <br>
+
+                                {% if venta.estado_venta != 'APROBADA' %}
+                                    <strong>Estado de la venta:</strong> {{ venta.estado_venta }} <br>
+                                {% endif %}
+
+                                {% if venta.estado_venta == 'APROBADA' %}
+                                    <strong>Estado del despacho:</strong> {{ venta.despacho.estado_despacho }} <br>
+                                {% endif %}
 
                                 {% for compra in compras %}
                                     {% if compra.venta_id == venta.id %}
@@ -25,7 +32,9 @@
                                 <strong>Fecha de la venta:</strong> {{ venta.fecha_venta }} <br>
                             </p>
                         </div>
-
+                        <div class="card-footer">
+                            <small class="text-muted">{{ venta.despacho }}</small>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
