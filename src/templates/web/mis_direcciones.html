@@ -21,11 +21,11 @@
                                     <strong>Departamento:</strong> {{ direccion.departamento }} <br>
                                     <strong>Piso:</strong>{{ direccion.piso }}<br>
                                 {% endif %}
-                                <strong>Codigo postal:</strong> {{ direccion.codigo_postal }} <br>
-                                <strong>Telefono:</strong> {{ direccion.telefono }} <br>
+                                <strong>Código postal:</strong> {{ direccion.codigo_postal }} <br>
+                                <strong>Teléfono:</strong> {{ direccion.telefono }} <br>
                                 <strong>Comuna:</strong> {{ direccion.comuna }} <br>
                                 <strong>Provincia:</strong> {{ direccion.provincia }} <br>
-                                <strong>Region:</strong> {{ direccion.region }} <br>
+                                <strong>Región:</strong> {{ direccion.region }} <br>
                             </p>
                         </div>
                          <div class="card-footer text-center">  {% include 'administración/CRUD/includes/accion_botones.html' with pk=direccion.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}</div>
