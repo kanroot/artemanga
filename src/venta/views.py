@@ -27,7 +27,7 @@ class DireccionesView(VistaRestringidaMixin, ListaGenericaView):
         return Direccion.objects.filter(usuario=self.request.user)
 
 
-class MisComprasView(VistaRestringidaMixin, ListaGenericaView):
+class MisComprasView(VistaRestringidaMixin, TemplateView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     model = Venta
     template_name = "web/mis_compras.html"
@@ -38,7 +38,6 @@ class MisComprasView(VistaRestringidaMixin, ListaGenericaView):
         context['ventas'] = Venta.objects.filter(usuario=self.request.user)
         context['compras'] = VentaProducto.objects.filter(venta__usuario=self.request.user)
         return context
-
 
 
 class ActualizarDireccionView(ActualizarGenericoView):

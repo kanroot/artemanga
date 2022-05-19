@@ -15,15 +15,17 @@
                             <p class="card-text text-center">
                                 <strong>Estado:</strong> {{ venta.estado }} <br>
                                 <strong>Total:</strong> $ {{ venta.total_humanizado }} <br>
-                                {% for producto in compras %}
-                                    {% if producto.venta_id == venta.id %}
-                                        <strong>Cantidad de mangas:</strong> {{ producto.cantidad }} <br>
+
+                                {% for compra in compras %}
+                                    {% if compra.venta_id == venta.id %}
+                                        <strong>Manga:</strong> {{ compra.producto }} <br>
+                                        <strong>Cantidad:</strong> {{ compra.cantidad }} <br>
                                     {% endif %}
                                 {% endfor %}
                                 <strong>Fecha de la venta:</strong> {{ venta.fecha_venta }} <br>
                             </p>
                         </div>
-                        <div class="card-footer text-center"><a class="btn btn-outline-success">Ver detalles</a></div>
+
                     </div>
                 </div>
             {% endfor %}
