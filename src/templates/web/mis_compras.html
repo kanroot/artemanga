@@ -1,0 +1,32 @@
+{% extends 'web/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}{% endblock %}
+
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+{% block contenido %}
+    <div class="card-deck">
+        <br>
+        <div class="row">
+            {% for venta in ventas %}
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card border-dark h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><strong># {{ venta.id }} </strong></h5>
+                            <p class="card-text text-center">
+                                <strong>Estado:</strong> {{ venta.estado }} <br>
+                                <strong>Total:</strong> $ {{ venta.total_humanizado }} <br>
+                                {% for producto in compras %}
+                                    {% if producto.venta_id == venta.id %}
+                                        <strong>Cantidad de mangas:</strong> {{ producto.cantidad }} <br>
+                                    {% endif %}
+                                {% endfor %}
+                                <strong>Fecha de la venta:</strong> {{ venta.fecha_venta }} <br>
+                            </p>
+                        </div>
+                        <div class="card-footer text-center"><a class="btn btn-outline-success">Ver detalles</a></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

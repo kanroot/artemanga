@@ -107,8 +107,9 @@ class Venta(models.Model):
     total = models.IntegerField(verbose_name="total")
     fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
-    imagen_deposito = models.ImageField(default='comprobantes/holder.jpg' ,upload_to='comprobantes/')
+    imagen_deposito = models.ImageField(default='comprobantes/holder.jpg', upload_to='comprobantes/')
     # conexiones
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
@@ -119,9 +120,6 @@ class Venta(models.Model):
     @property
     def total_humanizado(self):
         return '{:,}'.format(int(self.total)).replace(',', '.')
-
-    def __str__(self):
-        return f'Compra de {self.despacho.usuario} por ${self.total_humanizado} el {self.fecha_venta}'
 
 
 class VentaProducto(models.Model):

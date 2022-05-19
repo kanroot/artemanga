@@ -16,7 +16,8 @@ from django.http import Http404
 URL_EXITO = reverse_lazy('ver-direccion')
 
 
-class DireccionesView(ListaGenericaView):
+class DireccionesView(VistaRestringidaMixin, ListaGenericaView):
+    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     model = Direccion
     template_name = "web/mis_direcciones.html"
     ordering = ['id']
@@ -24,6 +25,20 @@ class DireccionesView(ListaGenericaView):
 
     def get_queryset(self):
         return Direccion.objects.filter(usuario=self.request.user)
+
+
+class MisComprasView(VistaRestringidaMixin, ListaGenericaView):
+    usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
+    model = Venta
+    template_name = "web/mis_compras.html"
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ventas'] = Venta.objects.filter(usuario=self.request.user)
+        context['compras'] = VentaProducto.objects.filter(venta__usuario=self.request.user)
+        return context
+
 
 
 class ActualizarDireccionView(ActualizarGenericoView):
@@ -131,7 +146,7 @@ class FinalizarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Tem
             temp = ComprobanteTemporal.objects.filter(usuario=request.user).latest('fecha_creacion')
             despacho = Despacho(direccion=direccion)
             despacho.save()
-            venta = Venta(despacho=despacho, total=carrito.total)
+            venta = Venta(despacho=despacho, total=carrito.total, usuario=request.user)
             venta.imagen_deposito.save(temp.comprobante.name, temp.comprobante.file)
 
             for entrada in carrito.productos:
