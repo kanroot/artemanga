@@ -39,18 +39,24 @@
                         </li>
                     {% endif %}
 
+
+
                     {% if user.es_sysadmin or user.es_ventas or user.es_bodega %}
                         <li class="nav-item">
                             <a href="#" class="nav-link">Reportes</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link">Tienda</a>
+                    </li>
+
+
                 </ul>
 
                 <ul class="nav navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ user.username }}</a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="{% url 'home' %}" class="dropdown-item">Tienda</a>
                             <a href="{% url 'logout' %}" class="dropdown-item">Salir</a>
                         </div>
                     </li>
