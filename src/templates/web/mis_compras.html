@@ -1,4 +1,4 @@
-{% extends 'web/base.html' %}
+{% extends 'web/base.html' %}return f"Su pedido será enviado a {self.direccion}"
 {% load crispy_forms_filters %}
 {% block title %}{% endblock %}
 
@@ -33,7 +33,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ venta.despacho }}</small>
+                            <small class="text-muted"> Su pedido será enviado a {{ venta.despacho.direccion }}</small>
                         </div>
                     </div>
                 </div>

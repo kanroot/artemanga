@@ -63,7 +63,7 @@ class Command(BaseCommand):
                 total=total,
                 fecha_venta=self.fake.date_time_between(start_date='-1y', end_date='now'),
                 estado=random.choice(ESTADO_VENTA_CHOICES)[0],
-                usuario=random.choice(Usuario.objects.filter(tipo_usuario=TipoUsuario.CLIENTE.value).all())
+                usuario=despacho.usuario
             )
             venta.save()
 
