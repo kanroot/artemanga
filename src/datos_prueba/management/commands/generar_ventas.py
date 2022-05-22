@@ -62,7 +62,8 @@ class Command(BaseCommand):
                 despacho=despacho,
                 total=total,
                 fecha_venta=self.fake.date_time_between(start_date='-1y', end_date='now'),
-                estado=random.choice(ESTADO_VENTA_CHOICES)[0]
+                estado=random.choice(ESTADO_VENTA_CHOICES)[0],
+                usuario=despacho.usuario
             )
             venta.save()
 

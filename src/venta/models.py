@@ -98,8 +98,12 @@ class Despacho(models.Model):
     def usuario(self):
         return self.direccion.usuario
 
+    @property
+    def estado_despacho(self):
+        return EstadoDes(self.estado).name
+
     def __str__(self):
-        return f"Despacho {self.id}, de {self.usuario}, en {self.direccion}"
+        return f"Su pedido será enviado a {self.direccion}"
 
 
 class Venta(models.Model):
@@ -107,8 +111,9 @@ class Venta(models.Model):
     total = models.IntegerField(verbose_name="total")
     fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
-    imagen_deposito = models.ImageField(default='comprobantes/holder.jpg' ,upload_to='comprobantes/')
+    imagen_deposito = models.ImageField(default='comprobantes/holder.jpg', upload_to='comprobantes/')
     # conexiones
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
@@ -117,11 +122,12 @@ class Venta(models.Model):
         super().save(force_insert, force_update, using, update_fields)
 
     @property
+    def estado_venta(self):
+        return EstadoVenta(self.estado).name
+
+    @property
     def total_humanizado(self):
         return '{:,}'.format(int(self.total)).replace(',', '.')
-
-    def __str__(self):
-        return f'Compra de {self.despacho.usuario} por ${self.total_humanizado} el {self.fecha_venta}'
 
 
 class VentaProducto(models.Model):
