@@ -47,7 +47,10 @@ class VistaRestringidaMixin(LoginRequiredMixin):
     login_url = reverse_lazy('login')
     permission_denied_message = 'No tiene permisos para acceder a esta página. ' \
                                 'Si crees que deberías, por favor contacta al administrador de sistema.'
+
     todos_los_usuarios = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA, TipoUsuario.VENTAS, TipoUsuario.CLIENTE]
+    todos_los_administradores = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA, TipoUsuario.VENTAS]
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return self.handle_no_permission()

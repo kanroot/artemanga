@@ -103,7 +103,7 @@ class Despacho(models.Model):
         return EstadoDes(self.estado).name
 
     def __str__(self):
-        return f"Su pedido será enviado a {self.direccion}"
+        return f"Despacho {self.id}, de {self.usuario}, en {self.direccion}"
 
 
 class Venta(models.Model):
@@ -128,6 +128,13 @@ class Venta(models.Model):
     @property
     def total_humanizado(self):
         return '{:,}'.format(int(self.total)).replace(',', '.')
+
+    @property
+    def detalles(self):
+        return VentaProducto.objects.filter(venta=self)
+
+    def __str__(self):
+        return f'Compra de {self.despacho.usuario} por ${self.total_humanizado} el {self.fecha_venta}'
 
 
 class VentaProducto(models.Model):

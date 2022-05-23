@@ -1,0 +1,51 @@
+{% extends 'administración/base.html' %}
+
+{% block javascript_head %}
+    {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+{% endblock %}
+
+{% block pre-contenido %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="card">
+                    <div class="card-header">
+                        Otras iteraciones
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for otro_reporte in iteraciones %}
+                            <a class="list-group-item" href="{% url 'detalle-reporte' otro_reporte.id %}">
+                                <small>{{ otro_reporte.nombre | title }} #{{ otro_reporte.iteracion }}</small>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ reporte.nombre | title }} #{{ reporte.iteracion }}</h1>
+                        <hr>
+                        {% for pagina in reporte.paginas %}
+                            <div class="container py-4">
+                                {% include 'administración/reportes/includes/pagina_reporte.html' with pagina=pagina %}
+                            </div>
+                        {% endfor %}
+                        <script>
+
+                            window.onload = function () {
+                                {% for pagina in reporte.paginas %}
+                                let config{{ pagina.reporte.id }}{{ pagina.id }} = JSON.parse('{{ pagina.chart_config | safe }}');
+                                let ctx{{ pagina.reporte.id }}{{ pagina.id }} = document.getElementById('{{ pagina.id }}').getContext('2d');
+                                window.grafico{{ pagina.reporte.id }}{{ pagina.id }} = new Chart(ctx{{ pagina.reporte.id }}{{ pagina.id }}, config{{ pagina.reporte.id }}{{ pagina.id }});
+                                {% endfor %}
+                            };
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

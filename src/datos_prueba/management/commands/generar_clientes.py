@@ -1,7 +1,10 @@
+import random
+
 from django.core.management.base import BaseCommand
 from faker import Faker
 from cuenta_usuario.models import Usuario
 from tqdm import tqdm
+from cuenta_usuario.enums.opciones import SEXO_CHOICES
 
 
 class Command(BaseCommand):
@@ -24,12 +27,14 @@ class Command(BaseCommand):
         segundo_apellido = self.fake.last_name()
         username = self.fake.user_name()
         email = self.fake.email()
+        sexo = random.choice(SEXO_CHOICES)[0]
         usuario = Usuario.objects.create(
             primer_nombre=primer_nombre,
             primer_apellido=primer_apellido,
             segundo_apellido=segundo_apellido,
             username=username,
             email=email,
+            sexo=sexo
         )
         usuario.save()
         if self.fake.boolean(chance_of_getting_true=10):

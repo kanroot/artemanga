@@ -73,11 +73,11 @@ class CrearDireccionView(VistaRestringidaMixin, TituloPaginaMixin, CreateView):
     success_url = reverse_lazy('elegir-direccion')
 
     def get_success_url(self):
-        next_url = self.request.GET.get('next', None)  # here method should be GET or POST.
+        next_url = self.request.GET.get('next', None)
         if next_url:
-            return reverse(next_url)  # you can include some query strings as well
+            return reverse(next_url)
         else:
-            return reverse('home')  # what url you wish to return
+            return reverse('home')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

@@ -1,0 +1,16 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for reporte in reportes %}
+        <tr>
+            <td>{{ reporte.nombre }} #{{ reporte.iteracion }}</td>
+            <td>{{ reporte.paginas | length }}</td>
+            <td>{{ reporte.fecha_creacion }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'detalle-reporte' reporte.id %}">
+                    <i class="fa fa-search"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
