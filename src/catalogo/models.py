@@ -1,9 +1,13 @@
-from django.db import models
-from inventario.models import Producto, Genero, Editorial
 import datetime
-from .enums.opciones import ESTADO_CAMPANNA_CHOICES, REDIRIGEA_CHOICES, EstadoCampanna, RedirigeA
+
 from django.core.validators import URLValidator, ValidationError
+from django.db import models
 from django.shortcuts import reverse
+
+from inventario.models import Producto, Genero, Editorial
+from inventario.models import Producto, Genero, Editorial
+from .enums.opciones import ESTADO_CAMPANNA_CHOICES, REDIRIGEA_CHOICES, EstadoCampanna, RedirigeA
+
 
 class Oferta(models.Model):
     id = models.OneToOneField(Producto, on_delete=models.CASCADE, primary_key=True)
@@ -124,5 +128,3 @@ class Campanna(models.Model):
                     raise ValidationError({'key_url': f'La URL: {self.key_url} no parece ser válida.'})
             case _:
                 raise ValidationError({'redirige_a': f'El tipo de redirección: {self.redirige_a} no es válido.'})
-
-

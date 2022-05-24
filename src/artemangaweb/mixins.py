@@ -1,3 +1,4 @@
+from dataclasses import dataclass, field, asdict
 from urllib.parse import urlparse
 
 from django.contrib import messages
@@ -101,3 +102,97 @@ class ImpedirSinRedireccionMixin:
         raise PaginaPreviaNoPermitida(pagina_anterior)
 
 
+@dataclass
+class MigaNavegacion:
+    url: str
+    nombre: str
+    activa: bool = True
+
+    def __eq__(self, other):
+        return self.url == other.url
+
+    def serializar(self) -> dict:
+        return asdict(self)
+
+    @staticmethod
+    def deserializar(diccionario: dict) -> 'MigaNavegacion':
+        return MigaNavegacion(**diccionario)
+
+    def __str__(self):
+        return f'{self.nombre}=>({self.url})'
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class MigaDePanMixin:
+    """
+    Mixin que agrega migas de pan como ayuda de navegación.
+    """
+    _limite_migas_activas: int = 3
+    _migas: list[MigaNavegacion] = field(default_factory=list)
+    home = "/"
+    nombre_esta_miga = 'Esta página'
+    es_home = False
+    mostrar_migas = None
+
+    def agregar_miga(self, miga: MigaNavegacion, request) -> None:
+        desde_sesion = request.session.get('migas', [])
+        self._migas = [MigaNavegacion.deserializar(miga) for miga in desde_sesion]
+
+        if not self.es_home:
+            self.recrear_migas()
+
+            if miga.url not in [m.url for m in self._migas]:
+                self._migas.append(miga)
+
+            self.evaluar_migas_activas(request)
+            request.session['migas'] = [m.serializar() for m in self._migas]
+            return
+
+        self.limpiar_migas(request)
+
+    def recrear_migas(self):
+        if not self.home in [m.url for m in self._migas]:
+            self._migas = [MigaNavegacion(url=self.home, nombre="Inicio")] + self._migas[-self._limite_migas_activas:]
+        else:
+            self._migas = self._migas[-self._limite_migas_activas:]
+
+            if not self.home in [m.url for m in self._migas]:
+                self._migas = [MigaNavegacion(url=self.home, nombre="Inicio")] + self._migas[-self._limite_migas_activas:]
+
+    def evaluar_migas_activas(self, request):
+        for miga in self._migas:
+            miga.activa = miga.url != request.path
+
+    def get_home(self) -> str:
+        return self.home
+
+    def get_nombre_esta_miga(self) -> str:
+        return self.nombre_esta_miga
+
+    def get_mostrar_migas(self) -> bool:
+        if self.mostrar_migas is None:
+            self.mostrar_migas = len(self._migas) > 1 and not self.es_home
+        return self.mostrar_migas
+
+    def limpiar_migas(self, request) -> None:
+        self._migas = []
+        request.session['migas'] = []
+
+    def dispatch(self, request, *args, **kwargs):
+        self.agregar_miga(
+            MigaNavegacion(
+                url=request.path,
+                nombre=self.get_nombre_esta_miga(),
+                activa=False
+            ),
+            request
+        )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['migas'] = self._migas
+        context['mostrar_migas'] = self.get_mostrar_migas()
+        return context

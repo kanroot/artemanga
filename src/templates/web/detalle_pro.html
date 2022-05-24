@@ -3,8 +3,8 @@
 {% block contenido %}
 {% load humanize %}
 
-<div class="container producto my-5 pt-5">
-    <div class="row mt-5">
+<div class="container producto">
+    <div class="row mt-2">
         <div class="col-lg-5 col-md-12 col-12">
             <img class="img-fluid w-100 pb-1" src="{{object.portada.url}}" alt="">
 
@@ -86,7 +86,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-3 p-2">
-                    <button type="button" class="btn btn-warning">
+                    <button type="button" class="btn btn-warning" onclick="agregarProducto({{ producto.pk }})" >
                         <i class="fa-solid fa-cart-plus"></i>
                     </button>
                 </div>
@@ -98,5 +98,12 @@
 
     </div>
 </div>
-
+<script>
+    agregarProducto = (id) => {
+        $.post('{% url "ajax-agregar-producto-carrito" %}', {pk: id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            (_) => {
+                location.href = ('{% url "ver-carrito" %}')
+            })
+    }
+</script>
 {% endblock %}

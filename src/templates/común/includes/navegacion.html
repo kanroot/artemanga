@@ -1,0 +1,17 @@
+{% if mostrar_migas %}
+
+    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';" >
+        <ol class="breadcrumb">
+            {% for miga in migas %}
+                <li class="breadcrumb-item {% if miga.active %}active{% endif %}">
+                    {% if not miga.activa %}
+                        {{ miga.nombre }}
+                    {% else %}
+                        <a href="{{ miga.url }}">{{ miga.nombre }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+
+{% endif %}

@@ -29,7 +29,7 @@
         </div>
     </div>
     <br>
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -112,6 +112,27 @@
                     <button class="btn">{% if user.is_authenticated %}{{ username }}{% endif %}<i
                             class="fa-solid fa-user"></i></button>
                 </ul>
+
+                <div class="col">
+                    <div class="text-center text-md-right">
+
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 24px;">
+                                    <i class="fab fa-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 24px;">
+                                    <i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 24px;">
+                                    <i class="fab fa-instagram"></i></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
 
             </div>
         </div>

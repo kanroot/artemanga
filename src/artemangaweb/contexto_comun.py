@@ -11,11 +11,11 @@ def obtener_editoriales_y_categorias(request):
     return {'editoriales': editoriales, 'categorias': categorias}
 
 def obtener_nuevos(request):
-    nuevos = Producto.objects.filter(esta_publicado=True).filter(es_nuevo=True)
+    nuevos = Producto.objects.filter(esta_publicado=True).filter(es_nuevo=True).order_by('?')[:8]
     return {'nuevos': nuevos}
 
 def obtener_destacados(request):
-    destacados = Producto.objects.filter(esta_publicado=True).filter(es_destacado=True)
+    destacados = Producto.objects.filter(esta_publicado=True).filter(es_destacado=True).order_by('?')[:8]
     return {'destacados': destacados}
 
 def obtener_carrito(request):
