@@ -19,7 +19,7 @@ URL_EXITO = reverse_lazy('ver-direccion')
 class DireccionesView(VistaRestringidaMixin, ListaGenericaView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     model = Direccion
-    template_name = "web/mis_direcciones.html"
+    template_name = "web/usuario/mis_direcciones.html"
     ordering = ['id']
     context_object_name = 'direcciones'
 
@@ -30,7 +30,7 @@ class DireccionesView(VistaRestringidaMixin, ListaGenericaView):
 class MisComprasView(VistaRestringidaMixin, TemplateView):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
     model = Venta
-    template_name = "web/mis_compras.html"
+    template_name = "web/usuario/mis_compras.html"
     ordering = ['id']
 
     def get_context_data(self, **kwargs):
