@@ -153,7 +153,7 @@ class Reportador:
                             df['otro'][index] += detalle.cantidad
 
         datos = {
-            'titulo': 'Géneros más consumidos por sexo en período',
+            'titulo': 'Géneros más consumidos por sexo',
             'df': df
         }
 

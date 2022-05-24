@@ -18,6 +18,9 @@ class ColorSolido(Enum):
     amarillo = 'rgb(255, 205, 86)'
     gris = 'rgb(201, 203, 207)'
     negro = 'rgb(0, 0, 0)'
+    rosado = 'rgb(255, 99, 132)'
+    limon = 'rgb(218, 247, 166,4)'
+    aqua = 'rgb(0, 255, 255)'
 
     @classmethod
     def pedir(cls):
@@ -36,6 +39,9 @@ class ColorTransparente(Enum):
     amarillo = 'rgba(255, 205, 86, 0.5)'
     gris = 'rgba(201, 203, 207, 0.5)'
     negro = 'rgba(0, 0, 0, 0.5)'
+    rosado = 'rgba(255, 99, 132, 0.5)'
+    limon = 'rgba(218, 247, 166, 0.5)'
+    aqua = 'rgba(0, 255, 255, 0.5)'
 
     @classmethod
     def pedir(cls):
