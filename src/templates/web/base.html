@@ -1,6 +1,5 @@
 {% extends 'común/base.html' %}
 {% load static %}
-
 {% block navbar %}
     <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -54,9 +53,6 @@
                                 <li><a class="dropdown-item" href="{% url 'productos-por-categoria' i.id %}">{{ i }}</a></li>
                             {% endfor %}
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -68,9 +64,6 @@
                             {% for i in editoriales %}
                                 <li><a class="dropdown-item" href="{% url 'productos-por-editorial' i.id %}">{{ i }}</a></li>
                             {% endfor %}
-
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Todas las editoriales</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -108,17 +101,11 @@
                         </ul>
                     {% endif %}
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <button class="btn">{% if user.is_authenticated %}{{ username }}{% endif %}<i
-                            class="fa-solid fa-user"></i></button>
-                </ul>
-
-                <div class="col">
+                <div class="col-lg-4 col-md-4">
                     <div class="text-center text-md-right">
-
                         <ul class="list-unstyled list-inline">
                             <li class="list-inline-item">
-                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 24px;">
+                                <a href="" class="btn-floating btn-sm text-white" style="font-size: 24px;">
                                     <i class="fab fa-facebook"></i></a>
                             </li>
                             <li class="list-inline-item">
