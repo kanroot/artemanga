@@ -6,7 +6,7 @@ from catalogo.models import Oferta
 from django.db.models import Q
 
 def obtener_editoriales_y_categorias(request):
-    editoriales = Editorial.objects.all()
+    editoriales = Editorial.objects.all().filter(producto__stock__gte=1).filter(producto__esta_publicado=True).distinct()[:8]
     categorias = Genero.objects.all()
     return {'editoriales': editoriales, 'categorias': categorias}
 
