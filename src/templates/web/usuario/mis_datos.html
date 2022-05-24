@@ -1,0 +1,24 @@
+{% extends 'web/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}{% endblock %}
+
+{% block contenido %}
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">{{ titulo_pagina }}</h4>
+        </div>
+        <div class="card-body">
+            <form role="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form |crispy }}
+                <input type="submit" name="submit" value="Guardar" class="submit submitButton"/>
+            </form>
+        </div>
+        <div class="row ">
+            <a class="btn btn-success btn-lg float-right" href="{% url 'ver-direccion' %}">Mis direcciones</a>
+        </div>
+    </div>
+
+
+
+{% endblock %}

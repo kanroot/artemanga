@@ -36,7 +36,7 @@ class ActualizarUsuarioView(VistaRestringidaMixin, MensajeResultadoFormMixin, Up
             raise Http404("No user matching this query")
         return obj
 
-    template_name = 'web/generico_form.html'
+    template_name = 'web/usuario/mis_datos.html'
     fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'sexo']
     mensaje_exito = "Tu perfil ha sido modificado con éxito"
     mensaje_error = "No se ha podido modificar tu perfil"
