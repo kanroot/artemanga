@@ -40,4 +40,4 @@ class VentaUpdateView(VistaRestringidaMixin, ActualizarGenericoView):
     model = Venta
     template_name = 'administración/CRUD/form_generico.html'
     success_url = reverse_lazy('ventas-validar')
-    fields = ['estado']
+    fields = ['estado', 'boleta']
