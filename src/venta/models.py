@@ -89,6 +89,7 @@ class Direccion(models.Model):
 
 class Despacho(models.Model):
     id = models.AutoField(primary_key=True)
+    codigo_seguimiento = models.CharField(max_length=100, verbose_name="codigo de seguimiento Starken", blank=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_DESPACHO_CHOICE, default=EstadoDes.PENDIENTE.value)
     # conexiones
     # una direccion puede pertenecer a un despacho o más de uno, pero un despacho puede solo pertenecer una direccion
@@ -112,6 +113,7 @@ class Venta(models.Model):
     fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
     imagen_deposito = models.ImageField(default='comprobantes/holder.jpg', upload_to='comprobantes/')
+    boleta = models.FileField(upload_to='boletas/', null=True)
     # conexiones
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
@@ -128,6 +130,12 @@ class Venta(models.Model):
     @property
     def total_humanizado(self):
         return '{:,}'.format(int(self.total)).replace(',', '.')
+
+    @property
+    def estado_boleta(self) -> bool:
+        if self.boleta:
+            return True
+        return False
 
     @property
     def detalles(self):
