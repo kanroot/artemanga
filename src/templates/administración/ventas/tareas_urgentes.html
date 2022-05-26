@@ -26,6 +26,18 @@
         <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
             <div class="card border-danger h-100">
                 <div class="card-body">
+                    <h5 class="card-title">Sin boleta:</h5>
+                    <h1 class="card-text text-center">
+                        {{ sin_boleta.count }} <br>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="card border-danger h-100">
+                <div class="card-body">
                     <h5 class="card-title">Canceladas:</h5>
                     <h1 class="card-text text-center">
                         {{ ventas_cancelada.count }} <br>
@@ -60,13 +72,15 @@
     <div class="container-fluid">
         <div class="row">
 
-            <h2 class="text-center">Ventas por aprobar</h2>
+            <h2 class="text-center">Ventas por aprobar o sin Boleta</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">Total</th>
                         <th scope="col">Fecha de la venta</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Boleta</th>
                         <th scope="col">Editar</th>
                     </tr>
                     </thead>
@@ -76,6 +90,13 @@
                         <tr class="text-center">
                             <td>${{ sin_aprobar.total }}</td>
                             <td>{{ sin_aprobar.fecha_venta }}</td>
+                            <td>{{ sin_aprobar.estado_venta }}</td>
+                            <td style="text-align: center;">
+                            <span class="badge rounded-pill
+                                    {% if sin_aprobar.estado_boleta %} bg-success {% else %} bg-danger {% endif %}">
+                                  <i class="fa {% if sin_aprobar.estado_boleta %}fa-check{% else %}fa-remove{% endif %}"></i>
+                            </span>
+                            </td>
                             {% include 'administración/CRUD/includes/accion_botones.html' with pk=sin_aprobar.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
                         </tr>
                         </tbody>

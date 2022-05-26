@@ -60,10 +60,12 @@ class VentaDashboardView(ListaGenericaView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['ventas_pendientes'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value)
+        context['ventas_pendientes'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value) | Venta.objects.filter(
+            boleta=None)
         context['ventas_cancelada'] = Venta.objects.filter(estado=EstadoVenta.CANCELADA.value)
         context['ventas_aprobada'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
         context['productos_destacados'] = Producto.objects.filter(es_destacado=True)
+        context['sin_boleta'] = Venta.objects.filter(boleta=None)
         context['productos_nuevos'] = Producto.objects.filter(es_nuevo=True)
         context['ultimas_ventas_sin_aprobar'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value).order_by(
             '-fecha_venta')[:6]

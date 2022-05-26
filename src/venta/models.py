@@ -131,6 +131,12 @@ class Venta(models.Model):
         return '{:,}'.format(int(self.total)).replace(',', '.')
 
     @property
+    def estado_boleta(self) -> bool:
+        if self.boleta:
+            return True
+        return False
+
+    @property
     def detalles(self):
         return VentaProducto.objects.filter(venta=self)
 
