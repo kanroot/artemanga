@@ -61,7 +61,6 @@ class VentaDashboardView(ListaGenericaView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ventas_pendientes'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value)
-        context['sin_boleta'] = Venta.objects.filter(boleta=None) | Venta.objects.filter(boleta='')
         context['despachos_sin_seguimiento'] = Despacho.objects.filter(codigo_seguimiento=None)
         context['ventas_cancelada'] = Venta.objects.filter(estado=EstadoVenta.CANCELADA.value)
         context['ventas_aprobada'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
