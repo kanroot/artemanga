@@ -69,5 +69,6 @@ class VentaDashboardView(ListaGenericaView):
         context['ultimas_ventas_sin_aprobar'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value).order_by(
             '-fecha_venta')[:6]
         context['productos_sin_publicar'] = Producto.objects.filter(esta_publicado=False)[:6]
+        context['ventas_aprobadas_sin_boleta_total'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value, boleta='')
         context['ventas_aprobadas_sin_boleta'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value, boleta='')[:6]
         return context
