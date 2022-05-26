@@ -112,6 +112,7 @@ class Venta(models.Model):
     fecha_venta = models.DateField(verbose_name="fecha venta", null=True)
     estado = models.PositiveSmallIntegerField(choices=ESTADO_VENTA_CHOICES, default=EstadoVenta.PENDIENTE.value)
     imagen_deposito = models.ImageField(default='comprobantes/holder.jpg', upload_to='comprobantes/')
+    boleta = models.FileField(upload_to='boletas/', null=True, blank=True)
     # conexiones
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     despacho = models.OneToOneField(Despacho, on_delete=models.CASCADE)
