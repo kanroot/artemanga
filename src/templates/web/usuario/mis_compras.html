@@ -33,10 +33,16 @@
                                     <strong>Fecha de la venta:</strong> {{ venta.fecha_venta }} <br>
                                 </p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted"> Su pedido será enviado
-                                    a {{ venta.despacho.direccion }}</small>
-                            </div>
+                            {% if venta.estado_venta == 'APROBADA' and venta.boleta %}
+                                <a href="{{ venta.boleta.url }}" target="_blank" class="btn btn-primary">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Boleta
+                                </a>
+                                <div class="card-footer">
+                                    <small class="text-muted"> Su pedido será enviado
+                                        a {{ venta.despacho.direccion }}</small>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
