@@ -43,6 +43,7 @@ class Command(BaseCommand):
         for _ in tqdm(range(self.cantidad)):
             direccion = random.choice(Direccion.objects.all())
             despacho = Despacho.objects.create(
+                codigo_seguimiento=self.fake.random_int(min=1000000, max=9999999),
                 direccion=direccion
             )
             despacho.save()
@@ -62,7 +63,6 @@ class Command(BaseCommand):
                 despacho=despacho,
                 total=total,
                 fecha_venta=self.fake.date_time_between(start_date='-1y', end_date='now'),
-                codigo_seguimiento=self.fake.random_int(min=1000000, max=9999999),
                 estado=random.choice(ESTADO_VENTA_CHOICES)[0],
                 usuario=despacho.usuario
             )

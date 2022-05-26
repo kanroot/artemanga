@@ -21,7 +21,7 @@
                                     {% endif %}
 
                                     {% if venta.estado_venta == 'APROBADA' and venta.codigo_seguimiento %}
-                                        <strong>Número de seguimiento:</strong> {{ venta.codigo_seguimiento }} <br>
+                                        <strong>Número de seguimiento:</strong> {{ venta.despacho.codigo_seguimiento }} <br>
                                         <strong>Estado del despacho:</strong> {{ venta.despacho.estado_despacho }} <br>
                                     {% endif %}
 

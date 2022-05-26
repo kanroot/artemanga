@@ -3,7 +3,7 @@ from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
 from django.shortcuts import redirect
 from inventario.vistas_modelos.vistas_genericas import ListaGenericaView
-from venta.models import Venta
+from venta.models import Venta, Despacho
 from venta.enums.opciones import EstadoVenta
 from inventario.models import Producto
 from cuenta_usuario.models import Usuario
@@ -60,14 +60,15 @@ class VentaDashboardView(ListaGenericaView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['ventas_pendientes'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value) | Venta.objects.filter(
-            boleta=None)
+        context['ventas_pendientes'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value)
+        context['sin_boleta'] = Venta.objects.filter(boleta=None) | Venta.objects.filter(boleta='')
+        context['despachos_sin_seguimiento'] = Despacho.objects.filter(codigo_seguimiento=None)
         context['ventas_cancelada'] = Venta.objects.filter(estado=EstadoVenta.CANCELADA.value)
         context['ventas_aprobada'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value)
         context['productos_destacados'] = Producto.objects.filter(es_destacado=True)
-        context['sin_boleta'] = Venta.objects.filter(boleta=None)
         context['productos_nuevos'] = Producto.objects.filter(es_nuevo=True)
         context['ultimas_ventas_sin_aprobar'] = Venta.objects.filter(estado=EstadoVenta.PENDIENTE.value).order_by(
             '-fecha_venta')[:6]
         context['productos_sin_publicar'] = Producto.objects.filter(esta_publicado=False)[:6]
+        context['ventas_aprobadas_sin_boleta'] = Venta.objects.filter(estado=EstadoVenta.APROBADA.value, boleta='')[:6]
         return context
