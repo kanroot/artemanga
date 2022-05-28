@@ -1,7 +1,6 @@
 from venta.models import Despacho, Venta
 from .models import Producto, Genero
 from django import forms
-from venta.enums.opciones import ESTADO_DESPACHO_CHOICE
 
 
 class ProductoBodegaForm(forms.ModelForm):

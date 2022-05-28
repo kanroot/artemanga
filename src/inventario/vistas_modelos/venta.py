@@ -1,9 +1,6 @@
-from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views.generic import UpdateView, TemplateView
-
 from artemangaweb.mixins import VistaRestringidaMixin
 from cuenta_usuario.enums.opciones import TipoUsuario
 from venta.enums.opciones import EstadoVenta
