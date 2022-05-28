@@ -2,10 +2,13 @@ from datetime import datetime
 
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from cuenta_usuario.models import Usuario
 from inventario.models import Producto
 from .enums.opciones import ESTADO_VENTA_CHOICES, EstadoVenta, EstadoDes, ESTADO_DESPACHO_CHOICE
+from .signals import venta_actualizada_signal, despacho_actualizado_signal
 
 
 class Region(models.Model):
@@ -162,3 +165,32 @@ class ComprobanteTemporal(models.Model):
     comprobante = models.ImageField(upload_to='tmp/')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+
+@receiver(pre_save, sender=Venta)
+def venta_pre_save(sender, instance, **kwargs):
+    try:
+        obj = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        # estamos creando una nueva venta, no es posible obtener datos como pk o productos
+        pass
+    else:
+        # estamos actualizando una venta, comprobemos que haya cambiado el estado
+        if obj.estado != instance.estado or obj.boleta != instance.boleta:
+            venta_actualizada_signal.send(sender=instance.__class__, instance=instance)
+
+
+@receiver(pre_save, sender=Despacho)
+def despacho_pre_save(sender, instance, **kwargs):
+    try:
+        obj = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        # estamos creando un nuevo despacho
+        pass
+    else:
+        # estamos actualizando un despacho, comprobemos que haya cambiado el estado o se haya adjuntado número de seguimiento
+        if obj.codigo_seguimiento != instance.codigo_seguimiento:
+            despacho_actualizado_signal.send(sender=instance.__class__, instance=instance)
+            return
+        if obj.estado != instance.estado:
+            despacho_actualizado_signal.send(sender=instance.__class__, instance=instance)

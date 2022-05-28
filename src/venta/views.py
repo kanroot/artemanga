@@ -12,6 +12,7 @@ from .forms import CrearDireccionForm, ElegirDireccionForm
 from .models import Direccion, ComprobanteTemporal, VentaProducto, Venta, Despacho
 from sistema.models import RegistroError
 from django.http import Http404
+from .signals import venta_creada_signal
 
 URL_EXITO = reverse_lazy('ver-direccion')
 
@@ -167,6 +168,7 @@ class FinalizarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Tem
             error.save()
             self.extra_context['error'] = error.id
         else:
+            venta_creada_signal.send(sender=self.__class__, instance=venta)
             carrito.vaciar()
             carrito.guardar(request.session)
             temp.delete()
