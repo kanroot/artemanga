@@ -19,9 +19,9 @@
                                     {% if venta.estado_venta != 'APROBADA' %}
                                         <strong>Estado de la venta:</strong> {{ venta.estado_venta }} <br>
                                     {% endif %}
-
-                                    {% if venta.estado_venta == 'APROBADA' and venta.codigo_seguimiento %}
-                                        <strong>Número de seguimiento:</strong> {{ venta.despacho.codigo_seguimiento }} <br>
+                                    {% if venta.estado_venta == 'APROBADA' and venta.despacho.codigo_seguimiento %}
+                                        <strong>Número de seguimiento:</strong> #{{ venta.despacho.codigo_seguimiento }}
+                                        <br>
                                         <strong>Estado del despacho:</strong> {{ venta.despacho.estado_despacho }} <br>
                                     {% endif %}
 
@@ -39,6 +39,9 @@
                                     <i class="fas fa-file-pdf"></i>
                                     Boleta
                                 </a>
+                            {% endif %}
+
+                            {% if venta.despacho.estado_despacho != 'FALLIDO'%}
                                 <div class="card-footer">
                                     <small class="text-muted"> Su pedido será enviado
                                         a {{ venta.despacho.direccion }}</small>

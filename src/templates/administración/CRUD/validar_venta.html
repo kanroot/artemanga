@@ -1,0 +1,40 @@
+{% extends 'administración/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block javascript_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/datepicker.css' %}">
+    <script src="{% static 'js/bootstrap-datepicker.js' %}" charset="UTF-8"></script>
+{% endblock %}
+
+{% block contenido %}
+    <div class="card">
+        <div class="card-body">
+            <h3>{{ titulo_pagina }}</h3>
+            <form role="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy}}
+                <input type="submit" name="submit_venta" value="Guardar" class="submit submitButton" />
+                <input type="reset" name="submit_venta" value="Limpiar" class="submit submitButton" />
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3>Dirección de despacho:  {{ titulo_pagina_dos }}</h3>
+            <form role="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form2 | crispy }}
+                <input type="submit" name="submit_despacho" value="Guardar" class="submit submitButton" />
+                <input type="reset" name="submit_despacho" value="Limpiar" class="submit submitButton" />
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js/locales/bootstrap-datepicker.es.js' %}"></script>
+    <script>
+        $('#datepicker').datepicker();
+    </script>
+{% endblock %}
