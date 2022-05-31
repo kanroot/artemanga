@@ -7,6 +7,7 @@ from catalogo.enums.opciones import EstadoCampanna
 from inventario.models import Producto, Genero, Editorial
 from django.contrib import messages
 from artemangaweb.mixins import MigaDePanMixin
+from catalogo.carrito.exceptions import StockProductoInsuficiente
 
 
 class Home(MigaDePanMixin, TemplateView):
@@ -35,10 +36,13 @@ class ActualizarCarritoView(View):
         producto: EntradaCarrito = carrito.obtener_producto(pk)
         cantidad_final = producto.cantidad - cantidad
 
-        if cantidad_final < 0:
-            carrito.aumentar_cantidad_producto(pk, abs(cantidad_final))
-        elif cantidad_final > 0:
-            carrito.disminuir_cantidad_producto(pk, abs(cantidad_final))
+        try:
+            if cantidad_final < 0:
+                carrito.aumentar_cantidad_producto(pk, abs(cantidad_final))
+            elif cantidad_final > 0:
+                carrito.disminuir_cantidad_producto(pk, abs(cantidad_final))
+        except StockProductoInsuficiente:
+            messages.error(request, 'No hay stock suficiente para el producto')
 
         carrito.guardar(request.session)
         return HttpResponse(carrito)

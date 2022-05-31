@@ -15,14 +15,14 @@
                 <div class="row">
                     <h5 class="card-title">{{ producto.titulo_es }}</h5>
                 </div>
-                <div class="row">
-                    <h4><strong>${{ producto.precio | intcomma }}</strong></h4>
-                </div>
-                {% if esta_en_oferta %}
-                <div class="row">
-                    <span class="text-secondary"><s>{{ precio_sin_oferta }}</s></span>
-                </div>
+                {% if producto.ofertas %}
+                    <div class="row">
+                        <span class="text-secondary"><s>${{ producto.precio | intcomma }}</s></span>
+                    </div>
                 {% endif %}
+                <div class="row">
+                    <h4><strong>${{ producto.precio_final | intcomma }}</strong></h4>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-3 p-2">
                         <button style="z-index: 1; position: relative" type="button"

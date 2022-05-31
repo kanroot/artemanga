@@ -5,15 +5,18 @@ from django.db import models
 from django.shortcuts import reverse
 
 from inventario.models import Producto, Genero, Editorial
-from inventario.models import Producto, Genero, Editorial
 from .enums.opciones import ESTADO_CAMPANNA_CHOICES, REDIRIGEA_CHOICES, EstadoCampanna, RedirigeA
 
 
 class Oferta(models.Model):
-    id = models.OneToOneField(Producto, on_delete=models.CASCADE, primary_key=True)
+    producto = models.OneToOneField(Producto, on_delete=models.CASCADE)
     descuento = models.IntegerField(verbose_name="descuento", default=10)
     fecha_inicio = models.DateField(verbose_name="fecha inicio")
     fecha_fin = models.DateField(verbose_name="fecha fin")
+
+    def __str__(self):
+        return f"Oferta {'activa' if self.es_valida else 'inactiva'} " \
+               f"para {self.producto.titulo_es} por {self.descuento}% de descuento"
 
     @property
     def es_valida(self):

@@ -1,5 +1,6 @@
 from venta.models import Despacho, Venta
 from .models import Producto, Genero
+from catalogo.models import Oferta
 from django import forms
 
 
@@ -45,3 +46,25 @@ class DespachoForm(forms.ModelForm):
         labels = {
             'estado': 'Estado del despacho'
         }
+
+
+class OfertaForm(forms.ModelForm):
+    fecha_inicio = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'id': 'oferta_fecha_inicio',
+            'data-date-format': 'dd/mm/yyyy',
+            'data-date-language': 'es',
+        }),
+    )
+
+    fecha_fin = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'id': 'oferta_fecha_fin',
+            'data-date-format': 'dd/mm/yyyy',
+            'data-date-language': 'es',
+        }),
+    )
+
+    class Meta:
+        model = Oferta
+        fields = ['producto', 'descuento', 'fecha_inicio', 'fecha_fin']

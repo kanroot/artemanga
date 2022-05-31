@@ -9,6 +9,7 @@ from .vistas_modelos.producto import ProductoListView, ProductoUpdateView, Produ
     ActualizarProductoVentasView, ProductoVentasListView
 from .vistas_modelos.venta import VentasPendientesLisView, VentasAprobadasLisView, VentaUpdateView
 from .vistas_modelos.campanna import CampannaListView, EditarCampannaView, CrearCampannaView, EliminarCampannaView
+from .vistas_modelos.oferta import OfertaListView, OfertaCreateView, OfertaUpdateView, OfertaDeleteView
 from .views import DashboardView, VentaDashboardView, BodegaDashboardView
 
 urlpatterns = [
@@ -59,7 +60,8 @@ urlpatterns = [
     path('crear-campanna', CrearCampannaView.as_view(), name='crear-campanna'),
     path('editar-campanna/<pk>', EditarCampannaView.as_view(), name='editar-campanna'),
     path('eliminar-campanna/<pk>', EliminarCampannaView.as_view(), name='eliminar-campanna'),
-
-
-
+    path('listado-ofertas', OfertaListView.as_view(), name='listado-ofertas'),
+    path('crear-oferta', OfertaCreateView.as_view(), name='crear-oferta'),
+    path('editar-oferta/<pk>', OfertaUpdateView.as_view(), name='editar-oferta'),
+    path('eliminar-oferta/<pk>', OfertaDeleteView.as_view(), name='eliminar-oferta'),
 ]

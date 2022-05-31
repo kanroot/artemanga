@@ -6,12 +6,10 @@
             </div>
         {% endif %}
 
-        {% for oferta in ofertas_validas %}
-            {% if oferta.id == producto %}
+        {% for oferta in producto.ofertas %}
                 <div class="align-self-end flex-wrap">
                     {% include 'web/includes/tag.html' with texto=oferta.descuento texto_2='%' clase_icono='fa-solid fa-tag' %}
                 </div>
-            {% endif %}
         {% endfor %}
 
     </div>

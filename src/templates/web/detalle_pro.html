@@ -69,7 +69,10 @@
             </div>
 
             <div class="row text-center">
-                <h4><strong>${{ object.precio | intcomma }}</strong></h4>
+                {% if object.ofertas %}
+                    <span>antes: <s>${{ object.precio | intcomma }}</s></span>
+                {% endif %}
+                <h4><strong>${{ object.precio_final | intcomma }}</strong></h4>
             </div>
             <div class="row text-center">          
                 <h6>

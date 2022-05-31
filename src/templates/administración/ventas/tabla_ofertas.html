@@ -1,0 +1,18 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+{% block tabla_cuerpo %}
+    {% for oferta in ofertas %}
+        <tr>
+            <td>{{ oferta.id }}</td>
+            <td>{{ oferta.producto }}</td>
+            <td>{{ oferta.descuento }}</td>
+            <td>
+                <span class="badge rounded-pill
+                        {% if oferta.es_valida %} bg-success {% else %} bg-danger {% endif %}">
+                    <i class="fa {% if oferta.es_vaida %}fa-check{% else %}fa-remove{% endif %}"></i>
+                </span>
+            </td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=oferta.id editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}

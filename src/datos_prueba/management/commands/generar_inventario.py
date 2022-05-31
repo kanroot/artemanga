@@ -120,5 +120,5 @@ class Command(BaseCommand):
             fecha_inicio = self.fake.date_between(start_date='-30d', end_date='-1d')
             fecha_fin = self.fake.date_between(start_date='-1d', end_date='+30d')
             oferta = Oferta.objects.create(
-                id=producto, descuento=descuento, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin)
+                producto=producto, descuento=descuento, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin)
             oferta.save()

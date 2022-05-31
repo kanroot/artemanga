@@ -1,4 +1,6 @@
 from django.db import models
+from inventario.exceptions import PrecioConOfertasMenorACero
+from django.apps import apps
 
 
 VALOR_IVA = 19
@@ -92,3 +94,24 @@ class Producto(models.Model):
     @property
     def precio_sin_iva(self):
         return self.precio - (self.precio * VALOR_IVA / 100)
+
+    @property
+    def ofertas(self):
+        Oferta = apps.get_model('catalogo', 'Oferta')
+        ofertas = Oferta.objects.filter(producto=self)
+        ofertas = [o for o in ofertas if o.es_valida]
+
+        return ofertas
+
+    @property
+    def precio_final(self):
+        descuento = 0
+        ofertas = self.ofertas
+        for oferta in ofertas:
+            descuento += oferta.descuento
+        precio_final = int(self.precio - (self.precio * descuento / 100))
+
+        if precio_final < 0:
+            raise PrecioConOfertasMenorACero(str(self), precio_final)
+
+        return precio_final

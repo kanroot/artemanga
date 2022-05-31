@@ -26,12 +26,3 @@ def obtener_carrito(request):
         request.session['carrito'] = carrito.serializar()
 
     return {'carrito': request.session['carrito']}
-
-def obtener_ofertas_validas(request):
-    ahora = datetime.now()
-
-    ofertas = Oferta.objects.filter(
-        Q(fecha_inicio__lte=ahora) & Q(fecha_fin__gte=ahora)
-    )
-
-    return {'ofertas_validas': ofertas}

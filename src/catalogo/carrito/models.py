@@ -50,7 +50,7 @@ class Carrito:
         """Calcula el total de un producto en el carrito."""
 
         producto = self.obtener_producto(producto_id)
-        return producto.cantidad * Producto.objects.get(id=producto_id).precio
+        return producto.cantidad * Producto.objects.get(id=producto_id).precio_final
 
     @property
     def total(self) -> float:
