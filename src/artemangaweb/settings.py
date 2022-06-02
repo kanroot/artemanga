@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'inventario',
     'venta',
     'sistema',
-    'notificaciones'
+    'notificaciones',
+    'post_office',
 ]
 
 MIDDLEWARE = [
@@ -161,7 +162,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # reinicio de contraseña
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
 EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS', 1))

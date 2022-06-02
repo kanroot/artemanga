@@ -6,6 +6,7 @@ x-common-volumes: &common-volumes
     volumes:
         - static-volume:/home/website/statics
         - media-volume:/home/website/media
+        - /home/website/logs:/home/website/logs
 
 services:
     db:

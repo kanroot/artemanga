@@ -36,8 +36,11 @@ COPY src .
 RUN mkdir /home/website
 RUN mkdir /home/website/statics
 RUN mkdir /home/website/media
+RUN mkdir /home/website/logs
 
 RUN sed -i 's/\r$//g' entrypoint.sh
 RUN chmod +x entrypoint.sh
+
+RUN crontab -l | { cat; echo "* * * * * python /src/manage.py send_queued_mail >> /home/website/logs/send_mail.log 2>&1"; } | crontab -
 
 ENTRYPOINT ["./entrypoint.sh"]
