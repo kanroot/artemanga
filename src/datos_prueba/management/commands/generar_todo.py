@@ -26,6 +26,7 @@ class Command(BaseCommand):
         self.generar_inventario()
         self.generar_ventas()
         self.generar_reportes()
+        self.generar_campannas()
 
     def preparar_base_de_datos(self):
         print('Limpiando datos en base de datos...')
@@ -100,6 +101,9 @@ class Command(BaseCommand):
 
     def generar_reportes(self):
         call_command('generar_reportes')
+
+    def generar_campannas(self):
+        call_command('generar_campannas')
 
     def manejar_argumentos(self, options):
         if options.get('clientes'):

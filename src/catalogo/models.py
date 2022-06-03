@@ -45,9 +45,10 @@ class Campanna(models.Model):
 
     fecha_expiracion = models.DateField(
         verbose_name='Fecha expiración',
-        help_text='Si auto expiración está activa, la campaña pasará a inactiva una vez alcanzada esta fecha, '
+        help_text='Si la auto expiración está "activa", la campaña pasará a estar "inactiva" una vez alcanzada la fecha indicada, de otro modo no tiene efecto.'
                   'de otro modo no tiene efecto.',
-        default=datetime.date.today() + datetime.timedelta(days=30)
+        blank=True,
+        null=True
     )
 
     redirige_a = models.PositiveIntegerField(
@@ -105,6 +106,14 @@ class Campanna(models.Model):
                 return f'{tipo}: {self.key_url}'
 
     def clean(self):
+        self.validar_redireccion()
+        self.validar_fecha_expiracion()
+
+    def validar_fecha_expiracion(self):
+        if self.auto_expira and not self.fecha_expiracion:
+            raise ValidationError('La fecha de expiración no puede estar vacía si la auto expiración está activa.')
+
+    def validar_redireccion(self):
         match self.redirige_a:
             case RedirigeA.PRODUCTO.value:
                 try:
