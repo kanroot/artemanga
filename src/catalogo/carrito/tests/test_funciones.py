@@ -36,6 +36,8 @@ class FuncionesBasicas(TestCase):
         producto1 = Producto.objects.get(id=1)
         producto1.precio = 10
         producto1.save()
+        for oferta in producto1.ofertas:
+            oferta.delete()
 
         entrada = EntradaCarrito(cantidad=2, pk=1)
         self.carrito.agregar_producto(entrada)
@@ -52,6 +54,11 @@ class FuncionesBasicas(TestCase):
         producto2.precio = 20
         producto2.save()
 
+        for oferta in producto1.ofertas:
+            oferta.delete()
+        for oferta in producto2.ofertas:
+            oferta.delete()
+
         entrada = EntradaCarrito(cantidad=2, pk=1)
         self.carrito.agregar_producto(entrada)
         entrada2 = EntradaCarrito(cantidad=2, pk=2)
@@ -63,6 +70,8 @@ class FuncionesBasicas(TestCase):
         producto = Producto.objects.get(id=1)
         producto.stock = 10
         producto.save()
+        for oferta in producto.ofertas:
+            oferta.delete()
 
         entrada = EntradaCarrito(cantidad=1, pk=1)
         self.carrito.agregar_producto(entrada)
@@ -96,6 +105,8 @@ class FuncionesBasicas(TestCase):
         producto = Producto.objects.get(id=1)
         producto.stock = 10
         producto.save()
+        for oferta in producto.ofertas:
+            oferta.delete()
 
         entrada = EntradaCarrito(cantidad=10, pk=1)
         self.carrito.agregar_producto(entrada)
