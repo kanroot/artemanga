@@ -35,6 +35,13 @@
                             <a href="{% url 'venta-validada' %}" class="dropdown-item">Validadas</a>
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Soporte</a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'listado-ticket-abierto' %}" class="dropdown-item">Tickets abiertos</a>
+                        <a href="{% url 'listado-ticket-cerrado' %}" class="dropdown-item">Tickets cerrados</a>
+                    </div>
+                    </li>
                 {% endif %}
 
                 {% if user.es_sysadmin or user.es_ventas or user.es_bodega %}
