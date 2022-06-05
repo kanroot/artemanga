@@ -67,7 +67,7 @@ class EliminarDireccionView(EliminarGenericoView):
 class CrearDireccionView(VistaRestringidaMixin, TituloPaginaMixin, CreateView):
     titulo_pagina = 'Crear dirección de envío'
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
-    permission_denied_message = '¡Debe iniciar seticketsión o registrarse para agregar una dirección a su usuario!'
+    permission_denied_message = '¡Debe iniciar sesión o registrarse para agregar una dirección a su usuario!'
     model = Direccion
     form_class = CrearDireccionForm
     template_name = 'web/generico_form.html'
