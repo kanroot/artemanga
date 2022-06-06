@@ -1,0 +1,29 @@
+{% extends 'web/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}{% endblock %}
+
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+{% block contenido %}
+    <div class="card-deck">
+        <div class="row">
+            <a class="btn btn-success btn-lg btn-block" href="#">Necesito ayuda</a>
+        </div>
+        <br>
+        <div class="row">
+            {% for ticket in tickets %}
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card border-dark h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><strong> #{{ ticket.id }}</strong></h5>
+                            <p class="card-text text-center">
+                                <strong>Tipo de ticket:</strong> {{ ticket.tipo_ticket_humanizado }} <br>
+                                <strong>Fecha de creación:</strong> {{ ticket.fecha_creacion }} <br>
+                                <strong>Estado de la respuesta:</strong> {{ ticket.estado_ticket_humanizado }} <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

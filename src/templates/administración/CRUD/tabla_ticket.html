@@ -1,0 +1,14 @@
+{% extends 'administración/CRUD/listado_base.html' %}
+
+
+{% block tabla_cuerpo %}
+    {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.tipo_ticket_humanizado }}</td>
+            <td>{{ ticket.fecha_creacion }}</td>
+            <td>{{ ticket.usuario.username }}</td>
+            <td>{{ ticket.venta.id }}</td>
+            {% include 'administración/CRUD/includes/accion_botones.html' with pk=ticket.pk editar=tabla_boton_editar eliminar=tabla_boton_eliminar %}
+        </tr>
+    {% endfor %}
+{% endblock %}
