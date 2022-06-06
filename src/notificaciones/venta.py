@@ -106,12 +106,19 @@ def notificar_cliente_despacho_actualizado(sender, instance, **kwargs):
             titulo_texto_1 = asunto
             cuerpo_texto_1 = f'Hola {instance.usuario.username}, ya pusimos todo en la caja y va en camino a tu casa.\n' \
                             f'Puedes seguir el envío mediante el siguiente código de seguimiento: <strong>{instance.codigo_seguimiento}</strong> en ' \
-                            f'<a href="#">la página de Starken.</a>\n' \
+                            f'<a href="#">la página de Starken.</a>\n'
 
         case EstadoDes.FALLIDO.value:
             asunto = '¡Oops, parece que hubo un problema con tu despacho!'
             titulo_texto_1 = asunto
             cuerpo_texto_1 = f'Hola {instance.usuario.username}, lamentamos informarte que hubo un problema con tu despacho.\n' \
+                            f'Utiliza el código de seguimiento: <strong>{instance.codigo_seguimiento}</strong> en <a href="#">la página de Starken.</a>' \
+                            f'para conocer más detalles.\n' \
+                            f'Si necesitas más ayuda, siempre puedes iniciar un ticket en nuestro <a href="#">portal de soporte</a> para que podamos guiarte.\n'
+        case EstadoDes.FINALIZADO.value:
+            asunto = '¡Entregamos tu paquete!'
+            titulo_texto_1 = asunto
+            cuerpo_texto_1 = f'Hola {instance.usuario.username}, según nos informa nuestro provedor, tu pedido está en tus manos.\n' \
                             f'Utiliza el código de seguimiento: <strong>{instance.codigo_seguimiento}</strong> en <a href="#">la página de Starken.</a>' \
                             f'para conocer más detalles.\n' \
                             f'Si necesitas más ayuda, siempre puedes iniciar un ticket en nuestro <a href="#">portal de soporte</a> para que podamos guiarte.\n'

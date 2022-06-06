@@ -41,6 +41,9 @@ RUN mkdir /home/website/logs
 RUN sed -i 's/\r$//g' entrypoint.sh
 RUN chmod +x entrypoint.sh
 
+# corre el comando de enviar correos cada minuto
 RUN crontab -l | { cat; echo "* * * * * python /src/manage.py send_queued_mail >> /home/website/logs/send_mail.log 2>&1"; } | crontab -
+# corre comando para auto-expirar campañas cada 10 minutos
+RUN crontab -l | { cat; echo "*/10 * * * * python /src/manage.py revisar_expiracion_campannas" ; } | crontab -
 
 ENTRYPOINT ["./entrypoint.sh"]

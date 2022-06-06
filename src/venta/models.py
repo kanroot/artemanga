@@ -176,7 +176,7 @@ def venta_pre_save(sender, instance, **kwargs):
         pass
     else:
         # estamos actualizando una venta, comprobemos que haya cambiado el estado
-        if obj.estado != instance.estado or obj.boleta != instance.boleta:
+        if obj.estado != instance.estado:
             venta_actualizada_signal.send(sender=instance.__class__, instance=instance)
 
 

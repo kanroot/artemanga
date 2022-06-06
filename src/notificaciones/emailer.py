@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
@@ -30,10 +29,12 @@ class Emailer:
         return strip_tags(self.mensaje_html())
 
     def enviar(self):
-        send_mail(
+        from post_office import mail
+
+        mail.send(
+            recipients=self.destinatarios,
+            sender=self.correo_origen,
             subject=self.asunto,
             message=self.mensaje_plano(),
-            from_email=self.correo_origen,
-            recipient_list=self.destinatarios,
             html_message=self.mensaje_html()
         )

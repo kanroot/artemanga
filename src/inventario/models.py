@@ -1,9 +1,10 @@
-from django.db import models
-from inventario.exceptions import PrecioConOfertasMenorACero
 from django.apps import apps
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-
-VALOR_IVA = 19
+from inventario.exceptions import PrecioConOfertasMenorACero
+from .signals import producto_poco_stock_signal, producto_agotado_signal
 
 class Autor(models.Model):
 
@@ -93,7 +94,8 @@ class Producto(models.Model):
 
     @property
     def precio_sin_iva(self):
-        return self.precio - (self.precio * VALOR_IVA / 100)
+        from django.conf import settings
+        return self.precio - (self.precio * settings.VALOR_IVA / 100)
 
     @property
     def ofertas(self):
@@ -115,3 +117,15 @@ class Producto(models.Model):
             raise PrecioConOfertasMenorACero(str(self), precio_final)
 
         return precio_final
+
+
+@receiver(post_save, sender=Producto)
+def post_save_producto(sender, instance: Producto, **kwargs) -> None:
+    from django.conf import settings
+
+    if instance.stock == 0:
+        producto_agotado_signal.send(sender=Producto.__class__, instance=instance)
+        return
+
+    if instance.stock <= settings.PRODUCTO_POCO_STOCK:
+        producto_poco_stock_signal.send(sender=Producto.__class__, instance=instance)
