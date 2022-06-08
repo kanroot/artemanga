@@ -175,6 +175,11 @@ POST_OFFICE = {
     'THREADS_PER_PROCESS': 10
 }
 
+# CSRF
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = ['https://artemanga.cl/', 'http://localhost:8000/']
+
 
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
