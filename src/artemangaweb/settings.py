@@ -176,7 +176,9 @@ POST_OFFICE = {
 }
 
 # CSRF
-CSRF_TRUSTED_ORIGINS = ['https://artemanga.cl/']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = ['https://artemanga.cl/', 'http://localhost:8000/']
 
 
 # crispy forms
