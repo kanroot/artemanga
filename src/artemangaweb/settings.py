@@ -175,6 +175,9 @@ POST_OFFICE = {
     'THREADS_PER_PROCESS': 10
 }
 
+# CSRF
+CSRF_TRUSTED_ORIGINS = ['https://artemanga.cl/']
+
 
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
