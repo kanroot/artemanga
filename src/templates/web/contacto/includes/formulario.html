@@ -1,0 +1,9 @@
+{% load crispy_forms_filters %}
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<form role="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" name="submit" value="Enviar" class="submit submitButton" />
+</form>

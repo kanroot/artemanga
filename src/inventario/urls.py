@@ -11,7 +11,6 @@ from .vistas_modelos.venta import VentasPendientesLisView, VentasAprobadasLisVie
 from .vistas_modelos.campanna import CampannaListView, EditarCampannaView, CrearCampannaView, EliminarCampannaView
 from .vistas_modelos.oferta import OfertaListView, OfertaCreateView, OfertaUpdateView, OfertaDeleteView
 from .views import DashboardView, VentaDashboardView, BodegaDashboardView
-from .vistas_modelos.ticket import TicketsAbiertosLisView, TicketsCerradosLisView, MisTicketsView
 
 urlpatterns = [
     # dashboard
@@ -26,8 +25,6 @@ urlpatterns = [
     path('listado-pais', PaisListView.as_view(), name='listado-pais'),
     path('listado-editorial', EditorialListView.as_view(), name='listado-editorial'),
     path('listado-otro-autor', OtrosAutoresListView.as_view(), name='listado-otro-autor'),
-    path('listado-ticket-abierto', TicketsAbiertosLisView.as_view(), name='listado-ticket-abierto'),
-    path('listado-ticket-cerrado', TicketsCerradosLisView.as_view(), name='listado-ticket-cerrado'),
 
     # crear
     path('crear-producto', ProductoCreateView.as_view(), name='crear-producto'),
@@ -67,7 +64,4 @@ urlpatterns = [
     path('crear-oferta', OfertaCreateView.as_view(), name='crear-oferta'),
     path('editar-oferta/<pk>', OfertaUpdateView.as_view(), name='editar-oferta'),
     path('eliminar-oferta/<pk>', OfertaDeleteView.as_view(), name='eliminar-oferta'),
-
-    #soporte
-    path('mis-tickets', MisTicketsView.as_view(), name='mis-tickets'),
 ]

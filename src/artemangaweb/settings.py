@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'venta',
     'sistema',
     'notificaciones',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -193,3 +195,6 @@ SESSION_COOKIE_NAME = "user_session"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# CKEDITOR
+CKEDITOR_UPLOAD_PATH = "contacto/"

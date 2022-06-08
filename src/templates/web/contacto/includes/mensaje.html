@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-header">
+        <strong>{{ mensaje.usuario }}</strong> dijo el {{ mensaje.fecha_creacion }}:
+    </div>
+    <div class="card-body">
+        {{ mensaje.texto | safe }}
+    </div>
+</div>

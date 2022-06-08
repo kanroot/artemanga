@@ -6,24 +6,36 @@
 {% block contenido %}
     <div class="card-deck">
         <div class="row">
-            <a class="btn btn-success btn-lg btn-block" href="#">Necesito ayuda</a>
+            <a class="btn btn-success btn-lg btn-block" href="{% url 'crear-ticket' %}">Crear un ticket</a>
         </div>
         <br>
         <div class="row">
-            {% for ticket in tickets %}
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card border-dark h-100">
-                        <div class="card-body">
-                            <h5 class="card-title text-center"><strong> #{{ ticket.id }}</strong></h5>
-                            <p class="card-text text-center">
-                                <strong>Tipo de ticket:</strong> {{ ticket.tipo_ticket_humanizado }} <br>
-                                <strong>Fecha de creación:</strong> {{ ticket.fecha_creacion }} <br>
-                                <strong>Estado de la respuesta:</strong> {{ ticket.estado_ticket_humanizado }} <br>
-                            </p>
+            {% if tickets %}
+                {% for ticket in tickets %}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card border-{% if ticket.estado == 1 %}success{% else %}danger{% endif %} h-100">
+                            <div class="card-body">
+                                <a style="z-index: 1" class="card-block stretched-link text-decoration-none"
+                                href="{% url 'contacto-detalle' ticket.id %}"></a>
+                                <h5 class="card-title text-center"><strong> #{{ ticket.id }}</strong></h5>
+                                <p class="card-text text-center">
+                                    <strong>Tipo de ticket:</strong> {{ ticket.tipo_ticket_humanizado }} <br>
+                                    <strong>Mensajes:</strong> {{ ticket.cantidad_mensajes }} <br>
+                                    <strong>Fecha de creación:</strong> {{ ticket.fecha_creacion }} <br>
+                                    <strong>Última modificación:</strong> {{ ticket.fecha_modificacion }} <br>
+                                    <strong>Estado:</strong> {{ ticket.estado_ticket_humanizado }} <br>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <blockquote class="blockquote-footer">
+                        <p>
+                            No hay tickets en tu historial. ¿Necesitas ayuda? <a href="">¡Crea un ticket!</a>
+                        </p>
+                    </blockquote>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

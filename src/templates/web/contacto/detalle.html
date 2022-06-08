@@ -1,0 +1,72 @@
+{% extends 'web/base.html' %}
+
+{% block pre-contenido %}
+<div class="container-fuid">
+    <div class="row">
+        {% include 'común/includes/navegacion.html' %}
+    </div>
+    <div class="row">
+        <div class="row py-4 text-center">
+            <div class="col-md-12">
+                <h2>Ticket #{{ ticket.id }} - {{ ticket.titulo }}</h2>
+            </div>
+            <div class="col-md-12">
+                <span class="badge rounded-pill {% if ticket.estado == 1 %}bg-success{% else %}bg-danger{% endif %}">
+                    {% if ticket.estado == 1 %}Abierto{% else %}Cerrado{% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2 py-4 m-2">
+            <div class="card">
+                {% if ticket.estado == 1 %}
+                    <a class="btn btn-outline-danger" href="{% url 'contacto-cerrar' ticket.pk %}">
+                        Cerrar ticket
+                        <i class="fas fa-remove "></i>
+                    </a>
+                {% else %}
+                    <a class="btn btn-outline-success" href="{% url 'contacto-reabrir' ticket.pk %}">
+                        Reabrir ticket
+                        <i class="fas fa-check-circle "></i>
+                    </a>
+                {% endif %}
+            </div>
+            <table class="table">
+                <tr>
+                    <td>Autor:</td>
+                    <td>{{ ticket.usuario }}</td>
+                </tr>
+                <tr>
+                    <td>Tipo:</td>
+                    <td>{{ ticket.tipo_ticket_humanizado }}</td>
+                <tr>
+                    <td>Fecha creación:</td>
+                    <td>{{ ticket.fecha_creacion }}</td>
+                </tr>
+                <tr>
+                    <td>Fecha modificación:</td>
+                    <td>{{ ticket.fecha_modificacion }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-8 py-4 m-2">
+            <div class="container py-4">
+                {% for mensaje in ticket.mensajes %}
+                    {% include 'web/contacto/includes/mensaje.html' with mensaje=mensaje %}
+                    <br>
+                {% endfor %}
+
+                {% if ticket.estado == 1 %}
+                    {% include 'web/contacto/includes/formulario.html' with pk=ticket.id %}
+                {% else %}
+                    <blockquote class="blockquote-footer">
+                        <p>
+                            Este ticket está cerrado, para continuar esta conversación, puedes reabrirlo.
+                            Si necesitas ayuda con otro tema, puedes <a href="{% url 'crear-ticket' %}">crear un nuevo ticket.</a>
+                        </p>
+                    </blockquote>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
