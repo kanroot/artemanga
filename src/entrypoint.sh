@@ -21,6 +21,9 @@ then
     echo "Base de datos inicializada"
 fi
 
+# arranca el daemon de cron para que realmente empiecen los cronjobs
+crond -l 0 -d 0 -L /home/website/media/logs/cron.log
+
 # elimina datos en la base de datos
 #python manage.py flush --no-input
 
