@@ -8,12 +8,12 @@ admin.site.unregister(Group)
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('username', 'tipo_usuario', 'email', 'es_activo', 'primer_nombre', 'primer_apellido')
+    list_display = ('username', 'tipo_usuario', 'email', 'primer_nombre', 'primer_apellido')
     fieldsets = (
 
         ('Información básica', {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'tipo_usuario', 'es_activo')
+            'fields': ('username', 'email', 'tipo_usuario')
         }),
         ('Información personal', {
             'classes': ('wide',),

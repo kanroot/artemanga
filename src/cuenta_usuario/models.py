@@ -15,7 +15,6 @@ class Usuario(AbstractUser):
     segundo_nombre = models.CharField(max_length=200, verbose_name="segundo nombre", blank=True)
     primer_apellido = models.CharField(max_length=200, verbose_name="primer apellido", db_index=True)
     segundo_apellido = models.CharField(max_length=200, verbose_name="segundo apellido", blank=True)
-    es_activo = models.BooleanField(default=True)
     sexo = models.PositiveSmallIntegerField(choices=SEXO_CHOICES, default=SexoUsuario.NO_RESPONDE.value)
     tipo_usuario = models.PositiveSmallIntegerField(choices=TIPO_CHOICES, default=TipoUsuario.CLIENTE.value)
 
@@ -37,8 +36,16 @@ class Usuario(AbstractUser):
         return self.tipo_usuario <= TipoUsuario.CLIENTE.value
 
     def generar_pass_temporal_empleados(self) -> str:
-        ident = f"{str(self.id).zfill(2)[:2]}"
         primer_nombre = f"{self.primer_nombre.upper()[:2]}"
         primer_apellido = f"{self.primer_apellido.lower()[-2:]}"
         fecha_registro = f"{self.date_joined[-2:]}"
-        return f"{ident}{primer_nombre}{primer_apellido}{fecha_registro}"
+        return f"{primer_nombre}{primer_apellido}{fecha_registro}"
+
+    def save(self, *args, **kwargs):
+        from .signals import cuenta_empleado_creada
+
+        if not self.password and self.tipo_usuario != TipoUsuario.CLIENTE.value:
+            self.set_password(self.generar_pass_temporal_empleados())
+            cuenta_empleado_creada.send(sender=self.__class__, instance=self)
+
+        super().save(*args, **kwargs)

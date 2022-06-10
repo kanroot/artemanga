@@ -10,6 +10,9 @@ from .venta import (
 from inventario.signals import producto_poco_stock_signal, producto_agotado_signal
 from .inventario import actualizar_inventario, notificar_bodega_poco_stock, notificar_bodega_producto_agotado
 
+from cuenta_usuario.signals import cuenta_empleado_creada
+from .cuenta_usuario import notificar_empleado_nueva_cuenta
+
 
 class NotificacionesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -26,3 +29,5 @@ class NotificacionesConfig(AppConfig):
         venta_creada_signal.connect(actualizar_inventario)
         producto_poco_stock_signal.connect(notificar_bodega_poco_stock)
         producto_agotado_signal.connect(notificar_bodega_producto_agotado)
+
+        cuenta_empleado_creada.connect(notificar_empleado_nueva_cuenta)
