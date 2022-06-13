@@ -4,7 +4,7 @@
 {% block tabla_cuerpo %}
     {% for ticket in tickets %}
         <tr>
-            <td>{{ ticket.tipo_ticket_humanizado }}</td>
+            <td>{{ ticket.tipo_humanizado }}</td>
             <td>{{ ticket.fecha_creacion }}</td>
             <td>{{ ticket.usuario.username }}</td>
             <td>{{ ticket.venta.id }}</td>

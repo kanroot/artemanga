@@ -13,6 +13,19 @@ from .inventario import actualizar_inventario, notificar_bodega_poco_stock, noti
 from cuenta_usuario.signals import cuenta_empleado_creada
 from .cuenta_usuario import notificar_empleado_nueva_cuenta
 
+from contacto.signals import (
+    estado_ticket_cambiado_signal,
+    nuevo_ticket_signal,
+    nuevo_mensaje_admin_signal,
+    nuevo_mensaje_cliente_signal
+)
+
+from .contacto import (
+    notificar_nuevo_ticket,
+    notificar_cliente_respuesta_admin,
+    notificar_admin_respuesta_cliente,
+    notificar_cliente_cambio_estado_ticket
+)
 
 class NotificacionesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -31,3 +44,9 @@ class NotificacionesConfig(AppConfig):
         producto_agotado_signal.connect(notificar_bodega_producto_agotado)
 
         cuenta_empleado_creada.connect(notificar_empleado_nueva_cuenta)
+
+        # esta mierda está rota y no sé por qué, lo intenté todo y no veo por qué está rota
+        # nuevo_ticket_signal.connect(notificar_nuevo_ticket)
+        estado_ticket_cambiado_signal.connect(notificar_cliente_cambio_estado_ticket)
+        nuevo_mensaje_cliente_signal.connect(notificar_admin_respuesta_cliente)
+        nuevo_mensaje_admin_signal.connect(notificar_cliente_respuesta_admin)

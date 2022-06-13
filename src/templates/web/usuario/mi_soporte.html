@@ -19,11 +19,11 @@
                                 href="{% url 'contacto-detalle' ticket.id %}"></a>
                                 <h5 class="card-title text-center"><strong> #{{ ticket.id }}</strong></h5>
                                 <p class="card-text text-center">
-                                    <strong>Tipo de ticket:</strong> {{ ticket.tipo_ticket_humanizado }} <br>
+                                    <strong>Tipo de ticket:</strong> {{ ticket.tipo_humanizado }} <br>
                                     <strong>Mensajes:</strong> {{ ticket.cantidad_mensajes }} <br>
                                     <strong>Fecha de creación:</strong> {{ ticket.fecha_creacion }} <br>
                                     <strong>Última modificación:</strong> {{ ticket.fecha_modificacion }} <br>
-                                    <strong>Estado:</strong> {{ ticket.estado_ticket_humanizado }} <br>
+                                    <strong>Estado:</strong> {{ ticket.estado_humanizado }} <br>
                                 </p>
                             </div>
                         </div>

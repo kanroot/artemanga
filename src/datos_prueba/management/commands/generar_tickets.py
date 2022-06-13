@@ -28,7 +28,8 @@ class Command(BaseCommand):
             usuario = venta.usuario
             tipo = random.choice(TIPO_TICKET_CHOICES)[0]
             estado = random.choice(ESTADO_TICKET_CHOICES)[0]
-            ticket = Ticket.objects.create(usuario=usuario, venta=venta, tipo=tipo, estado=estado)
+            titulo = self.fake.sentence()
+            ticket = Ticket.objects.create(usuario=usuario, venta=venta, tipo=tipo, estado=estado, titulo=titulo)
             ticket.save()
 
     def generar_mensaje(self):
