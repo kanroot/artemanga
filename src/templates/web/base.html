@@ -66,9 +66,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Quiénes somos</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url  'mis-tickets'  %}">Contáctenos</a>
                     </li>
@@ -127,7 +125,7 @@
 
         <div class="container text-md-left text-md-left">
             <div class="row text-md-left text-md-left">
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <div class="col-lg-3 mx-auto mt-3">
                     <h5 class="text-uppercase mb-4 font-weight-bold text-warning text-md-center">Sobre nosotros</h5>
                     <hr class="mb-4 ">
                     <p>Somos una tienda 100% online dedicada a los Mangas.
@@ -138,7 +136,7 @@
                         ¡Dedicamos mucho cariño a nuestra página web de Arte Manga!</p>
                 </div>
 
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <div class="col-lg-3 mx-auto mt-3">
                     <h5 class="text-uppercase mb-4 font-weight-bold text-warning text-md-center">Contacto</h5>
                     <hr class="mb-4 ">
                     <p>
@@ -153,39 +151,36 @@
                 </div>
 
 
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <div class="col-lg-3 mx-auto mt-3">
                     <h5 class="text-uppercase mb-4 font-weight-bold text-warning text-md-center">Enlaces </h5>
                     <hr class="mb-4 ">
                     <p>
-                        <a href="catalogo.html" class="text-white" style="text-decoration: none;">Inicio</a>
+                        <a href="{% url 'home'%}" class="text-white" style="text-decoration: none;">Inicio</a>
                     </p>
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Quiénes somos</a>
+                        <a href="{% url 'quienes-somos'%}" class="text-white" style="text-decoration: none;">Quiénes somos</a>
                     </p>
+                          
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Catálogo</a>
-                    </p>
-                    <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Tienda</a>
-                    </p>
-                    <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Contacto</a>
+                        <a href="{% url 'mis-tickets'%}" class="text-white" style="text-decoration: none;">Contacto</a>
                     </p>
 
                 </div>
 
 
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <div class="col-lg-3 mx-auto mt-3">
                     <div class=" font-weight-bold  ">
                         <h5 class="text-uppercase mb-4 font-weight-bold text-warning text-md-center">Despachos</h5>
                     <hr class="mb-4 text-center ">
-                        <p> Las entregas se realizan en dirección provista o en las oficinas de Starken dependiendo de la disponibilidad.
-                            <br>
-                            ArteManga hará entrega de los pedidos en las 24 horas hábiles siguientes a la confirmación
-                            de la compra, los que serán realizados de lunes a sabado antes de las 12:00 hrs.
-                            <br>
-                            Se le otorgará un número de rastreo en el correo electrónico que se le enviará al momento de
-                            la confirmación de la compra.
+                        <p class="text-justify"> Las entregas se realizan en dirección provista o en las oficinas de Starken dependiendo de la disponibilidad.    
+                    </p>
+                    <p class="text-justify">
+                        ArteManga hará entrega de los pedidos en las 24 horas hábiles siguientes a la confirmación
+                        de la compra, los que serán realizados de lunes a sabado antes de las 12:00 hrs.
+                    </p>
+                    <p class="text-justify">
+                        Se le otorgará un número de rastreo en el correo electrónico que se le enviará al momento de
+                        la confirmación de la compra.
                     </p>
                     </div>
                 </div>
@@ -194,8 +189,13 @@
 
             <hr class="mb-4 ">
             <div class="row align-items-center">
-                <div class="col-md-7 col-lg-8">© 2022 Arte Manga. Todos los derechos reservados
-                    <img src="{% static 'img/manga.png' %}" width="150px" height="100px" alt="logo">
+                <div class="col-md-7 col-lg-8">
+                    <div class="row text-center">
+                        <div class="col-md-6"> © 2022 Arte Manga. Todos los derechos reservados</div>
+                        <div class="col-md-6 col-sm-12"> <img src="{% static 'img/manga.png' %}" width="150px" height="100px" alt="logo"> </div>
+                    </div>
+                 
+                    
                 </div>
 
                 <div class="col-md-5 col-lg-4">

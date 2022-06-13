@@ -31,3 +31,7 @@
     flex-basis: 24%;
     cursor: pointer;
 }
+
+.text-justify {
+    text-align: justify;
+}

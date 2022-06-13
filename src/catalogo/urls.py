@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (Home, VerCarritoView, ActualizarCarritoView,
                     AgregarProductoCarritoView, ProductosPorCategoriaView, ProductosPorEditorialView,
-                    DetalleProducto)
+                    DetalleProducto,QuienesSomos)
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('agregar-producto-carrito', AgregarProductoCarritoView.as_view(), name='ajax-agregar-producto-carrito'),
     path('categoria/<id>', ProductosPorCategoriaView.as_view(), name='productos-por-categoria'),
     path('editorial/<id>', ProductosPorEditorialView.as_view(), name='productos-por-editorial'),
-    path('detalle-pro/<pk>',DetalleProducto.as_view(),name='detalle-producto'),
+    path('detalle-pro/<pk>', DetalleProducto.as_view(), name='detalle-producto'),
+    path('quienes-somos', QuienesSomos.as_view(), name='quienes-somos')
 ]

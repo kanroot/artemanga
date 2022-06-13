@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from tqdm import tqdm
 from venta.models import Venta
-from contacto.models import Ticket, Mensaje, Respuesta
+from contacto.models import Ticket, Mensaje
 from contacto.enums.estado_ticket import ESTADO_TICKET_CHOICES
 from contacto.enums.tipo_ticket import TIPO_TICKET_CHOICES
 
@@ -39,11 +39,3 @@ class Command(BaseCommand):
             usuario = ticket.usuario
             mensaje = Mensaje.objects.create(ticket=ticket, usuario=usuario, texto=texto)
             mensaje.save()
-            if _ % 2 == 0:
-                self.generar_respuesta(mensaje)
-
-    def generar_respuesta(self, mensaje):
-        texto = self.fake.text()
-        usuario = mensaje.ticket.usuario
-        respuesta = Respuesta.objects.create(mensaje=mensaje, usuario=usuario, texto=texto)
-        respuesta.save()

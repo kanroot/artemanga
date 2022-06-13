@@ -22,6 +22,11 @@ class Home(MigaDePanMixin, TemplateView):
         return context
 
 
+class QuienesSomos(MigaDePanMixin,TemplateView):
+    template_name= "web/quienesSomos.html"
+    nombre_esta_miga= "QuienesSomos"
+
+
 class VerCarritoView(TemplateView):
     template_name = 'web/carrito.html'
 

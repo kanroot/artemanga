@@ -1,0 +1,23 @@
+{% extends 'web/base.html' %}
+{% block titulo %}
+    Sobre nosotros
+{% endblock %}
+{% block contenido %}
+    <h1 class="text-center">Sobre nosotros</h1>
+    <hr>
+    <br><br>
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            {% load static %}
+            <img src="{% static 'img/artemanga.jpg' %}" alt="" class="img-fluid" >
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <p>Arte Manga es una librería virtual especializada en manga, cuya única misión es divulgar y ofrecer lo mejor de lo mejor, y a veces, obras que ni siquiera sabías que querías.</p>
+            <P>Arte Manga nace con la intención y quizás necesidad de democratizar un poco más el manga en Chile, centrándonos en el inmenso universo cultural que hay en la narrativa gráfica japonesa (que es un recurso de infinito aprendizaje y apreciación para nosotros occidentales), pero no solo en el manga comercial, pop, mainstream, “shonen genérico”, etc. sino que abordando y dándole el cariño, cuidado y vitrina necesaria a obras que quizás están infravaloradas o eclipsadas por tanta producción de este material en el país del sol naciente.</P>
+            <P>Con nuestros humildes conocimientos del manga y nuestros conocimientos del rubro editorial y de librería general, queremos aportar a este nicho que ya existe hace mucho tiempo, al igual que en otros países, y que siempre ha sido un nicho muy cerrado, pero en los últimos años con la masiva expansión de youtube y las plataformas de streaming, y el internet en general, el anime se hizo viral y logró llegar a mucha más personas, diversificando el “perfil otaku”, y es aquí donde Arte Manga quiere hacer su aporte, mostrándole a estas personas el gran valor y aporte cultural que tiene el manga en muchos ámbitos, y así impulsar el mismo fenómeno ocurrido con el anime pero ahora con el manga… CON LOS MEJORES MANGAS.</P>
+
+        </div>
+
+    </div>
+    
+    {% endblock%}

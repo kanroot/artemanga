@@ -14,12 +14,6 @@ class DashboardView(VistaRestringidaMixin, TemplateView):
     usuarios_permitidos = [TipoUsuario.ADMINISTRADOR, TipoUsuario.BODEGA, TipoUsuario.VENTAS]
     model = Usuario
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['usuarios_activos'] = Usuario.objects.filter(es_activo=True)
-        context['usuarios_inactivos'] = Usuario.objects.filter(es_activo=False)
-        return context
-
     def dispatch(self, request, *args, **kwargs):
         if request.user.es_ventas():
             return redirect('dashboard-ventas')
