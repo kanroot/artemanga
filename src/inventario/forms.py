@@ -13,6 +13,10 @@ class ProductoBodegaForm(forms.ModelForm):
         }),
     )
 
+    stock = forms.IntegerField(min_value=1, initial=1)
+    precio = forms.IntegerField(min_value=1)
+    numero_paginas = forms.IntegerField(min_value=1)
+
     genero = forms.ModelMultipleChoiceField(
         queryset=Genero.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -56,6 +60,8 @@ class OfertaForm(forms.ModelForm):
             'data-date-language': 'es',
         }),
     )
+
+    descuento = forms.IntegerField(min_value=1, initial=10)
 
     fecha_fin = forms.DateField(
         widget=forms.DateInput(attrs={
