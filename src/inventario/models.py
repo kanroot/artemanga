@@ -95,7 +95,7 @@ class Producto(models.Model):
     @property
     def precio_sin_iva(self):
         from django.conf import settings
-        return self.precio - (self.precio * settings.VALOR_IVA / 100)
+        return self.precio - (self.precio * settings.VALOR_IVA / 100).__round__()
 
     @property
     def ofertas(self):
