@@ -13,8 +13,7 @@ class ProductoBodegaForm(forms.ModelForm):
         }),
     )
 
-    stock = forms.IntegerField(min_value=1, initial=1)
-    precio = forms.IntegerField(min_value=1)
+    precio = forms.IntegerField(initial=5000)
     numero_paginas = forms.IntegerField(min_value=1)
 
     genero = forms.ModelMultipleChoiceField(
