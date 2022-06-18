@@ -60,8 +60,6 @@ class OfertaForm(forms.ModelForm):
         }),
     )
 
-    descuento = forms.IntegerField(min_value=1, initial=10)
-
     fecha_fin = forms.DateField(
         widget=forms.DateInput(attrs={
             'id': 'oferta_fecha_fin',
