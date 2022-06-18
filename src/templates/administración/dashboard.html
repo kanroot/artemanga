@@ -2,29 +2,6 @@
 {% block titulo %}Dashboard{% endblock %}
 {% block contenido %}
 
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="card border-success h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Usuarios activos:</h5>
-                    <h1 class="card-text text-center">
-                        {{ usuarios_activos.count }} <br>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="card border-danger h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Usuarios inactivos:</h5>
-                    <h1 class="card-text text-center">
-                        {{ usuarios_inactivos.count }} <br>
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <a class="col-lg-6 col-md-6 col-sm-12 mb-3 btn btn-warning btn-lg btn-block"

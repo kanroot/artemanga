@@ -13,6 +13,9 @@ class ProductoBodegaForm(forms.ModelForm):
         }),
     )
 
+    precio = forms.IntegerField(initial=5000)
+    numero_paginas = forms.IntegerField(min_value=1)
+
     genero = forms.ModelMultipleChoiceField(
         queryset=Genero.objects.all(),
         widget=forms.CheckboxSelectMultiple,

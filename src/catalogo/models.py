@@ -10,7 +10,7 @@ from .enums.opciones import ESTADO_CAMPANNA_CHOICES, REDIRIGEA_CHOICES, EstadoCa
 
 class Oferta(models.Model):
     producto = models.OneToOneField(Producto, on_delete=models.CASCADE)
-    descuento = models.IntegerField(verbose_name="descuento", default=10)
+    descuento = models.PositiveIntegerField(verbose_name="descuento", default=10)
     fecha_inicio = models.DateField(verbose_name="fecha inicio")
     fecha_fin = models.DateField(verbose_name="fecha fin")
 
