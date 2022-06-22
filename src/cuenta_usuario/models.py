@@ -38,7 +38,7 @@ class Usuario(AbstractUser):
     def generar_pass_temporal_empleados(self) -> str:
         primer_nombre = f"{self.primer_nombre.upper()[:2]}"
         primer_apellido = f"{self.primer_apellido.lower()[-2:]}"
-        fecha_registro = f"{self.date_joined[-2:]}"
+        fecha_registro = f"{self.date_joined.year}{self.date_joined.month}{self.date_joined.day}"
         return f"{primer_nombre}{primer_apellido}{fecha_registro}"
 
     def save(self, *args, **kwargs):

@@ -110,7 +110,7 @@ class ElegirDireccionView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, Tit
 
 class ConfirmarCompraView(ImpedirSinRedireccionMixin, VistaRestringidaMixin, View):
     usuarios_permitidos = VistaRestringidaMixin.todos_los_usuarios
-    paginas_permitidas = ['ver-carrito', 'crear-direccion']
+    paginas_permitidas = ['ver-carrito', 'crear-direccion', 'login']
     permission_denied_message = '¡Debe iniciar sesión o registrarse para realizar una compra!'
 
     def get(self, request):
